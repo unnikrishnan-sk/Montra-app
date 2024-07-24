@@ -61,7 +61,7 @@ const SignupScreen = () => {
       backgroundColor: colorMix.light_100,
       height: HEIGHT
     }}>
-      <Navbar />
+      <Navbar title="Sign Up"/>
 
       <View style={{
         marginTop: HEIGHT*0.065
@@ -138,7 +138,9 @@ const SignupScreen = () => {
         alignSelf: 'center',
         marginTop: HEIGHT*0.02,
         color: colorMix.dark_25
-      }}>Already have an account? <Text style={{
+      }}>Already have an account? <Text 
+      onPress={()=>navigation.navigate('login')}
+      style={{
         color: colorMix.violet_100,
         textDecorationLine: 'underline'
       }}>Login</Text></Text>

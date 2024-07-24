@@ -149,7 +149,9 @@ const OnboardingScreen = () => {
             fontSize: HEIGHT*0.025,
             fontWeight: 600
         }}>Sign Up</Text></Pressable>
-        <View style={{
+        <Pressable 
+        onPress={()=>navigation.navigate('login')}
+        style={{
             // borderWidth:1,
             paddingLeft: WIDTH*0.38,
             paddingRight: WIDTH*0.38,
@@ -159,11 +161,12 @@ const OnboardingScreen = () => {
             marginTop: HEIGHT*0.02,
             backgroundColor: colorMix.violet_20,
             marginBottom: HEIGHT*0.08
-        }}><Text style={{
+        }}><Text 
+        style={{
             color: colorMix.violet_100,
             fontSize: HEIGHT*0.025,
             fontWeight: 600
-        }}>Login</Text></View>
+        }}>Login</Text></Pressable>
         <BottomSlider />
     </View>
   )
