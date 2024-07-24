@@ -8,6 +8,7 @@ import VerificationScreen from './screens/VerificationScreen';
 import LoginScreen from './screens/LoginScreen';
 import ForgotPassword from './screens/ForgotPassword';
 import PasswordEmail from './screens/PasswordEmail';
+import ResetPassword from './screens/ResetPassword';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +23,7 @@ const Router = () => {
                 <Stack.Screen name='login' component={LoginScreen} />
                 <Stack.Screen name='forgotpass' component={ForgotPassword} />
                 <Stack.Screen name='emailpass' component={PasswordEmail} />
+                <Stack.Screen name='resetpass' component={ResetPassword} />
             </Stack.Navigator>
         </NavigationContainer>
     )

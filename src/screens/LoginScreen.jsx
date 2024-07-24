@@ -40,7 +40,7 @@ const LoginScreen = () => {
         let error = {};
         console.log("error",error);
         if(isEmpty(email)){
-          error.email = 'Enter email'
+          error.email = 'Enter Email'
         }else if(!validateEmail(email)){
           error.email = 'Enter Valid Email'
         }

@@ -22,7 +22,13 @@ const InputComponent = ({placeholder, passIcon, error, onChangeText, value}) => 
             alignItems: 'center',
             borderColor:error? colorMix.red_100: colorMix.light_20
         }}>
-            <TextInput placeholder={placeholder} placeholderTextColor={colorMix.dark_25} onChangeText={onChangeText} value={value}/>
+            <TextInput 
+            style={{
+                width:WIDTH*0.75,
+                // borderWidth:1,
+                height: HEIGHT*0.055
+            }}
+            placeholder={placeholder} placeholderTextColor={colorMix.dark_25} onChangeText={onChangeText} value={value}/>
             {
                 passIcon ? (
                 <Image 
