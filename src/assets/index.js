@@ -16,4 +16,8 @@ import tick_icon from './tick_icon/tick_icon.png'
 
 import email_sent from './email_sent/email_sent.png'
 
-export { ellipse, onboarding_1, onboarding_2, onboarding_3, back_arrow, pass_icon, google_logo, tick_icon, email_sent }
+// Setup Pin
+
+import arrow_right from './arrow_right/arrow_right.png'
+
+export { ellipse, onboarding_1, onboarding_2, onboarding_3, back_arrow, pass_icon, google_logo, tick_icon, email_sent, arrow_right }

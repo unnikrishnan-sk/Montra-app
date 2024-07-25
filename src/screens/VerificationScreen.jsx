@@ -5,6 +5,7 @@ import { colorMix } from '../constants/color'
 import { HEIGHT, WIDTH } from '../constants/dimension'
 import ButtonComponent from '../components/ButtonComponent'
 import BottomSlider from '../components/BottomSlider'
+import isEmpty from 'lodash/isEmpty'
 
 const verificationDetails = [{id:0, value: 'otp1'}, {id:1, value: 'otp2'},{id:2, value: 'otp3'}, {id:3, value: 'otp4'}, {id:4, value: 'otp5'},{id:5, value: 'otp6'}]
 
@@ -12,7 +13,9 @@ const VerificationScreen = () => {
 
     const [minute,setMinute] = useState(4);
     const [second,setSecond] = useState(59);
-    const [otp,setOtp] = useState({})
+    const [otp,setOtp] = useState([])
+    const [error,setError] = useState({});
+    // console.log(otp,"otp");
 
     useEffect(()=>{
         const timer = setInterval(()=>{
@@ -33,16 +36,44 @@ const VerificationScreen = () => {
         return () => clearInterval(timer)
     },[minute])
 
-    const handleText = (key,text) => {
-        verificationDetails[key] = text
+    const handleText = (key,value) => {
+        verificationDetails[key] = value
         setOtp({...otp})
         console.log("otp",otp);
     }
 
+    const verifyFn = () => {
+        const valid = validateVerifyForm();
+        console.log("valid",valid);
+        if(valid){
+          const {otp1,otp2,otp3,otp4,otp5,otp6} = otp;
+          navigation.navigate('')
+        }else{
+          console.log("error",error);
+        }
+      }
+
+      const validateVerifyForm = () => {
+        const {otp1,otp2,otp3,otp4,otp5,otp6} = otp;
+        // console.log(email,password);
+        let error = {};
+        console.log("error",error);
+        if(isEmpty(otp1)){
+          error.otp1 = 'Enter Otp'
+        // }else if(!validateEmail(email)){
+        //   error.email = 'Enter Valid Email'
+        // }
+        // if(isEmpty(password)){
+        //   error.password = 'Enter Password'
+        }
+        setError({...error})
+        return isEmpty(error)
+      }
+
   return (
     <View style={{
         backgroundColor: colorMix.light_100,
-        height: HEIGHT
+        height: HEIGHT,
     }}>
         <Navbar title="Verification"/>
         <View style={{
@@ -86,6 +117,9 @@ const VerificationScreen = () => {
             ))}
         
         </View>
+        {!isEmpty(error) ? (<Text style={{
+            marginTop: HEIGHT*0.01
+        }}>{error.otp1}</Text>) : null}
         <View style={{
             flexDirection: 'row',
             marginTop: HEIGHT*0.05
@@ -122,7 +156,7 @@ const VerificationScreen = () => {
         <View style={{
             marginTop: HEIGHT*0.045
         }}>
-        <ButtonComponent title="Verify"/>
+        <ButtonComponent title="Verify" onButtonHandler={()=>verifyFn()}/>
         </View>
         
         <BottomSlider />

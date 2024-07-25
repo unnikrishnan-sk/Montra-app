@@ -9,13 +9,15 @@ import LoginScreen from './screens/LoginScreen';
 import ForgotPassword from './screens/ForgotPassword';
 import PasswordEmail from './screens/PasswordEmail';
 import ResetPassword from './screens/ResetPassword';
+import SetupPin from './screens/SetupPin';
+import SetupAccount from './screens/SetupAccount';
 
 const Stack = createNativeStackNavigator();
 
 const Router = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName='launch' screenOptions={{ headerShown: false }}>
+            <Stack.Navigator initialRouteName='pin' screenOptions={{ headerShown: false }}>
                 <Stack.Screen name='launch' component={LaunchScreen} />
                 <Stack.Screen name='onboard' component={OnboardingScreen} />
                 <Stack.Screen name='signup' component={SignupScreen} />
@@ -24,6 +26,8 @@ const Router = () => {
                 <Stack.Screen name='forgotpass' component={ForgotPassword} />
                 <Stack.Screen name='emailpass' component={PasswordEmail} />
                 <Stack.Screen name='resetpass' component={ResetPassword} />
+                <Stack.Screen name='pin' component={SetupPin} />
+                <Stack.Screen name='setupaccount' component={SetupAccount} />
             </Stack.Navigator>
         </NavigationContainer>
     )
