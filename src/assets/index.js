@@ -24,4 +24,8 @@ import arrow_right from './arrow_right/arrow_right.png'
 
 import success_icon from './success_icon/success_icon.png'
 
-export { ellipse, onboarding_1, onboarding_2, onboarding_3, back_arrow, pass_icon, google_logo, tick_icon, email_sent, arrow_right, success_icon }
+//Add Account Screen
+
+import back_arrow_white from './back_arrow_white/back_arrow_white.png'
+
+export { ellipse, onboarding_1, onboarding_2, onboarding_3, back_arrow, pass_icon, google_logo, tick_icon, email_sent, arrow_right, success_icon, back_arrow_white }

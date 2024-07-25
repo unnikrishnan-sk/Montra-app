@@ -1,6 +1,6 @@
 import React from 'react'
 import { Image, Pressable, Text, View } from 'react-native'
-import { back_arrow } from '../assets'
+import { back_arrow, back_arrow_white } from '../assets'
 import { HEIGHT, WIDTH } from '../constants/dimension'
 import { useNavigation } from '@react-navigation/native'
 import { colorMix } from '../constants/color'
@@ -23,7 +23,7 @@ const Navbar = ({title,titleColor}) => {
             height: HEIGHT*0.02,
             width: HEIGHT*0.03
         }}
-        source={back_arrow}
+        source={titleColor ? back_arrow_white : back_arrow}
         />
         </Pressable>
         <Text style={{

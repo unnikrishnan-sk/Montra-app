@@ -8,8 +8,6 @@ import BottomSlider from '../components/BottomSlider'
 import isEmpty from 'lodash/isEmpty'
 import { useNavigation } from '@react-navigation/native'
 
-const verificationDetails = [{id:0, value: 'otp1'}, {id:1, value: 'otp2'},{id:2, value: 'otp3'}, {id:3, value: 'otp4'}, {id:4, value: 'otp5'},{id:5, value: 'otp6'}]
-
 const VerificationScreen = () => {
 
     const [minute,setMinute] = useState(4);

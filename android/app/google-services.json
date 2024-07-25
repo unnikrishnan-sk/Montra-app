@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "303746531227",
+    "project_id": "montra-app-76da5",
+    "storage_bucket": "montra-app-76da5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:303746531227:android:bb703f443054f3e3582b3e",
+        "android_client_info": {
+          "package_name": "com.montraapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfLAcj-4puIgtRP0MQxw-6Gkx3he0VroE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

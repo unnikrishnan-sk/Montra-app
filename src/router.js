@@ -19,7 +19,7 @@ const Stack = createNativeStackNavigator();
 const Router = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName='verification' screenOptions={{ headerShown: false }}>
+            <Stack.Navigator initialRouteName='addaccount' screenOptions={{ headerShown: false }}>
                 <Stack.Screen name='launch' component={LaunchScreen} />
                 <Stack.Screen name='onboard' component={OnboardingScreen} />
                 <Stack.Screen name='signup' component={SignupScreen} />
