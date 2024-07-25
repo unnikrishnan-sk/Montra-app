@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import { Text, TextInput, View } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
+import { KeyboardAvoidingView, Platform, ScrollView, Text, TextInput, View } from 'react-native'
 import Navbar from '../components/Navbar'
 import { colorMix } from '../constants/color'
 import { HEIGHT, WIDTH } from '../constants/dimension'
 import ButtonComponent from '../components/ButtonComponent'
 import BottomSlider from '../components/BottomSlider'
 import isEmpty from 'lodash/isEmpty'
+import { useNavigation } from '@react-navigation/native'
 
 const verificationDetails = [{id:0, value: 'otp1'}, {id:1, value: 'otp2'},{id:2, value: 'otp3'}, {id:3, value: 'otp4'}, {id:4, value: 'otp5'},{id:5, value: 'otp6'}]
 
@@ -14,7 +15,9 @@ const VerificationScreen = () => {
     const [minute,setMinute] = useState(4);
     const [second,setSecond] = useState(59);
     const [otp,setOtp] = useState([])
-    const [error,setError] = useState({});
+    const [error,setError] = useState(null);
+    const navigation = useNavigation();
+    const inputs = useRef([]);
     // console.log(otp,"otp");
 
     useEffect(()=>{
@@ -36,48 +39,47 @@ const VerificationScreen = () => {
         return () => clearInterval(timer)
     },[minute])
 
-    const handleText = (key,value) => {
-        verificationDetails[key] = value
-        setOtp({...otp})
-        console.log("otp",otp);
+    const handleText = (value,index) => {
+       
+        if(otp.length<6){
+            setOtp(otp+value)
+        }
+        if(value && index<inputs.current.length-1){
+            inputs.current[index+1].focus();
+        }
+        if(otp.length>=0){
+            setError(null)
+        }
+        console.log(otp);
     }
 
     const verifyFn = () => {
-        const valid = validateVerifyForm();
-        console.log("valid",valid);
-        if(valid){
-          const {otp1,otp2,otp3,otp4,otp5,otp6} = otp;
-          navigation.navigate('')
+        if(otp.length===6){
+            navigation.navigate('pin')
         }else{
-          console.log("error",error);
+            setError("Enter Verification Code")
         }
-      }
-
-      const validateVerifyForm = () => {
-        const {otp1,otp2,otp3,otp4,otp5,otp6} = otp;
-        // console.log(email,password);
-        let error = {};
-        console.log("error",error);
-        if(isEmpty(otp1)){
-          error.otp1 = 'Enter Otp'
-        // }else if(!validateEmail(email)){
-        //   error.email = 'Enter Valid Email'
-        // }
-        // if(isEmpty(password)){
-        //   error.password = 'Enter Password'
-        }
-        setError({...error})
-        return isEmpty(error)
       }
 
   return (
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={{
+        flex:1
+      }}
+      >
+        
     <View style={{
         backgroundColor: colorMix.light_100,
         height: HEIGHT,
+        flex:1
     }}>
         <Navbar title="Verification"/>
+        <ScrollView contentContainerStyle={{flexGrow: 1}}>
         <View style={{
-            paddingHorizontal: WIDTH*0.05
+            paddingHorizontal: WIDTH*0.05,
+            // flex: 1,
+            justifyContent: 'center'
         }}>
         <Text style={{
             fontSize: HEIGHT*0.045,
@@ -90,39 +92,46 @@ const VerificationScreen = () => {
             marginTop: HEIGHT*0.08,
             flexDirection: 'row'
         }}>
-            {verificationDetails.map((item,i)=>(
+            {[...Array(6)].map((_,i)=>(
                 <View 
-                key={item.id}
+                key={i}
                 style={{
                     // borderWidth: 1,
                     height: HEIGHT*0.019,
                     width: HEIGHT*0.019,
-                    marginLeft:item.id===0? 0: WIDTH*0.035,
+                    marginLeft:i===0? 0: WIDTH*0.045,
                     borderRadius: HEIGHT*0.01,
-                    backgroundColor: colorMix.light_20,
+                    backgroundColor: otp[i] ? colorMix.light_100 : colorMix.light_20,
                     fontSize: HEIGHT*0.1,
                     color: colorMix.dark_100,
                     justifyContent: 'center'
-                }}><TextInput 
-                onChangeText={text=>handleText(item.value,text)}
+                }}>
+                    <TextInput 
+                    // value={otp[i]}
+                    ref={el => inputs.current[i]=el}
+                onChangeText={text=>handleText(text,i)}
                 keyboardType='numeric'
                 maxLength={1}
                 style={{
                     // borderWidth: 1,
-                    height: HEIGHT*0.05,
-                    width: WIDTH*0.045,
+                    height: HEIGHT*0.075,
+                    width: WIDTH*0.055,
                     fontWeight: 'bold',
                     fontSize: HEIGHT*0.042      
-                }}/></View>
+                }}/>
+                </View>
             ))}
         
         </View>
         {!isEmpty(error) ? (<Text style={{
-            marginTop: HEIGHT*0.01
-        }}>{error.otp1}</Text>) : null}
+            marginTop: HEIGHT*0.01,
+            color: colorMix.red_100,
+            fontSize: HEIGHT*0.022,
+            fontWeight: 500
+        }}>{error}</Text>) : null}
         <View style={{
             flexDirection: 'row',
-            marginTop: HEIGHT*0.05
+            marginTop: HEIGHT*0.04
         }}>
         <Text style={{
             fontSize: HEIGHT*0.023,
@@ -138,7 +147,7 @@ const VerificationScreen = () => {
         
         <Text style={{
             fontSize: HEIGHT*0.02,
-            marginTop: HEIGHT*0.02,
+            marginTop: HEIGHT*0.018,
             width: WIDTH*0.65,
             color: colorMix.dark_100,
             fontWeight: 500
@@ -146,7 +155,7 @@ const VerificationScreen = () => {
             color: colorMix.violet_100
         }}>branjaoma*****@gmail.com.</Text>You can check your inbox.</Text>
         <Text style={{
-            marginTop: HEIGHT*0.02,
+            marginTop: HEIGHT*0.018,
             textDecorationLine: 'underline',
             color: colorMix.violet_100,
             fontWeight:500,
@@ -154,13 +163,16 @@ const VerificationScreen = () => {
         }}>I didn't received the code? Send again</Text>
         </View>
         <View style={{
-            marginTop: HEIGHT*0.045
+            marginTop: Platform.OS==="ios" ?  HEIGHT*0.05 : HEIGHT*0.02
         }}>
         <ButtonComponent title="Verify" onButtonHandler={()=>verifyFn()}/>
         </View>
         
         <BottomSlider />
+        </ScrollView>
     </View>
+    
+    </KeyboardAvoidingView>
   )
 }
 

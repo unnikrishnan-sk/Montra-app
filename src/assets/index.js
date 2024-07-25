@@ -20,4 +20,8 @@ import email_sent from './email_sent/email_sent.png'
 
 import arrow_right from './arrow_right/arrow_right.png'
 
-export { ellipse, onboarding_1, onboarding_2, onboarding_3, back_arrow, pass_icon, google_logo, tick_icon, email_sent, arrow_right }
+// Signup success
+
+import success_icon from './success_icon/success_icon.png'
+
+export { ellipse, onboarding_1, onboarding_2, onboarding_3, back_arrow, pass_icon, google_logo, tick_icon, email_sent, arrow_right, success_icon }

@@ -5,7 +5,7 @@ import { HEIGHT, WIDTH } from '../constants/dimension'
 import { useNavigation } from '@react-navigation/native'
 import { colorMix } from '../constants/color'
 
-const Navbar = ({title}) => {
+const Navbar = ({title,titleColor}) => {
 
     const navigation = useNavigation();
 
@@ -29,7 +29,7 @@ const Navbar = ({title}) => {
         <Text style={{
             fontSize: HEIGHT*0.023,
             fontWeight: 500,
-            color: colorMix.dark_100
+            color: titleColor ? titleColor : colorMix.dark_100
         }}>{title}</Text>
         <View></View>
         </View>
