@@ -13,6 +13,7 @@ import SetupPin from './screens/SetupPin';
 import SetupAccount from './screens/SetupAccount';
 import AddAccount from './screens/AddAccount';
 import SignupSuccess from './screens/SignupSuccess';
+import HomeScreen from './screens/HomeScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +33,7 @@ const Router = () => {
                 <Stack.Screen name='setupaccount' component={SetupAccount} />
                 <Stack.Screen name='addaccount' component={AddAccount} />
                 <Stack.Screen name='signsuccess' component={SignupSuccess} />
+                <Stack.Screen name='home' component={HomeScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     )

@@ -1,11 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Image, Text, View } from 'react-native'
 import BottomSlider from '../components/BottomSlider'
 import { success_icon } from '../assets'
 import { colorMix } from '../constants/color'
 import { HEIGHT } from '../constants/dimension'
+import { useNavigation } from '@react-navigation/native'
 
 const SignupSuccess = () => {
+
+  const navigation = useNavigation();
+
+  useEffect(()=>{
+    const timer = setTimeout(()=>{
+      navigation.navigate('home')
+    },2000)
+  },[])
+
   return (
     <View style={{
         backgroundColor: colorMix.light_100,

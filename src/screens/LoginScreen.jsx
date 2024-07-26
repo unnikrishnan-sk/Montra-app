@@ -28,7 +28,7 @@ const LoginScreen = () => {
         console.log("valid",valid);
         if(valid){
           const {email,password} = logindata;
-          navigation.navigate('')
+          navigation.navigate('home')
         }else{
           console.log("error",error);
         }

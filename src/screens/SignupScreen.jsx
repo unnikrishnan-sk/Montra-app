@@ -18,6 +18,7 @@ const SignupScreen = () => {
   const [error,setError] = useState({});
   const navigation = useNavigation();
   const [agree,setAgree] = useState(false);
+  const [agreeError,setAgreeError] = useState(null);  
 
   const handleChangeForm = (key,value) => {
     signdata[key] = value;
@@ -26,8 +27,11 @@ const SignupScreen = () => {
   }
 
   const signFn = () => {
+    if(!agree)[
+      setAgreeError("Approve Terms and Service")
+    ]
     const valid = validateSignForm();
-    console.log("valid",valid);
+    // console.log("valid",valid);
     if(valid && agree){
       const {name,email,password} = signdata;
       navigation.navigate('verification')
@@ -71,6 +75,7 @@ const SignupScreen = () => {
             value={signdata?.[data.value]} onChangeText={text=>handleChangeForm(data.value,text)} error={error?.[data.value]} placeholder={data.placeholder} passIcon={data.passIcon}/>
         ))}
         <View style={{
+          // borderWidth:1,
           paddingHorizontal: WIDTH*0.05,
           flexDirection: 'row',
           marginTop: HEIGHT*0.02,
@@ -117,6 +122,11 @@ const SignupScreen = () => {
             color: colorMix.violet_100
           }}>Terms of Service and Privacy Policy</Text></Text>
         </View>
+        {agreeError && !agree && <Text style={{
+          color: colorMix.red_100,
+          fontWeight: 500,
+          marginLeft: WIDTH*0.05
+        }}>{agreeError}</Text>}
       </View>
       <View style={{
         marginTop: HEIGHT*0.025
