@@ -10,7 +10,8 @@ import { signupDetails } from '../constants/dummyData'
 import { useNavigation } from '@react-navigation/native'
 import isEmpty from 'lodash/isEmpty';
 import BottomSlider from '../components/BottomSlider'
-import { validateEmail } from '../constants/common'
+import { handleAuthError, validateEmail } from '../constants/common'
+import auth from '@react-native-firebase/auth';
 
 const SignupScreen = () => {
 
@@ -18,23 +19,29 @@ const SignupScreen = () => {
   const [error,setError] = useState({});
   const navigation = useNavigation();
   const [agree,setAgree] = useState(false);
-  const [agreeError,setAgreeError] = useState(null);  
+  const [agreeError,setAgreeError] = useState(null); 
+  const [firebaseError,setFirebaseError] = useState() 
 
   const handleChangeForm = (key,value) => {
     signdata[key] = value;
     setSigndata({...signdata})
+    setFirebaseError()
     setError({})
   }
 
-  const signFn = () => {
+  const signFn = async () => {
     if(!agree)[
       setAgreeError("Approve Terms and Service")
     ]
     const valid = validateSignForm();
-    // console.log("valid",valid);
     if(valid && agree){
       const {name,email,password} = signdata;
-      navigation.navigate('verification')
+      try {
+        await auth().createUserWithEmailAndPassword(email, password)
+        navigation.navigate('verification')
+      } catch (error) {
+        handleAuthError(error,setFirebaseError)
+      }
     }else{
       console.log("error",error);
     }
@@ -128,8 +135,14 @@ const SignupScreen = () => {
           marginLeft: WIDTH*0.05
         }}>{agreeError}</Text>}
       </View>
+      {firebaseError ? <Text style={{
+        color: colorMix.red_100,
+        fontWeight: 500,
+        alignSelf: 'center',
+        marginTop: HEIGHT*0.01
+       }}>{firebaseError}</Text> : null }
       <View style={{
-        marginTop: HEIGHT*0.025
+        marginTop:firebaseError ? HEIGHT*0.015 : HEIGHT*0.025
       }}>
       <ButtonComponent title="Sign Up" onButtonHandler={()=>signFn()}/>
       </View>

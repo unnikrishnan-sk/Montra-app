@@ -35,4 +35,16 @@ import jago_bank from './jago_bank/jago_bank.png'
 import mandiri_bank from './mandiri_bank/mandiri_bank.png'
 import bca_bank from './bca_bank/bca_bank.png'
 
-export { ellipse, onboarding_1, onboarding_2, onboarding_3, back_arrow, pass_icon, google_logo, tick_icon, email_sent, arrow_right, success_icon, back_arrow_white, chase_bank, paypal_bank, citi_bank, bank_of_america, jago_bank, mandiri_bank, bca_bank }
+// Home Screen
+
+import profile_avatar from './profile_avatar/profile_avatar.png'
+import notification_icon from './notification_icon/notification_icon.png'
+import dropdown_arrow from './dropdown_arrow/dropdown_arrow.png'
+import income_icon from './income_icon/income_icon.png'
+import expense_icon from './expense_icon/expense_icon.png'
+import shopping_icon from './shopping_icon/shopping_icon.png'
+import subscription_icon from './subscription_icon/subscription_icon.png'
+import food_icon from './food_icon/food_icon.png'
+import more_icon from './more_icon/more_icon.png'
+
+export { ellipse, onboarding_1, onboarding_2, onboarding_3, back_arrow, pass_icon, google_logo, tick_icon, email_sent, arrow_right, success_icon, back_arrow_white, chase_bank, paypal_bank, citi_bank, bank_of_america, jago_bank, mandiri_bank, bca_bank, profile_avatar, notification_icon, dropdown_arrow, income_icon, expense_icon, shopping_icon, subscription_icon, food_icon, more_icon }

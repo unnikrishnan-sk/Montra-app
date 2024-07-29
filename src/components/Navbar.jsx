@@ -5,7 +5,7 @@ import { HEIGHT, WIDTH } from '../constants/dimension'
 import { useNavigation } from '@react-navigation/native'
 import { colorMix } from '../constants/color'
 
-const Navbar = ({title,titleColor}) => {
+const Navbar = ({title,titleColor,image_source}) => {
 
     const navigation = useNavigation();
 
@@ -31,7 +31,15 @@ const Navbar = ({title,titleColor}) => {
             fontWeight: 500,
             color: titleColor ? titleColor : colorMix.dark_100
         }}>{title}</Text>
-        <View></View>
+        <View>
+        <Image 
+        style={{
+            height: HEIGHT*0.02,
+            width: HEIGHT*0.03
+        }}
+        source={image_source}
+        />
+        </View>
         </View>
         
     </View>

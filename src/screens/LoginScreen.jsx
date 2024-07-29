@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Navbar from '../components/Navbar'
-import { Text, View } from 'react-native'
+import { Easing, Text, View } from 'react-native'
 import { colorMix } from '../constants/color'
 import { HEIGHT } from '../constants/dimension'
 import InputComponent from '../components/InputComponent'
@@ -8,27 +8,36 @@ import { loginDetails } from '../constants/dummyData'
 import ButtonComponent from '../components/ButtonComponent'
 import BottomSlider from '../components/BottomSlider'
 import isEmpty from 'lodash/isEmpty'
-import { validateEmail } from '../constants/common'
+import { handleAuthError, validateEmail } from '../constants/common'
 import { useNavigation } from '@react-navigation/native'
+import auth from '@react-native-firebase/auth';
 
 const LoginScreen = () => {
 
     const [logindata,setLogindata] = useState({});
     const [error,setError] = useState({});
+    const [firebaseError,setFirebaseError] = useState();
     const navigation = useNavigation();
+    // console.log("firebase",firebaseError);
 
     const handleChangeForm = (key,value) => {
         logindata[key] = value;
         setLogindata({...logindata})
+        setFirebaseError()
         setError({})
       }
 
-      const loginFn = () => {
+      const loginFn = async () => {
         const valid = validateLoginForm();
         console.log("valid",valid);
         if(valid){
           const {email,password} = logindata;
-          navigation.navigate('home')
+          try {
+            await auth().signInWithEmailAndPassword(email, password)
+            navigation.navigate('home')
+          } catch (error) {
+            handleAuthError(error,setFirebaseError)
+          }
         }else{
           console.log("error",error);
         }
@@ -68,8 +77,14 @@ const LoginScreen = () => {
                 />
             ))}
         </View>
+       {firebaseError ? <Text style={{
+        color: colorMix.red_100,
+        fontWeight: 500,
+        alignSelf: 'center',
+        marginTop: HEIGHT*0.01
+       }}>{firebaseError}</Text> : null }
         <View style={{
-            marginTop: HEIGHT*0.05
+            marginTop: firebaseError ? HEIGHT*0.015 :HEIGHT*0.05
         }}>
         <ButtonComponent title="Login" onButtonHandler={()=>loginFn()}/>
         </View>

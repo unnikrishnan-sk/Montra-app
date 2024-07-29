@@ -20,7 +20,7 @@ export const colorMix = {
     red_80: '#F55763',
     red_60: '#F66F7A',
     red_40: '#F8A2A9',
-    red_20: 'FBD5D7',
+    red_20: '#FBD5D7',
 
     green_100: '#34A86A',
     green_80: '#3AB783',
@@ -33,6 +33,7 @@ export const colorMix = {
     yellow_60: '#FACC6F',
     yellow_40: '#FCDDA1',
     yellow_20: '#FCEED4',
+    yellow_10: '#FFF6E5',
 
     blue_100: '#2D77FF',
     blue_80: '#328AFF',

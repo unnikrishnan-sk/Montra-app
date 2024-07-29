@@ -14,13 +14,16 @@ import SetupAccount from './screens/SetupAccount';
 import AddAccount from './screens/AddAccount';
 import SignupSuccess from './screens/SignupSuccess';
 import HomeScreen from './screens/HomeScreen';
+import NotificationScreen from './screens/NotificationScreen';
+import IncomeScreen from './screens/IncomeScreen';
+import ExpenseScreen from './screens/ExpenseScreen';
 
 const Stack = createNativeStackNavigator();
 
 const Router = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName='addaccount' screenOptions={{ headerShown: false }}>
+            <Stack.Navigator initialRouteName='home' screenOptions={{ headerShown: false }}>
                 <Stack.Screen name='launch' component={LaunchScreen} />
                 <Stack.Screen name='onboard' component={OnboardingScreen} />
                 <Stack.Screen name='signup' component={SignupScreen} />
@@ -34,6 +37,9 @@ const Router = () => {
                 <Stack.Screen name='addaccount' component={AddAccount} />
                 <Stack.Screen name='signsuccess' component={SignupSuccess} />
                 <Stack.Screen name='home' component={HomeScreen} />
+                <Stack.Screen name='notification' component={NotificationScreen} />
+                <Stack.Screen name='income' component={IncomeScreen} />
+                <Stack.Screen name='expense' component={ExpenseScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     )
