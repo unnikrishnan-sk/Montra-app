@@ -17,13 +17,14 @@ import HomeScreen from './screens/HomeScreen';
 import NotificationScreen from './screens/NotificationScreen';
 import IncomeScreen from './screens/IncomeScreen';
 import ExpenseScreen from './screens/ExpenseScreen';
+import TransferScreen from './screens/TransferScreen';
 
 const Stack = createNativeStackNavigator();
 
 const Router = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName='home' screenOptions={{ headerShown: false }}>
+            <Stack.Navigator initialRouteName='expense' screenOptions={{ headerShown: false }}>
                 <Stack.Screen name='launch' component={LaunchScreen} />
                 <Stack.Screen name='onboard' component={OnboardingScreen} />
                 <Stack.Screen name='signup' component={SignupScreen} />
@@ -40,6 +41,7 @@ const Router = () => {
                 <Stack.Screen name='notification' component={NotificationScreen} />
                 <Stack.Screen name='income' component={IncomeScreen} />
                 <Stack.Screen name='expense' component={ExpenseScreen} />
+                <Stack.Screen name='transfer' component={TransferScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     )

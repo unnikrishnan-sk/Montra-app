@@ -4,56 +4,8 @@ import { HEIGHT, WIDTH } from '../constants/dimension'
 import { arrow_right } from '../assets'
 import { colorMix } from '../constants/color'
 import { useNavigation } from '@react-navigation/native'
-
-const keyboard = [{id:0, type: "Number", value:1}, {id:1, type:"Number", value:2}, {id:2, type: "Number", value: 3},{ id:3, type: "Number", value: 4}, {id:4, type: "Number", value: 5}, {id:5, type: "Number", value:6}, {id:6, type: "Number", value: 7}, {id:7, type: "Number", value: 8}, {id:8, type: "Number", value: 9}, {id: 9, type: "Number", value: ""}, {id:10, type: "Number", value: 0}, {id:11, type: "Image", image: arrow_right}]
-
-const KeyboardRender = ({data,onPress,onPressImage}) => {
-
-    const {id,value,type,image} = data;
-
-    return(
-        <>
-            {type==="Number" ? (
-                <Pressable style={{
-                    // borderWidth:1,
-                    width: WIDTH*0.33,
-                    height: HEIGHT*0.11,
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}
-                onPress={()=>onPress(value)}
-                >
-                <Text 
-                style={{
-                    fontSize: HEIGHT*0.06,
-                    color: colorMix.light_100,
-                    fontWeight: 500
-                }}>{value}</Text>
-                </Pressable>
-            ) : (
-                <Pressable 
-                style={{
-                    // borderWidth:1,
-                    width: WIDTH*0.33,
-                    height: HEIGHT*0.11,
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}
-                onPress={()=>onPressImage()}
-                >
-            <Image 
-            style={{
-                height: HEIGHT*0.038,
-                width: WIDTH*0.11
-            }}
-            source={image}
-            />
-            </Pressable>
-        )}
-        
-        </>
-    )
-}
+import { keyboard } from '../constants/dummyData'
+import RenderKeyboard from '../components/RenderKeyboard'
 
 const SetupPin = () => {
 
@@ -181,7 +133,7 @@ const SetupPin = () => {
                 <FlatList 
                 numColumns={3}
                 showsVerticalScrollIndicator={false} 
-                data={keyboard} renderItem={({item}) => <KeyboardRender data={item} onPress={handlePress} onPressImage={onPressImage}/>} keyExtractor={item => item.id}
+                data={keyboard} renderItem={({item}) => <RenderKeyboard data={item} onPress={handlePress} onPressImage={onPressImage}/>} keyExtractor={item => item.id}
                 /> 
            
         </View>

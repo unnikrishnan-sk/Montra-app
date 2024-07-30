@@ -8,8 +8,7 @@ import ButtonComponent from '../components/ButtonComponent'
 import BottomSlider from '../components/BottomSlider'
 import isEmpty from 'lodash/isEmpty'
 import { useNavigation } from '@react-navigation/native'
-
-const resetPass = [{id:0, placeholder: 'New Password', value: 'NewPass'}, {id:1, placeholder: 'Retype new password', value: 'RetypePass'}]
+import { resetPass } from '../constants/dummyData'
 
 const ResetPassword = () => {
 
@@ -25,20 +24,18 @@ const ResetPassword = () => {
 
       const resetFn = () => {
         const valid = validateResetForm();
-        console.log("valid",valid);
         if(valid){
           const {NewPass,RetypePass} = reset;
           navigation.navigate('login')
         }else{
-          console.log("error",error);
+          console.log("error_resetFn",error);
         }
       }
 
       const validateResetForm = () => {
         const {NewPass,RetypePass} = reset;
-        // console.log(email,password);
         let error = {};
-        console.log("error",error);
+        console.log("error_validateResetForm",error);
         if(isEmpty(NewPass)){
           error.NewPass = 'Enter Password'
         }
@@ -52,23 +49,14 @@ const ResetPassword = () => {
       }
 
   return (
-    <View style={{
-        backgroundColor: colorMix.light_100,
-        height: HEIGHT
-    }}>
+    <View style={{ backgroundColor: colorMix.light_100, height: HEIGHT }}>
         <Navbar title="Reset Password"/>
-
-        <View style={{
-            marginTop: HEIGHT*0.085
-        }}>
-            {resetPass.map((data)=>(
-                <InputComponent key={data.id} placeholder={data.placeholder} value={reset?.[data.value]}
-                onChangeText={text=>handleChangeForm(data.value,text)} error={error?.[data.value]} passIcon={data.passIcon}/>
+        <View style={{ marginTop: HEIGHT*0.085 }}>
+            {resetPass?.map((data)=>(
+                <InputComponent key={data.id} placeholder={data.placeholder} value={reset?.[data.value]} onChangeText={text=>handleChangeForm(data.value,text)} error={error?.[data.value]} passIcon={data.passIcon}/>
             ))}
         </View>
-        <View style={{
-            marginTop: HEIGHT*0.045
-        }}>
+        <View style={{ marginTop: HEIGHT*0.045 }}>
             <ButtonComponent title="Continue" onButtonHandler={()=>resetFn()}/>
         </View>
         <BottomSlider />

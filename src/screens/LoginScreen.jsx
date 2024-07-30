@@ -39,7 +39,7 @@ const LoginScreen = () => {
             handleAuthError(error,setFirebaseError)
           }
         }else{
-          console.log("error",error);
+          console.log("error=>>handleChangeForm",error);
         }
       }
 
@@ -47,7 +47,7 @@ const LoginScreen = () => {
         const {email,password} = logindata;
         console.log(email,password);
         let error = {};
-        console.log("error",error);
+        console.log("error==>validateLoginForm",error);
         if(isEmpty(email)){
           error.email = 'Enter Email'
         }else if(!validateEmail(email)){
@@ -67,7 +67,6 @@ const LoginScreen = () => {
         height: HEIGHT
     }}>
         <Navbar title="Login"/>
-
         <View style={{
             marginTop: HEIGHT*0.065
         }}>
