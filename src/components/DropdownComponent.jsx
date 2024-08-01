@@ -4,7 +4,7 @@ import { HEIGHT, WIDTH } from '../constants/dimension';
 import { colorMix } from '../constants/color';
 
 const DropdownComponent = ({value, setValue, title,data}) => {
-
+// console.log(typeof setValue);
     const [isFocus,setIsFocus] = useState (false);
     
     const handleChange = useCallback((item) => {

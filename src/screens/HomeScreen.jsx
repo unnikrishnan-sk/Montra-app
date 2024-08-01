@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FlatList, Image, Pressable, ScrollView, Text, View } from 'react-native'
 import { HEIGHT, WIDTH } from '../constants/dimension'
 import { colorMix } from '../constants/color'
@@ -11,6 +11,7 @@ import BottomSlider from '../components/BottomSlider'
 import { useNavigation } from '@react-navigation/native'
 import RenderIncomeExpense from '../components/RenderIncomeExpense'
 import RenderTimeframe from '../components/RenderTimeFrame'
+import firestore from '@react-native-firebase/firestore';
 
 const HomeScreen = () => {
 
@@ -18,6 +19,17 @@ const HomeScreen = () => {
     const [isFocus, setIsFocus] = useState(false);
     const [onPressed,setOnPressed] = useState(0);
     const navigation = useNavigation();
+
+    useEffect(()=>{
+      getData();
+    },[])
+
+    const getData = async () => {
+      // const expenseArray = [];
+      const expense = (await firestore().collection('Expenses').doc('ibYC8hQkUnORjz54b7T1').get());
+      // expenseArray.push(expense);
+      console.log("expense_income",expense.data().amount);
+    }
 
   return (
     <View style={{ backgroundColor: colorMix.light_100 }}>
@@ -56,7 +68,9 @@ const HomeScreen = () => {
         </View>
         </View>
 
-<ScrollView style={{ marginBottom: HEIGHT*0.4 }}>
+<ScrollView 
+showsVerticalScrollIndicator={false}
+style={{ marginBottom: HEIGHT*0.4 }}>
         <View style={{ paddingHorizontal: WIDTH*0.05, marginTop: HEIGHT*0.01 }}>
           <Text style={{ fontSize: HEIGHT*0.025, fontWeight: 600, marginTop: HEIGHT*0.01, color: colorMix.dark_100 }}>Spend Frequency</Text>
         </View>

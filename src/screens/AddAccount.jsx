@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FlatList, Image, Platform, Pressable, Text, TextInput, View } from 'react-native'
+import { FlatList, Platform, Text, TextInput, View } from 'react-native'
 import Navbar from '../components/Navbar'
 import { colorMix } from '../constants/color'
 import { HEIGHT, WIDTH } from '../constants/dimension'
@@ -71,8 +71,7 @@ const AddAccount = () => {
           showsVerticalScrollIndicator={false} 
           data={BankData} renderItem={({item}) => <RenderBank data={item} 
           onPress={handlePress} selectedBank={selectedBank} 
-          />} keyExtractor={item => item.id}
-          />
+          />} keyExtractor={item => item.id}/>
         </View>)}
         <View style={{ marginTop: Platform.OS==='ios' ? HEIGHT*0.1 : error ? HEIGHT*0.033 :HEIGHT*0.06 }}>
         <ButtonComponent title="Continue" onButtonHandler={onPressHandler}/>

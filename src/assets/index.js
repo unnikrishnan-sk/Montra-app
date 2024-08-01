@@ -54,9 +54,18 @@ import attachment_icon from './attachment_icon/attachment_icon.png'
 import camera_icon from './camera_icon/camera_icon.png'
 import gallery_icon from './gallery_icon/gallery_icon.png'
 import doc_icon from './doc_icon/doc_icon.png'
+import close_icon from './close_icon/close_icon.png'
+import success_icon_blue from './success_icon_blue/success_icon_blue.png'
 
 // Transfer Screen
 
 import transfer_icon from './transfer_icon/transfer_icon.png'
 
-export { ellipse, onboarding_1, onboarding_2, onboarding_3, back_arrow, pass_icon, google_logo, tick_icon, email_sent, arrow_right, success_icon, back_arrow_white, chase_bank, paypal_bank, citi_bank, bank_of_america, jago_bank, mandiri_bank, bca_bank, profile_avatar, notification_icon, dropdown_arrow, income_icon, expense_icon, shopping_icon, subscription_icon, food_icon, more_icon, arrow_down, attachment_icon, transfer_icon, camera_icon, gallery_icon, doc_icon }
+// Bottom TabBar
+
+import home_icon from './home_icon/home_icon.png'
+import income_icon_white from './income_icon_white/income_icon_white.png'
+import expense_icon_white from './expense_icon_white/expense_icon_white.png'
+import transfer_icon_white from './trnasfer_icon_white/transfer_icon_white.png'
+
+export { ellipse, onboarding_1, onboarding_2, onboarding_3, back_arrow, pass_icon, google_logo, tick_icon, email_sent, arrow_right, success_icon, back_arrow_white, chase_bank, paypal_bank, citi_bank, bank_of_america, jago_bank, mandiri_bank, bca_bank, profile_avatar, notification_icon, dropdown_arrow, income_icon, expense_icon, shopping_icon, subscription_icon, food_icon, more_icon, arrow_down, attachment_icon, transfer_icon, camera_icon, gallery_icon, doc_icon, close_icon, success_icon_blue, home_icon, income_icon_white, expense_icon_white, transfer_icon_white }

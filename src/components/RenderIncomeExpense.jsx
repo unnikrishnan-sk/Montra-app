@@ -5,7 +5,7 @@ import { colorMix } from "../constants/color";
 const RenderIncomeExpense = ({data}) => {
 
     const {id,image,title,amount} = data;
-    console.log(image,title,amount);
+    // console.log(image,title,amount);
   
   return(
     <View style={{ height: HEIGHT*0.1, width: WIDTH*0.42, marginLeft: id!==0 ? WIDTH*0.055 : 0, borderRadius: HEIGHT*0.035, backgroundColor: id===0 ? colorMix.green_100 : colorMix.red_100, alignItems: 'center', paddingHorizontal: WIDTH*0.045, justifyContent: 'space-between', flexDirection: 'row' }}>
