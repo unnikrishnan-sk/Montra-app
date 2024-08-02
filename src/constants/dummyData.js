@@ -6,7 +6,7 @@ export const signupDetails = [{ id: 0, placeholder: 'Name', value: 'name', nextR
 
 export const loginDetails = [{ id: 0, placeholder: 'Email', value: 'email', nextRef: 'password', passwordSecure: false }, { id: 1, placeholder: 'Password', value: 'password', passwordSecure: true, passIcon: pass_icon }]
 
-export const monthData = [{ id: 0, name: "January", value: "jan" }, { id: 1, name: "February", value: "feb" }, { id: 2, name: "March", value: "mar" }, { id: 3, name: "April", value: "apr" }, { id: 4, name: "May", value: "may" }, { id: 5, name: "June", value: "jun" }, { id: 6, name: "July", value: "jul" }, { id: 7, name: "August", value: "aug" }, { id: 8, name: "September", value: "sep" }, { id: 9, name: "October", value: "oct" }, { id: 10, name: "November", value: "nov" }, { id: 11, name: "December", value: "dec" }]
+export const monthData = [{ id: 0, name: "January", value: "January" }, { id: 1, name: "February", value: "February" }, { id: 2, name: "March", value: "March" }, { id: 3, name: "April", value: "April" }, { id: 4, name: "May", value: "May" }, { id: 5, name: "June", value: "June" }, { id: 6, name: "July", value: "July" }, { id: 7, name: "August", value: "August" }, { id: 8, name: "September", value: "September" }, { id: 9, name: "October", value: "October" }, { id: 10, name: "November", value: "November" }, { id: 11, name: "December", value: "December" }]
 
 export const incomeExpenseData = [{ id: 0, image: income_icon, title: 'Income', amount: '5000' }, { id: 1, image: expense_icon, title: 'Expenses', amount: '1200' }]
 
@@ -40,4 +40,6 @@ export const frequencyDetails = [{ id: 0, name: 'Yearly', value: 'yearly' }, { i
 
 export const endAfterDetails = [{}]
 
-// export const monthsDetails = [{id:0, name: 'January', value: 'Jan'}, {id:0, name: 'February', value: 'Dec'}, {id:0, name: 'December', value: 'Dec'}, {id:0, name: 'December', value: 'Dec'}, {id:0, name: 'December', value: 'Dec'}, {id:0, name: 'December', value: 'Dec'}, {id:0, name: 'December', value: 'Dec'}, {id:0, name: 'December', value: 'Dec'}, {id:0, name: 'December', value: 'Dec'}, {id:0, name: 'December', value: 'Dec'}, {id:0, name: 'December', value: 'Dec'}, {id:0, name: 'December', value: 'Dec'}]
+export const monthsDetails = [{ id: 0, name: 'Jan', value: 'January' }, { id: 0, name: 'Feb', value: 'February' }, { id: 0, name: 'Mar', value: 'March' }, { id: 0, name: 'Apr', value: 'April' }, { id: 0, name: 'May', value: 'May' }, { id: 0, name: 'Jun', value: 'June' }, { id: 0, name: 'July', value: 'July' }, { id: 0, name: 'Aug', value: 'August' }, { id: 0, name: 'Sep', value: 'September' }, { id: 0, name: 'Oct', value: 'October' }, { id: 0, name: 'Nov', value: 'November' }, { id: 0, name: 'Dec', value: 'December' }]
+
+// export const dateDetails = [{id:0}]

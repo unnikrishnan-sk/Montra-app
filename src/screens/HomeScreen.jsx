@@ -12,23 +12,39 @@ import { useNavigation } from '@react-navigation/native'
 import RenderIncomeExpense from '../components/RenderIncomeExpense'
 import RenderTimeframe from '../components/RenderTimeFrame'
 import firestore from '@react-native-firebase/firestore';
+import { calculateExpense, calculateIncome, networkApi } from '../http/api'
+import moment from 'moment'
 
 const HomeScreen = () => {
 
-    const [value,setValue] = useState();
+    const [value,setValue] = useState(moment().format('MMMM'));
+    const [incomeExpenseDetails,setIncomeExpenseDetails] = useState(incomeExpenseData)
     const [isFocus, setIsFocus] = useState(false);
     const [onPressed,setOnPressed] = useState(0);
+    const [accountBal,setAccountBal] = useState();
     const navigation = useNavigation();
-
+    
     useEffect(()=>{
       getData();
-    },[])
+    },[incomeExpenseData,value])
 
     const getData = async () => {
-      // const expenseArray = [];
-      const expense = (await firestore().collection('Expenses').doc('ibYC8hQkUnORjz54b7T1').get());
-      // expenseArray.push(expense);
-      console.log("expense_income",expense.data().amount);
+      console.log(value);
+      const expense = await calculateExpense(value);
+      const income = await calculateIncome(value);
+      console.log("income",income, "expense",expense);
+      console.log(incomeExpenseData);
+      const updatedData = incomeExpenseData.map((item)=>{
+        if(item.title==="Income"){
+          return {...item,amount:income.toString()};
+        }if(item.title==="Expenses"){
+          return {...item,amount:expense.toString()}
+        }
+        return item;
+      })
+      setIncomeExpenseDetails(updatedData)
+      console.log(updatedData);
+      setAccountBal(income-expense)
     }
 
   return (
@@ -62,9 +78,9 @@ const HomeScreen = () => {
     </Pressable>
             </View>
             <Text style={{ alignSelf: 'center', fontSize: HEIGHT*0.02, marginTop: HEIGHT*0.015, color: colorMix.dark_25 }}>Account Balance</Text>
-            <Text style={{ alignSelf: 'center', marginTop: HEIGHT*0.015, fontSize: HEIGHT*0.05, fontWeight: 600, color: colorMix.dark_100 }}>$9400</Text>
+            <Text style={{ alignSelf: 'center', marginTop: HEIGHT*0.015, fontSize: HEIGHT*0.05, fontWeight: 600, color: colorMix.dark_100 }}>${accountBal}</Text>
             <View style={{ paddingHorizontal: WIDTH*0.05, justifyContent: 'space-between', marginTop: HEIGHT*0.02 }}>
-        <FlatList data={incomeExpenseData} horizontal showsHorizontalScrollIndicator={false} renderItem={({item})=><RenderIncomeExpense data={item}/> } keyExtractor={item=>item.id}/>
+        <FlatList data={incomeExpenseDetails} horizontal showsHorizontalScrollIndicator={false} renderItem={({item})=><RenderIncomeExpense data={item} /> } keyExtractor={item=>item.id} />
         </View>
         </View>
 

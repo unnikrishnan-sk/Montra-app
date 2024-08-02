@@ -3,7 +3,7 @@ import { HEIGHT, WIDTH } from "../constants/dimension";
 import { colorMix } from "../constants/color";
 
 const RenderIncomeExpense = ({data}) => {
-
+// console.log(totalAmount);
     const {id,image,title,amount} = data;
     // console.log(image,title,amount);
   
