@@ -68,4 +68,11 @@ import income_icon_white from './income_icon_white/income_icon_white.png'
 import expense_icon_white from './expense_icon_white/expense_icon_white.png'
 import transfer_icon_white from './trnasfer_icon_white/transfer_icon_white.png'
 
-export { ellipse, onboarding_1, onboarding_2, onboarding_3, back_arrow, pass_icon, google_logo, tick_icon, email_sent, arrow_right, success_icon, back_arrow_white, chase_bank, paypal_bank, citi_bank, bank_of_america, jago_bank, mandiri_bank, bca_bank, profile_avatar, notification_icon, dropdown_arrow, income_icon, expense_icon, shopping_icon, subscription_icon, food_icon, more_icon, arrow_down, attachment_icon, transfer_icon, camera_icon, gallery_icon, doc_icon, close_icon, success_icon_blue, home_icon, income_icon_white, expense_icon_white, transfer_icon_white }
+//Transaction Screen
+
+import sort_icon from './sort_icon/sort_icon.png'
+import right_arrow from './right_arrow/right_arrow.png'
+import income_general_icon from './income_general_icon/income_general_icon.png'
+import transportation_general_icon from './transportation_general_icon/transportation_general_icon.png'
+
+export { ellipse, onboarding_1, onboarding_2, onboarding_3, back_arrow, pass_icon, google_logo, tick_icon, email_sent, arrow_right, success_icon, back_arrow_white, chase_bank, paypal_bank, citi_bank, bank_of_america, jago_bank, mandiri_bank, bca_bank, profile_avatar, notification_icon, dropdown_arrow, income_icon, expense_icon, shopping_icon, subscription_icon, food_icon, more_icon, arrow_down, attachment_icon, transfer_icon, camera_icon, gallery_icon, doc_icon, close_icon, success_icon_blue, home_icon, income_icon_white, expense_icon_white, transfer_icon_white, sort_icon, right_arrow, income_general_icon, transportation_general_icon }

@@ -23,6 +23,7 @@ import { expense_icon, expense_icon_white, home_icon, income_icon, income_icon_w
 import { FlatList, Image, Pressable, Text, View } from 'react-native';
 import { HEIGHT, WIDTH } from './constants/dimension';
 import { colorMix } from './constants/color';
+import TransactionScreen from './screens/TransactionScreen';
 
 const tabBarData = [{ id: 0, logo: home_icon, title: "Home", route: "home" }, { id: 1, logo: income_icon, title: "Income", route: "income" }, { id: 2, logo: expense_icon, title: "Expense", route: "expense" }, { id: 3, logo: transfer_icon, title: "Transfer", route: "transfer" }]
 
@@ -94,6 +95,7 @@ const MyTabs = () => {
             <Tab.Screen name="income" component={IncomeScreen} options={{ headerShown: false }} />
             <Tab.Screen name="expense" component={ExpenseScreen} options={{ headerShown: false }} />
             <Tab.Screen name="transfer" component={TransferScreen} options={{ headerShown: false }} />
+            {/* <Tab.Screen name="transaction" component={TransactionScreen} options={{ headerShown: false }} /> */}
         </Tab.Navigator>
     )
 }
@@ -119,6 +121,7 @@ const Router = () => {
                 <Stack.Screen name='income' component={IncomeScreen} />
                 <Stack.Screen name='expense' component={ExpenseScreen} />
                 <Stack.Screen name='transfer' component={TransferScreen} />
+                <Stack.Screen name='transaction' component={TransactionScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     )

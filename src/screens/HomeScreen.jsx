@@ -12,28 +12,38 @@ import { useNavigation } from '@react-navigation/native'
 import RenderIncomeExpense from '../components/RenderIncomeExpense'
 import RenderTimeframe from '../components/RenderTimeFrame'
 import firestore from '@react-native-firebase/firestore';
-import { calculateExpense, calculateIncome, networkApi } from '../http/api'
+import { calculateExpense, calculateIncome, expenseArr, latTransaction, networkApi, renderTansData } from '../http/api'
 import moment from 'moment'
 
 const HomeScreen = () => {
 
     const [value,setValue] = useState(moment().format('MMMM'));
     const [incomeExpenseDetails,setIncomeExpenseDetails] = useState(incomeExpenseData)
+    // const [showFreq,setShowFreq] = useState()
+    const [recentTransData,setRecentTransData] = useState([])
+    const [graphData,setGraphData] = useState([]);
     const [isFocus, setIsFocus] = useState(false);
     const [onPressed,setOnPressed] = useState(0);
     const [accountBal,setAccountBal] = useState();
     const navigation = useNavigation();
+
+    console.log("starts here",onPressed);
     
     useEffect(()=>{
       getData();
-    },[incomeExpenseData,value])
+    },[incomeExpenseData,value,onPressed])
 
     const getData = async () => {
-      console.log(value);
       const expense = await calculateExpense(value);
       const income = await calculateIncome(value);
-      console.log("income",income, "expense",expense);
-      console.log(incomeExpenseData);
+      const expensess = await expenseArr();
+      const graphArr = expensess.map(item => ({['value']: parseFloat(item.amount)}))
+      setGraphData(graphArr)
+      const latTransactionDet = await latTransaction();
+      setRecentTransData(latTransactionDet)
+      const renderTrans = renderTansData(onPressed);
+      console.log("getData_renderTRans",renderTrans);
+      console.log("lat",latTransactionDet);
       const updatedData = incomeExpenseData.map((item)=>{
         if(item.title==="Income"){
           return {...item,amount:income.toString()};
@@ -46,6 +56,10 @@ const HomeScreen = () => {
       console.log(updatedData);
       setAccountBal(income-expense)
     }
+
+    // const onPressBtn = () => {
+
+    // }
 
   return (
     <View style={{ backgroundColor: colorMix.light_100 }}>
@@ -97,7 +111,7 @@ style={{ marginBottom: HEIGHT*0.4 }}>
        <View style={{ height: HEIGHT*0.05, paddingHorizontal: WIDTH*0.05, flexDirection: 'row', alignItems: 'center' }}>
         <FlatList data={dataTimeframe} horizontal showsHorizontalScrollIndicator={false} renderItem={({item})=><RenderTimeframe data={item} setOnPressed={setOnPressed} onPressed={onPressed}/> } keyExtractor={item=>item.id}/>
        </View>
-       <RecentTransaction />
+       <RecentTransaction recentTransData={recentTransData}/>
        </ScrollView>
        <BottomSlider />
     </View>

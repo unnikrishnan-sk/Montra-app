@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { View,Text, Image, Switch, Modal, Pressable, FlatList, Platform, TextInput } from 'react-native'
 import Navbar from '../components/Navbar'
 import { colorMix } from '../constants/color'
@@ -18,6 +18,7 @@ import RepeatModalComponent from '../components/RepeatModalComponent'
 import CameraModal from '../components/CameraModal'
 import CategoryComponent from '../components/CategoryComponent'
 import moment from 'moment'
+import { getConstants } from '../http/api'
 
 const repeatDetails = [{id:0, name: "Frequency"}, {id:1, name: "End After"}]
 
@@ -35,6 +36,8 @@ const ExpenseScreen = () => {
     });
     console.log(expenseData);
     const [error,setError] = useState({})
+    const [categoryList,setCategoryList] = useState([]);
+    const [walletList,setWalletList] = useState([]);
     // const [expenseData,setExpenseData] = [{response: '', category: '', description: '', wallet: '', amount: 0}]
     const [response, setResponse] = useState('');
     const [fileResponse, setFileResponse] = useState([]);
@@ -45,7 +48,7 @@ const ExpenseScreen = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [repeatModal,setRepeatModal] = useState(false);
     // const [amount,setAmount] = useState(0);
-    console.log(response);
+    console.log(categoryList);
 
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
@@ -75,6 +78,31 @@ const ExpenseScreen = () => {
             }
         }
     }
+
+    useEffect(()=>{
+        contDatas()
+    },[])
+
+    const contDatas = async () => {
+        const constData = await getConstants();
+        const cat = constData?.docs[0]?.data();
+        const wal = constData?.docs[0]?.data();
+
+        if(cat && cat.value){
+            const catData = cat.value.map(item =>({value:item}))
+            // console.log(catData);
+            setCategoryList(catData);
+        }
+        if(wal && wal.value){
+            const walData = wal.value.map(item => ({value:item}))
+            // console.log(walData);
+            setWalletList(walData)
+        }
+       
+        // console.log(constData.docs[1].data());
+    }
+        
+    
 
     // const handleChangeForm = (key,value) => {
     //     setDescription(value)
