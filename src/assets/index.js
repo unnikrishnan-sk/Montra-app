@@ -74,5 +74,12 @@ import sort_icon from './sort_icon/sort_icon.png'
 import right_arrow from './right_arrow/right_arrow.png'
 import income_general_icon from './income_general_icon/income_general_icon.png'
 import transportation_general_icon from './transportation_general_icon/transportation_general_icon.png'
+import trash_icon from './trash_icon/trash_icon.png'
+import scanned_image from './scanned_image/scanned_image.png'
 
-export { ellipse, onboarding_1, onboarding_2, onboarding_3, back_arrow, pass_icon, google_logo, tick_icon, email_sent, arrow_right, success_icon, back_arrow_white, chase_bank, paypal_bank, citi_bank, bank_of_america, jago_bank, mandiri_bank, bca_bank, profile_avatar, notification_icon, dropdown_arrow, income_icon, expense_icon, shopping_icon, subscription_icon, food_icon, more_icon, arrow_down, attachment_icon, transfer_icon, camera_icon, gallery_icon, doc_icon, close_icon, success_icon_blue, home_icon, income_icon_white, expense_icon_white, transfer_icon_white, sort_icon, right_arrow, income_general_icon, transportation_general_icon }
+// Budget Screen
+
+import arrow_left from './arrow_left/arrow_left.png'
+import arrow_right_white from './arrow_right_white/arrow_right_white.png'
+
+export { ellipse, onboarding_1, onboarding_2, onboarding_3, back_arrow, pass_icon, google_logo, tick_icon, email_sent, arrow_right, success_icon, back_arrow_white, chase_bank, paypal_bank, citi_bank, bank_of_america, jago_bank, mandiri_bank, bca_bank, profile_avatar, notification_icon, dropdown_arrow, income_icon, expense_icon, shopping_icon, subscription_icon, food_icon, more_icon, arrow_down, attachment_icon, transfer_icon, camera_icon, gallery_icon, doc_icon, close_icon, success_icon_blue, home_icon, income_icon_white, expense_icon_white, transfer_icon_white, sort_icon, right_arrow, income_general_icon, transportation_general_icon, trash_icon, scanned_image, arrow_left, arrow_right_white }

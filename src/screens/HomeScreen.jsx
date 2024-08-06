@@ -42,8 +42,8 @@ const HomeScreen = () => {
       const latTransactionDet = await latTransaction();
       setRecentTransData(latTransactionDet)
       const renderTrans = renderTansData(onPressed);
-      console.log("getData_renderTRans",renderTrans);
-      console.log("lat",latTransactionDet);
+      // console.log("getData_renderTRans",renderTrans);
+      // console.log("lat",latTransactionDet);
       const updatedData = incomeExpenseData.map((item)=>{
         if(item.title==="Income"){
           return {...item,amount:income.toString()};

@@ -91,7 +91,7 @@ const SignupScreen = () => {
       </View>
       <Text style={{ alignSelf: 'center', marginTop: HEIGHT*0.015, fontSize: HEIGHT*0.018, color: colorMix.dark_50 }}>Or with</Text>
       <View style={{ marginTop: HEIGHT*0.02 }}>
-      <ButtonComponent title="Sign Up with Google" bgColor={colorMix.light_100} txtColor={colorMix.dark_100} brdrColor={colorMix.light_20} logo={google_logo}/>
+      <ButtonComponent onButtonHandler={()=>signFn()} title="Sign Up with Google" bgColor={colorMix.light_100} txtColor={colorMix.dark_100} brdrColor={colorMix.light_20} logo={google_logo}/>
       </View>
       <Text style={{ alignSelf: 'center', marginTop: HEIGHT*0.02, color: colorMix.dark_25 }}>Already have an account? <Text onPress={()=>navigation.navigate('login')}
       style={{ color: colorMix.violet_100, textDecorationLine: 'underline' }}>Login</Text></Text>

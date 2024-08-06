@@ -24,6 +24,8 @@ import { FlatList, Image, Pressable, Text, View } from 'react-native';
 import { HEIGHT, WIDTH } from './constants/dimension';
 import { colorMix } from './constants/color';
 import TransactionScreen from './screens/TransactionScreen';
+import DetailExpenseScreen from './DetailExpenseScreen';
+import BudgetScreen from './screens/BudgetScreen';
 
 const tabBarData = [{ id: 0, logo: home_icon, title: "Home", route: "home" }, { id: 1, logo: income_icon, title: "Income", route: "income" }, { id: 2, logo: expense_icon, title: "Expense", route: "expense" }, { id: 3, logo: transfer_icon, title: "Transfer", route: "transfer" }]
 
@@ -122,6 +124,8 @@ const Router = () => {
                 <Stack.Screen name='expense' component={ExpenseScreen} />
                 <Stack.Screen name='transfer' component={TransferScreen} />
                 <Stack.Screen name='transaction' component={TransactionScreen} />
+                <Stack.Screen name='detailtransaction' component={DetailExpenseScreen} />
+                <Stack.Screen name='budget' component={BudgetScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     )
