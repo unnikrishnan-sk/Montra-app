@@ -86,14 +86,14 @@ const DetailTransaction = () => {
             <Text style={{
                 fontSize: HEIGHT*0.06,
                 color: colorMix.light_100,
-                fontWeight: 700,
+                fontWeight: '700',
                 textAlign: 'center',
                 paddingTop: HEIGHT*0.018
             }}>{detailedTrans[0]?.amount}</Text>
             <Text style={{
                 color: colorMix.light_100,
                 fontSize: HEIGHT*0.022,
-                fontWeight: 500,
+                fontWeight: '500',
                 textAlign: 'center',
                 paddingTop: HEIGHT*0.013
             }}>{detailedTrans[0]?.description}</Text>
@@ -101,7 +101,7 @@ const DetailTransaction = () => {
                 color: colorMix.light_100,
                 textAlign: 'center',
                 fontSize: HEIGHT*0.018,
-                fontWeight: 500,
+                fontWeight: '500',
                 paddingTop: HEIGHT*0.01
             }}>{detailedTrans[0]?.date}</Text>
         </View>
@@ -185,7 +185,7 @@ const DetailTransaction = () => {
         <Text style={{
             color: colorMix.dark_25,
             fontSize: HEIGHT*0.023,
-            fontWeight: 500,
+            fontWeight: '500',
             marginTop: HEIGHT*0.02
         }}>Description</Text>
 
@@ -198,7 +198,7 @@ const DetailTransaction = () => {
         <Text style={{
             color: colorMix.dark_25,
             fontSize: HEIGHT*0.023,
-            fontWeight: 500,
+            fontWeight: '500',
             marginTop: HEIGHT*0.02
         }}>Attachment</Text>
         <Image 

@@ -23,7 +23,7 @@ const RenderDetailItems = ({data}) => {
         }}>{name}</Text>
         <Text style={{
             fontSize: HEIGHT*0.022,
-            fontWeight: 500,
+            fontWeight: '500',
             color: colorMix.dark_100
         }}>{value}</Text>
         </View>

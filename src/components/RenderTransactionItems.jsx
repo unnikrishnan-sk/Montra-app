@@ -74,12 +74,12 @@ const RenderTransactionItems = ({data}) => {
                 <Image source={generalIcon}/>
             </View>
             <View style={{ justifyContent: 'space-around', marginLeft: WIDTH*0.02 }}>
-                <Text style={{ fontSize: HEIGHT*0.022, color: colorMix.dark_100, fontWeight: 500 }}>{category}</Text>
+                <Text style={{ fontSize: HEIGHT*0.022, color: colorMix.dark_100, fontWeight: '500' }}>{category}</Text>
                 <Text style={{ color: colorMix.dark_25, fontSize: HEIGHT*0.018 }}>{description}</Text>
             </View>
             </View>
             <View style={{ justifyContent: 'space-around' }}>
-                <Text style={{ alignSelf: 'flex-end', fontWeight: 500, color: colorMix.red_100, fontSize: HEIGHT*0.023 }}>-${amount}</Text>
+                <Text style={{ alignSelf: 'flex-end', fontWeight: '500', color: colorMix.red_100, fontSize: HEIGHT*0.023 }}>-${amount}</Text>
                 <Text style={{ color: colorMix.dark_25, fontSize: HEIGHT*0.018 }}>{formattedTime}</Text>
             </View>
         </View>

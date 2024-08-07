@@ -81,11 +81,11 @@ const SignupScreen = () => {
           </Pressable>) : (
             <Pressable onPress={()=>setAgree(true)}
             style={{ borderWidth: 2, height: HEIGHT*0.03, width: HEIGHT*0.03, borderRadius: HEIGHT*0.005, borderColor: colorMix.violet_100}}></Pressable>)}
-          <Text style={{ fontSize: HEIGHT*0.018, fontWeight: 500, marginLeft: WIDTH*0.035, width: WIDTH*0.75 }}>By signing up, you agree to the <Text style={{ color: colorMix.violet_100 }}>Terms of Service and Privacy Policy</Text></Text>
+          <Text style={{ fontSize: HEIGHT*0.018, fontWeight: '500', marginLeft: WIDTH*0.035, width: WIDTH*0.75 }}>By signing up, you agree to the <Text style={{ color: colorMix.violet_100 }}>Terms of Service and Privacy Policy</Text></Text>
         </View>
-        {agreeError && !agree && <Text style={{ color: colorMix.red_100, fontWeight: 500, marginLeft: WIDTH*0.05 }}>{agreeError}</Text>}
+        {agreeError && !agree && <Text style={{ color: colorMix.red_100, fontWeight: '500', marginLeft: WIDTH*0.05 }}>{agreeError}</Text>}
       </View>
-      {firebaseError ? <Text style={{ color: colorMix.red_100, fontWeight: 500, alignSelf: 'center', marginTop: HEIGHT*0.01 }}>{firebaseError}</Text> : null }
+      {firebaseError ? <Text style={{ color: colorMix.red_100, fontWeight: '500', alignSelf: 'center', marginTop: HEIGHT*0.01 }}>{firebaseError}</Text> : null }
       <View style={{ marginTop:firebaseError ? HEIGHT*0.015 : HEIGHT*0.025 }}>
       <ButtonComponent title="Sign Up" onButtonHandler={()=>signFn()}/>
       </View>

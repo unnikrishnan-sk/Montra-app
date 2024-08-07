@@ -61,7 +61,7 @@ const ForgotPassword = () => {
         }}>
             <Text style={{
                 fontSize: HEIGHT*0.03,
-                fontWeight: 600,
+                fontWeight: '600',
                 width: WIDTH*0.7,
                 color: colorMix.dark_100
             }}>Don't worry.{"\n"}Enter your email and we'll send you a link to reset your password.</Text>

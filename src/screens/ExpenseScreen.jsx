@@ -31,8 +31,11 @@ const ExpenseScreen = () => {
         description: '',
         wallet: '',
         // amount: 0,
-        createdAt: new Date(),
-        month: moment().format('MMMM'),
+        // createdAt: new Date(),
+        createdMonth: moment().format('MMMM'),
+        createdDate: moment(new Date()).format('DD'),
+        createdDay: moment(new Date()).format('dddd'),
+        createdYear: moment(new Date()).format('YYYY')
     });
     console.log(expenseData);
     const [error,setError] = useState({})
@@ -141,13 +144,13 @@ const ExpenseScreen = () => {
     <Navbar title="Expense" titleColor={colorMix.light_100}/>
     {/* <CategoryComponent amount={amount} category={category} setCategory={setCategory} wallet={wallet} setWallet={setWallet} response={response} isEnabled={isEnabled}/> */}
     <View style={{ paddingHorizontal: WIDTH*0.05, marginTop: HEIGHT*0.12 }}>
-        <Text style={{ color: colorMix.light_20, fontWeight: 500, fontSize: HEIGHT*0.024 }}>How much?</Text>
+        <Text style={{ color: colorMix.light_20, fontWeight: '500', fontSize: HEIGHT*0.024 }}>How much?</Text>
         <View style={{
             flexDirection: 'row'
         }}>
-            <Text style={{color: colorMix.light_100, fontSize: HEIGHT*0.085, marginTop: HEIGHT*0.01, fontWeight: 600}}>$</Text>
+            <Text style={{color: colorMix.light_100, fontSize: HEIGHT*0.085, marginTop: HEIGHT*0.01, fontWeight:'600'}}>$</Text>
         <TextInput 
-        style={{ color: colorMix.light_100, fontSize: HEIGHT*0.085, marginTop: HEIGHT*0.01, fontWeight: 600 }}
+        style={{ color: colorMix.light_100, fontSize: HEIGHT*0.085, marginTop: HEIGHT*0.01, fontWeight: '600' }}
         placeholder='0'
         placeholderTextColor={colorMix.light_100}
         onChangeText={(text)=>handleTextInputChange('amount',text)}

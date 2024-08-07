@@ -35,8 +35,8 @@ const AddAccount = () => {
     <View style={{ flex:1, backgroundColor: colorMix.violet_100, height: HEIGHT }}>
         <Navbar title="Add new account" titleColor={colorMix.light_100}/>
         <View style={{ paddingHorizontal: WIDTH*0.05, paddingTop: value ? HEIGHT*0.2 :HEIGHT*0.3 }}>
-            <Text style={{ color: colorMix.violet_20, fontSize: HEIGHT*0.025, fontWeight: 500 }}>Balance</Text>
-            <Text style={{ paddingTop: HEIGHT*0.02, color :colorMix.light_100, fontSize: HEIGHT*0.08, fontWeight: 600, paddingBottom: HEIGHT*0.02 }}>$00.0</Text>
+            <Text style={{ color: colorMix.violet_20, fontSize: HEIGHT*0.025, fontWeight: '500' }}>Balance</Text>
+            <Text style={{ paddingTop: HEIGHT*0.02, color :colorMix.light_100, fontSize: HEIGHT*0.08, fontWeight: '600', paddingBottom: HEIGHT*0.02 }}>$00.0</Text>
         </View>
         <View style={{ borderWidth:1, backgroundColor: colorMix.light_100, paddingTop: HEIGHT*0.03, height: Platform.OS==="ios" ? (value ? HEIGHT*0.56 : HEIGHT*0.46) : value ? HEIGHT*0.54 : HEIGHT*0.435, borderTopLeftRadius: HEIGHT*0.035, borderTopRightRadius: HEIGHT*0.035 }}>
           <View style={{ paddingHorizontal: WIDTH*0.05 }}>
@@ -64,7 +64,7 @@ const AddAccount = () => {
           }}
         />
         </View>
-          {error && <Text style={{ color: colorMix.red_100, fontWeight: 500, marginLeft: WIDTH*0.05 }}>{error}</Text>}
+          {error && <Text style={{ color: colorMix.red_100, fontWeight: '500', marginLeft: WIDTH*0.05 }}>{error}</Text>}
         {value === "bank" && (<View style={{ paddingHorizontal: WIDTH*0.05 }}>
           <FlatList 
           numColumns={4}

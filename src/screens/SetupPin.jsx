@@ -58,7 +58,7 @@ const SetupPin = () => {
             color: colorMix.light_100,
             alignSelf: 'center',
             fontSize: HEIGHT*0.023,
-            fontWeight: 600
+            fontWeight: '600'
         }}>Let's setup your PIN</Text>
         <View style={{
             // borderWidth:1,
@@ -88,14 +88,14 @@ const SetupPin = () => {
         alignSelf: 'center',
         color: colorMix.red_100,
         fontSize: HEIGHT*0.025,
-        fontWeight: 700
+        fontWeight: '700'
     }}>{error}</Text>) : null}
         </>
     ) : ( <><Text style={{
         color: colorMix.light_100,
         alignSelf: 'center',
         fontSize: HEIGHT*0.023,
-        fontWeight: 600
+        fontWeight: '600'
     }}>Ok. Re type your PIN again.</Text>
     <View style={{
         // borderWidth:1,

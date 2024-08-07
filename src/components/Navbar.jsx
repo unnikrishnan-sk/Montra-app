@@ -14,7 +14,7 @@ const Navbar = ({title,titleColor,image_source,trash_height,trash_width, onPress
             <Pressable onPress={()=>navigation.goBack()}>
              <Image style={{ height: HEIGHT*0.02, width: HEIGHT*0.03 }} source={titleColor ? back_arrow_white : back_arrow} />
         </Pressable>
-        <Text style={{ fontSize: HEIGHT*0.023, fontWeight: 500, color: titleColor ? titleColor : colorMix.dark_100 }}>{title}</Text>
+        <Text style={{ fontSize: HEIGHT*0.023, fontWeight: '500', color: titleColor ? titleColor : colorMix.dark_100 }}>{title}</Text>
         <View>
           <Pressable
           onPress={onPressRightIcon}

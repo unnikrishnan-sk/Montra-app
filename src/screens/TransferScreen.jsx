@@ -13,8 +13,8 @@ const TransferScreen = () => {
     <View style={{backgroundColor: colorMix.blue_100, height: HEIGHT}}>
         <Navbar title="Transfer" titleColor={colorMix.light_100}/>
         <View style={{ paddingHorizontal: WIDTH*0.05, marginTop: HEIGHT*0.3 }}>
-        <Text style={{ color: colorMix.light_20, fontWeight: 500, fontSize: HEIGHT*0.024 }}>How much?</Text>
-        <Text style={{ color: colorMix.light_100, fontSize: HEIGHT*0.085, marginTop: HEIGHT*0.01, fontWeight: 600 }}>$0</Text>
+        <Text style={{ color: colorMix.light_20, fontWeight: '500', fontSize: HEIGHT*0.024 }}>How much?</Text>
+        <Text style={{ color: colorMix.light_100, fontSize: HEIGHT*0.085, marginTop: HEIGHT*0.01, fontWeight: '600' }}>$0</Text>
     </View>
     <View style={{ backgroundColor: colorMix.light_100, borderTopRightRadius: HEIGHT*0.04, borderTopLeftRadius: HEIGHT*0.04, marginTop: HEIGHT*0.01 }}>
       <View style={{

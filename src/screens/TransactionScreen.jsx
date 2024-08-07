@@ -85,7 +85,7 @@ const TransactionScreen = () => {
             marginTop: HEIGHT*0.02,
             marginLeft: WIDTH*0.05,
             fontSize: HEIGHT*0.022,
-            fontWeight: 500
+            fontWeight: '500'
         }}>Today</Text>
 
 

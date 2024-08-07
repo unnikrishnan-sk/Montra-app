@@ -24,8 +24,10 @@ import { FlatList, Image, Pressable, Text, View } from 'react-native';
 import { HEIGHT, WIDTH } from './constants/dimension';
 import { colorMix } from './constants/color';
 import TransactionScreen from './screens/TransactionScreen';
-import DetailExpenseScreen from './DetailExpenseScreen';
+import DetailExpenseScreen from './screens/DetailExpenseScreen';
 import BudgetScreen from './screens/BudgetScreen';
+import FinancialReport from './screens/FinancialReport';
+import DetailFinancialReport from './screens/DetailFinancialReport';
 
 const tabBarData = [{ id: 0, logo: home_icon, title: "Home", route: "home" }, { id: 1, logo: income_icon, title: "Income", route: "income" }, { id: 2, logo: expense_icon, title: "Expense", route: "expense" }, { id: 3, logo: transfer_icon, title: "Transfer", route: "transfer" }]
 
@@ -105,7 +107,7 @@ const MyTabs = () => {
 const Router = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName='myTabs' screenOptions={{ headerShown: false }}>
+            <Stack.Navigator initialRouteName='expense' screenOptions={{ headerShown: false }}>
                 <Stack.Screen name='launch' component={LaunchScreen} />
                 <Stack.Screen name='onboard' component={OnboardingScreen} />
                 <Stack.Screen name='signup' component={SignupScreen} />
@@ -125,6 +127,8 @@ const Router = () => {
                 <Stack.Screen name='transfer' component={TransferScreen} />
                 <Stack.Screen name='transaction' component={TransactionScreen} />
                 <Stack.Screen name='detailtransaction' component={DetailExpenseScreen} />
+                <Stack.Screen name='financialreport' component={FinancialReport} />
+                <Stack.Screen name='detailfinancialreport' component={DetailFinancialReport} />
                 <Stack.Screen name='budget' component={BudgetScreen} />
             </Stack.Navigator>
         </NavigationContainer>

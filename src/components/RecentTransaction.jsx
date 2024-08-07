@@ -14,7 +14,7 @@ const RecentTransaction = ({recentTransData}) => {
   return (
     <>
     <View style={{ flexDirection: 'row', paddingHorizontal: WIDTH*0.05, justifyContent: 'space-between', alignItems: 'center', marginTop: HEIGHT*0.03 }}>
-        <Text style={{ fontWeight: 500, fontSize: HEIGHT*0.025, color: colorMix.dark_100 }}>Recent Transaction</Text>
+        <Text style={{ fontWeight: '500', fontSize: HEIGHT*0.025, color: colorMix.dark_100 }}>Recent Transaction</Text>
         <Pressable 
         onPress={()=>navigation.navigate('transaction')}
         style={{ paddingTop: HEIGHT*0.008, paddingBottom: HEIGHT*0.008, paddingLeft: WIDTH*0.035, paddingRight: WIDTH*0.035, borderRadius: HEIGHT*0.02, backgroundColor: colorMix.violet_20 }}>

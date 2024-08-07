@@ -34,7 +34,7 @@ const RenderBoading = ({data, index}) => {
         }}>
         <Text style={{
             fontSize: HEIGHT*0.04,
-            fontWeight: 700,
+            fontWeight: '700',
             textAlign: 'center',
             color: colorMix.dark_100
         }}>{heading}</Text>
@@ -147,7 +147,7 @@ const OnboardingScreen = () => {
         }}><Text style={{
             color: colorMix.light_100,
             fontSize: HEIGHT*0.025,
-            fontWeight: 600
+            fontWeight: '600'
         }}>Sign Up</Text></Pressable>
         <Pressable 
         onPress={()=>navigation.navigate('login')}
@@ -165,7 +165,7 @@ const OnboardingScreen = () => {
         style={{
             color: colorMix.violet_100,
             fontSize: HEIGHT*0.025,
-            fontWeight: 600
+            fontWeight: '600'
         }}>Login</Text></Pressable>
         <BottomSlider />
     </View>

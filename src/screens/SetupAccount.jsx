@@ -20,7 +20,7 @@ const SetupAccount = () => {
     <Text style={{
         fontSize: HEIGHT*0.046,
         width: WIDTH*0.7,
-        fontWeight: 500,
+        fontWeight: '500',
         color: colorMix.dark_100
     }}>Let's setup your account!</Text>
     <Text style={{
@@ -28,7 +28,7 @@ const SetupAccount = () => {
         marginTop: HEIGHT*0.05,
         fontSize: HEIGHT*0.02,
         color: colorMix.dark_100,
-        fontWeight: 500
+        fontWeight: '500'
     }}>Account can be your bank, credit card or your wallet.</Text>
     <View style={{
         position: 'absolute',

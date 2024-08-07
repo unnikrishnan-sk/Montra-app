@@ -47,7 +47,7 @@ const BudgetScreen = () => {
             <Text style={{
                 color: colorMix.light_100,
                 fontSize: HEIGHT*0.028,
-                fontWeight: 500
+                fontWeight: '500'
             }}>{moment(month).format('MMMM')}</Text>
             <Pressable
             onPress={nextMonth}

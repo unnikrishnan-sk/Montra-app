@@ -14,7 +14,7 @@ const RenderIncomeExpense = ({data}) => {
         </View>
         <View style={{ marginRight: WIDTH*0.02 }}>
           <Text style={{ color: colorMix.light_100 }}>{title}</Text>
-          <Text style={{ color:colorMix.light_100, fontSize: HEIGHT*0.03, fontWeight: 600 }}>${amount}</Text>
+          <Text style={{ color:colorMix.light_100, fontSize: HEIGHT*0.03, fontWeight: '600' }}>${amount}</Text>
         </View>
       </View>
   

@@ -30,7 +30,7 @@ const RenderNotificationItems = ({data}) => {
             numberOfLines={1}
             style={{
                 fontSize: HEIGHT*0.025,
-                fontWeight: 500,
+                fontWeight: '500',
                 width: WIDTH*0.75,
                 color: colorMix.dark_100
             }}>{title}</Text>
@@ -47,7 +47,7 @@ const RenderNotificationItems = ({data}) => {
             <Text style={{
                 fontSize: HEIGHT*0.021,
                 color: colorMix.dark_25,
-                fontWeight: 500
+                fontWeight: '500'
             }}>{time}</Text>
         </View>
         </>

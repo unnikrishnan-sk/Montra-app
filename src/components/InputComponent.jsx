@@ -10,7 +10,7 @@ const InputComponent = ({placeholder, passIcon, error, onChangeText, value}) => 
             <TextInput style={{ width:WIDTH*0.75, height: HEIGHT*0.055 }} placeholder={placeholder} placeholderTextColor={colorMix.dark_25} onChangeText={onChangeText} value={value}/>
             { passIcon && <Image style={{height: HEIGHT*0.03, width: HEIGHT*0.03}} source={passIcon}/> }
         </View>
-        {error && <Text style={{ color: colorMix.red_80, fontWeight: 600, marginTop: HEIGHT*0.005 }}>{error}</Text> }
+        {error && <Text style={{ color: colorMix.red_80, fontWeight: '600', marginTop: HEIGHT*0.005 }}>{error}</Text> }
     </View>
   )
 }

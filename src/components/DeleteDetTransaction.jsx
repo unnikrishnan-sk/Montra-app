@@ -44,7 +44,7 @@ const DeleteDetTransaction = ({deleteModal, setDeleteModal}) => {
             <Pressable onPress={()=>setDeleteModal(false)}style={{ height: HEIGHT*0.005, marginTop: HEIGHT*0.02, width: WIDTH*0.08, alignSelf: 'center', borderRadius: HEIGHT*0.03, backgroundColor: colorMix.violet_40 }}></Pressable>
           <Text style={{
             fontSize: HEIGHT*0.022,
-            fontWeight: 600,
+            fontWeight: '600',
             textAlign: 'center',
             marginTop: HEIGHT*0.03
           }}>Remove this transaction ?</Text>

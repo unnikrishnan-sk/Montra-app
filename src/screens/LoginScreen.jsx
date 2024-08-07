@@ -78,7 +78,7 @@ const LoginScreen = () => {
         </View>
        {firebaseError ? <Text style={{
         color: colorMix.red_100,
-        fontWeight: 500,
+        fontWeight: '500',
         alignSelf: 'center',
         marginTop: HEIGHT*0.01
        }}>{firebaseError}</Text> : null }
@@ -92,7 +92,7 @@ const LoginScreen = () => {
         style={{
             color: colorMix.violet_100,
             fontSize: HEIGHT*0.023,
-            fontWeight: 500,
+            fontWeight: '500',
             alignSelf: 'center',
             marginTop: HEIGHT*0.035
         }}>Forgot Password?</Text>
@@ -101,7 +101,7 @@ const LoginScreen = () => {
             color: colorMix.dark_25,
             alignSelf: 'center',
             marginTop: HEIGHT*0.04,
-            fontWeight: 500
+            fontWeight: '500'
         }}>Don't have an account yet? <Text
         onPress={()=>navigation.navigate('signup')} style={{
             color: colorMix.violet_100,
