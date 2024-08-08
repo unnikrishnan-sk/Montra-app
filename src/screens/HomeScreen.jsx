@@ -38,20 +38,12 @@ const HomeScreen = () => {
       const income = await calculateIncome(value);
       const expensess = await expenseArr();
 
-      if(onPressed===0){
-        console.log("here");
-        const dailydata = getDailyData(expensess);
-        console.log("dailydata",dailydata);
-        // setIncomeExpenseDetails(dailydata)
-      }
+      getDataDetails(onPressed,expensess);
       
       const graphArr = expensess.map(item => ({['value']: parseFloat(item.amount)}))
       setGraphData(graphArr)
       const latTransactionDet = await latTransaction();
       setRecentTransData(latTransactionDet)
-      // const renderTrans = renderTansData(onPressed);
-      // console.log("getData_renderTRans",renderTrans);
-      // console.log("lat",latTransactionDet);
       const updatedData = incomeExpenseData.map((item)=>{
         if(item.title==="Income"){
           return {...item,amount:income.toString()};
@@ -61,21 +53,64 @@ const HomeScreen = () => {
         return item;
       })
       setIncomeExpenseDetails(updatedData)
-      console.log(updatedData);
       setAccountBal(income-expense)
     }
+    // console.log("recentTRANS", recentTransData);
 
-    const getDailyData = (data) => {
-      console.log("here data",data);
-      const startOfDay = moment().startOf('day').toDate();
-      const endOfDay = moment().endOf('day').toDate();
-      console.log(startOfDay,endOfDay);
 
-      return data.filter(item => {
-        const createdAt = new Date(item.createdAt);
-        console.log("createdAt data",createdAt);
-        return createdAt >= startOfDay && createdAt <= endOfDay;
+    const getDataDetails = (onPressed,data) => {
+
+        console.log("onpressed",onPressed);
+        console.log("data",data);
+
+      const sortedData=[];
+      const currentDateFormat = new Date();
+      const currentDate = currentDateFormat.getDate();
+      const currentYear = currentDateFormat.getFullYear().toString();
+      const currentMonth = currentDateFormat.toLocaleString('default', { month: 'long'});
+      const currentDay = currentDateFormat.getDate().toString();
+
+      if(onPressed===0){
+      data.forEach(item=>{
+        if(item?.createdDate && item?.createdMonth && item?.createdYear){
+          const itemDate = item.createdDate.toString();
+          const itemMonth = item.createdMonth;
+          const itemYear = item.createdYear.toString();
+
+          // console.log("itemDate", typeof(itemDate),typeof(currentDate.toString()),itemDate, currentDay, itemMonth,currentMonth, currentYear, itemYear);
+
+          if(itemDate==currentDate.toString() && itemMonth==currentMonth && itemYear==currentYear)
+          {
+            console.log("sortedDate",sortedData);
+            console.log("item_here",item);
+          sortedData.push(item)
+          }
+        }
       })
+
+      // setRecentTransData(todaysData)
+      // console.log("todaysData", todaysData);
+      }
+      if(onPressed===2){
+        console.log("month_here");
+        console.log("data_here",data);
+        data.forEach(item=>{
+          if(item?.createdMonth && item?.createdYear){
+            const itemMonth = item.createdMonth;
+            const itemYear = item.createdYear.toString();
+
+            console.log("itemDate", typeof(itemMonth),typeof(currentMonth),itemDate, currentDay, itemMonth,currentMonth, currentYear, itemYear);
+  
+            if(itemMonth===currentMonth && itemYear===currentYear)
+            {
+              console.log("here",item);
+            sortedData.push(item)
+            }
+          }
+        })
+        setRecentTransData(sortedData)
+        console.log("monthdata", sortedData);
+        }
     }
 
     const handleDroponChange = (item) => {
@@ -83,15 +118,36 @@ const HomeScreen = () => {
       setIsFocus(false);
     }
 
-    console.log(moment(new Date()).format('YYYY'));
-
   return (
-    <View style={{ backgroundColor: colorMix.light_100 }}>
-        <View style={{ borderBottomLeftRadius: HEIGHT*0.04, borderBottomRightRadius: HEIGHT*0.04, backgroundColor: colorMix.yellow_10, paddingBottom: HEIGHT*0.03 }}>
-            <View style={{ marginTop: HEIGHT*0.07, paddingHorizontal: WIDTH*0.05, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+    <View style={{ 
+      backgroundColor: colorMix.light_100 
+      }}>
+
+        <View style={{ 
+          borderBottomLeftRadius: HEIGHT*0.04, 
+          borderBottomRightRadius: HEIGHT*0.04, 
+          backgroundColor: colorMix.yellow_10, 
+          paddingBottom: HEIGHT*0.03 }}>
+
+            <View style={{ 
+              marginTop: HEIGHT*0.07, 
+              paddingHorizontal: WIDTH*0.05, 
+              flexDirection: 'row', 
+              justifyContent: 'space-between', 
+              alignItems: 'center' }}>
+
                 <Image source={profile_avatar}/>
         <Dropdown
-          style={{ height: HEIGHT*0.08, borderColor: 'gray', borderRadius: HEIGHT*0.03, paddingHorizontal: WIDTH*0.02, borderWidth: 1, width: WIDTH*0.35, height: HEIGHT*0.06, backgroundColor: colorMix.yellow_10, borderColor: colorMix.light_20, color: colorMix.dark_100 }}
+          style={{ 
+            height: HEIGHT*0.08, 
+            borderColor: 'gray', 
+            borderRadius: HEIGHT*0.03, 
+            paddingHorizontal: WIDTH*0.02, 
+            borderWidth: 1, width: WIDTH*0.35, 
+            height: HEIGHT*0.06, 
+            backgroundColor: colorMix.yellow_10, 
+            borderColor: colorMix.light_20, 
+            color: colorMix.dark_100 }}
           selectedTextStyle={{ fontSize: HEIGHT*0.022, color: colorMix.dark_100, fontWeight: '500' }}
           inputSearchStyle={{ height: HEIGHT*0.3, fontSize: HEIGHT*0.02, color: colorMix.dark_100 }}
           data={monthData}
@@ -103,18 +159,38 @@ const HomeScreen = () => {
           value={value}
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
-          onChange={(item) => handleDroponChange()}
+          onChange={(item) => handleDroponChange(item)}
           renderLeftIcon={() => (
             <Image style={{ marginRight: WIDTH*0.02, height: HEIGHT*0.0143, width: HEIGHT*0.03, marginLeft: WIDTH*0.01 }} source={dropdown_arrow} />
           )}
-          renderRightIcon={() => null} />    
+          renderRightIcon={() => null} /> 
+
     <Pressable onPress={()=>navigation.navigate('notification')} >
+
     <Image source={notification_icon} />
+
     </Pressable>
             </View>
-            <Text style={{ alignSelf: 'center', fontSize: HEIGHT*0.02, marginTop: HEIGHT*0.015, color: colorMix.dark_25 }}>Account Balance</Text>
-            <Text style={{ alignSelf: 'center', marginTop: HEIGHT*0.015, fontSize: HEIGHT*0.05, fontWeight: '600', color: colorMix.dark_100 }}>${accountBal}</Text>
-            <View style={{ paddingHorizontal: WIDTH*0.05, justifyContent: 'space-between', marginTop: HEIGHT*0.02 }}>
+            <Text style={{ 
+              alignSelf: 'center', 
+              fontSize: HEIGHT*0.02, 
+              marginTop: HEIGHT*0.015, 
+              color: colorMix.dark_25 
+              }}>Account Balance</Text>
+
+            <Text style={{ 
+              alignSelf: 'center', 
+              marginTop: HEIGHT*0.015, 
+              fontSize: HEIGHT*0.05, 
+              fontWeight: '600', 
+              color: colorMix.dark_100 
+              }}>${accountBal}</Text>
+
+            <View style={{ 
+              paddingHorizontal: WIDTH*0.05, 
+              justifyContent: 'space-between', 
+              marginTop: HEIGHT*0.02 }}>
+
         <FlatList data={incomeExpenseDetails} horizontal showsHorizontalScrollIndicator={false} renderItem={({item})=><RenderIncomeExpense data={item} /> } keyExtractor={item=>item.id} />
         </View>
         </View>
@@ -122,17 +198,37 @@ const HomeScreen = () => {
 <ScrollView 
 showsVerticalScrollIndicator={false}
 style={{ marginBottom: HEIGHT*0.4 }}>
-        <View style={{ paddingHorizontal: WIDTH*0.05, marginTop: HEIGHT*0.01 }}>
-          <Text style={{ fontSize: HEIGHT*0.025, fontWeight: '600', marginTop: HEIGHT*0.01, color: colorMix.dark_100 }}>Spend Frequency</Text>
+        <View style={{ 
+          paddingHorizontal: WIDTH*0.05, 
+          marginTop: HEIGHT*0.01 }}>
+          <Text style={{ 
+            fontSize: HEIGHT*0.025, 
+            fontWeight: '600', 
+            marginTop: HEIGHT*0.01, 
+            color: colorMix.dark_100 }}>
+              Spend Frequency</Text>
+
         </View>
-        <View style={{ marginLeft: -WIDTH*0.1 }}>
+        <View style={{ 
+          marginLeft: -WIDTH*0.1 
+          }}>
+
         <LineChart areaChart data = {chartData}
       style={{ marginLeft: WIDTH*0.1 }} spacing={55} initialSpacing={0} thickness={6} hideAxesAndRules hideDataPoints width={WIDTH} curved startFillColor={colorMix.violet_80} endFillColor={colorMix.violet_20}  startOpacity={0.4} endOpacity={0.1} color={colorMix.violet_100}/>
+
        </View>
-       <View style={{ height: HEIGHT*0.05, paddingHorizontal: WIDTH*0.05, flexDirection: 'row', alignItems: 'center' }}>
+
+       <View style={{ 
+        height: HEIGHT*0.05, 
+        paddingHorizontal: WIDTH*0.05, 
+        flexDirection: 'row', 
+        alignItems: 'center' }}>
+
         <FlatList data={dataTimeframe} horizontal showsHorizontalScrollIndicator={false} renderItem={({item})=><RenderTimeframe data={item} setOnPressed={setOnPressed} onPressed={onPressed}/> } keyExtractor={item=>item.id}/>
        </View>
+
        <RecentTransaction recentTransData={recentTransData}/>
+
        </ScrollView>
        <BottomSlider />
     </View>

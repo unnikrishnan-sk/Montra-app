@@ -46,7 +46,7 @@ const daysArray = [];
     for(let i=0;i<daysInMonth-1;i++){
       daysArray.push({name: i+1, value: i+1})
     }
-    // console.log("daysarray",daysArray);
+    console.log("daysarray",daysArray);
     // setDateData(daysArray)
     // console.log(dateData);
   },[frequencyData.month])

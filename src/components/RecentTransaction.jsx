@@ -1,14 +1,26 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Pressable, Text, View, FlatList } from 'react-native'
 import { HEIGHT, WIDTH } from '../constants/dimension'
 import { colorMix } from '../constants/color'
 import { recentTransactionData } from '../constants/dummyData'
 import RenderTransactionItems from './RenderTransactionItems'
 import { useNavigation } from '@react-navigation/native'
+import { latTransaction } from '../http/api'
 
 const RecentTransaction = ({recentTransData}) => {
 
   const navigation = useNavigation();
+  const [latTransactionDet,setLatTransactionDet] = useState([])
+
+useEffect(()=>{
+  getData();
+},[])
+
+  const getData = async () => {
+    const data = await latTransaction();
+    setLatTransactionDet(data)
+  }
+  
   // console.log("here",recentTransData);
 
   return (
@@ -22,7 +34,7 @@ const RecentTransaction = ({recentTransData}) => {
         </Pressable>
     </View>
     <FlatList 
-        data={recentTransData}
+        data={latTransactionDet}
         showsVerticalScrollIndicator={false}
         renderItem={({item})=><RenderTransactionItems data={item}/> }
         keyExtractor={item=>item.id}

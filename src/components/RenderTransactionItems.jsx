@@ -7,7 +7,8 @@ import moment from "moment";
 const RenderTransactionItems = ({data}) => {
 
     const {id,image,title,description,amount,createdAt,category} = data;
-    // console.log("category", category.toLowerCase());
+    // console.log("data", data);
+    // console.log("category", category);
     const value ={
             "shopping": "shopping",
             "subscription":"subscription",
@@ -17,7 +18,7 @@ const RenderTransactionItems = ({data}) => {
     }
 
     let backgroundColor;
-    switch (category.toLowerCase()) {
+    switch (category) {
         case value.shopping:
             backgroundColor = colorMix.yellow_20;
             break;
@@ -38,7 +39,7 @@ const RenderTransactionItems = ({data}) => {
     }
 
     let generalIcon;
-    switch (category.toLowerCase()) {
+    switch (category) {
         case value.shopping:
             generalIcon = shopping_icon;
             break;
@@ -58,7 +59,7 @@ const RenderTransactionItems = ({data}) => {
             generalIcon = null;
     }
 
-    const date = createdAt.toDate ? createdAt.toDate() : new Date(createdAt)
+    const date = createdAt?.toDate ? createdAt?.toDate() : new Date(createdAt)
     const formattedTime = moment(createdAt).format('h:mm A')
 
     return(

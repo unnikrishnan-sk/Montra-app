@@ -11,6 +11,8 @@ export const monthData = [{ id: 0, name: "January", value: "January" }, { id: 1,
 export const incomeExpenseData = [{ id: 0, image: income_icon, title: 'Income', amount: '5000' }, { id: 1, image: expense_icon, title: 'Expenses', amount: '1200' }]
 
 export const chartData = [{ value: 30 }, { value: 35 }, { value: 20 }, { value: 50 }, { value: 40 }, { value: 79 }, { value: 82 }, { value: 35 }, { value: 30 }]
+
+export const pieChartData = [{ value: 30 }, { value: 40 }, { value: 80 }]
 // export const chartData = [30,35,20,50,40,79,82,35,30]
 
 export const dataTimeframe = [{ id: 0, title: 'Today' }, { id: 1, title: 'Week' }, { id: 2, title: 'Month' }, { id: 3, title: 'Year' }]

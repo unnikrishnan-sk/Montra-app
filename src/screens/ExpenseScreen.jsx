@@ -31,7 +31,7 @@ const ExpenseScreen = () => {
         description: '',
         wallet: '',
         // amount: 0,
-        // createdAt: new Date(),
+        createdAt: new Date(),
         createdMonth: moment().format('MMMM'),
         createdDate: moment(new Date()).format('DD'),
         createdDay: moment(new Date()).format('dddd'),
@@ -143,10 +143,12 @@ const ExpenseScreen = () => {
    <View style={{ backgroundColor: colorMix.red_100, height: HEIGHT }}>
     <Navbar title="Expense" titleColor={colorMix.light_100}/>
     {/* <CategoryComponent amount={amount} category={category} setCategory={setCategory} wallet={wallet} setWallet={setWallet} response={response} isEnabled={isEnabled}/> */}
-    <View style={{ paddingHorizontal: WIDTH*0.05, marginTop: HEIGHT*0.12 }}>
-        <Text style={{ color: colorMix.light_20, fontWeight: '500', fontSize: HEIGHT*0.024 }}>How much?</Text>
-        <View style={{
-            flexDirection: 'row'
+    <View style={{ paddingHorizontal: WIDTH*0.05, marginTop: HEIGHT*0.05 }}>
+        <Text style={{ color: colorMix.light_20, fontWeight: '500', fontSize: HEIGHT*0.024 }}>
+            How much?</Text>
+        <View style={{// borderWidth: 1, 
+        flexDirection: 'row',
+            alignItems: 'center'
         }}>
             <Text style={{color: colorMix.light_100, fontSize: HEIGHT*0.085, marginTop: HEIGHT*0.01, fontWeight:'600'}}>$</Text>
         <TextInput 
@@ -201,11 +203,17 @@ const ExpenseScreen = () => {
         <Switch style={{transform: [{scaleX: .8}, {scaleY: .8}]}} trackColor={{false: colorMix.violet_20, true: colorMix.violet_100}} thumbColor={ colorMix.light_100} onValueChange={toggleSwitch} value={isEnabled} />
         </View>
         </View>
-        <View style={{ marginTop: Platform.OS==='ios' ?  HEIGHT*0.03 : HEIGHT*0.02, height: HEIGHT*0.2 }}>
+        <View style={{  marginTop: Platform.OS==='ios' ?  HEIGHT*0.14 : HEIGHT*0.035 }}>
         <ButtonComponent title="Continue" onButtonHandler={()=>handleExpense()}/>
+        
         </View> 
+        <View style={{
+            marginTop: Platform.OS==='ios'?HEIGHT*0.05:HEIGHT*0.08
+        }}>
+        <BottomSlider />
+        </View>
     </View>
-    <BottomSlider />
+    
     <Modal animationType="slide" transparent={true} visible={modalVisible} onRequestClose={() => { setModalVisible(!modalVisible) }}>
     <RepeatModalComponent setModalVisible={setModalVisible} onButtonPress={onButtonPress} onNavigate="Attachment"/>
       </Modal>

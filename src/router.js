@@ -107,7 +107,7 @@ const MyTabs = () => {
 const Router = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName='expense' screenOptions={{ headerShown: false }}>
+            <Stack.Navigator initialRouteName='detailfinancialreport' screenOptions={{ headerShown: false }}>
                 <Stack.Screen name='launch' component={LaunchScreen} />
                 <Stack.Screen name='onboard' component={OnboardingScreen} />
                 <Stack.Screen name='signup' component={SignupScreen} />
