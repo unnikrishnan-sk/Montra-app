@@ -28,6 +28,8 @@ import DetailExpenseScreen from './screens/DetailExpenseScreen';
 import BudgetScreen from './screens/BudgetScreen';
 import FinancialReport from './screens/FinancialReport';
 import DetailFinancialReport from './screens/DetailFinancialReport';
+import CreateBudget from './screens/CreateBudget';
+import DetailBudgetScreen from './screens/DetailBudgetScreen';
 
 const tabBarData = [{ id: 0, logo: home_icon, title: "Home", route: "home" }, { id: 1, logo: income_icon, title: "Income", route: "income" }, { id: 2, logo: expense_icon, title: "Expense", route: "expense" }, { id: 3, logo: transfer_icon, title: "Transfer", route: "transfer" }]
 
@@ -107,7 +109,7 @@ const MyTabs = () => {
 const Router = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName='detailfinancialreport' screenOptions={{ headerShown: false }}>
+            <Stack.Navigator initialRouteName='budget' screenOptions={{ headerShown: false }}>
                 <Stack.Screen name='launch' component={LaunchScreen} />
                 <Stack.Screen name='onboard' component={OnboardingScreen} />
                 <Stack.Screen name='signup' component={SignupScreen} />
@@ -130,6 +132,8 @@ const Router = () => {
                 <Stack.Screen name='financialreport' component={FinancialReport} />
                 <Stack.Screen name='detailfinancialreport' component={DetailFinancialReport} />
                 <Stack.Screen name='budget' component={BudgetScreen} />
+                <Stack.Screen name='createbudget' component={CreateBudget} />
+                <Stack.Screen name='detailbudget' component={DetailBudgetScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     )

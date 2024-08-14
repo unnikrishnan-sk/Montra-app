@@ -23,7 +23,7 @@ export const allTransactionData = [{ id: 0, image: shopping_icon, title: "Shoppi
 
 export const notificationData = [{ id: 0, title: "Shopping budget has exceeds the limit", desc: "Your shopping budget has exceeds the limit of monthly expense", time: "19:30" }, { id: 1, title: "Utilities budget has exceeds the limit", desc: "Your Utilities budget has exceeds the limit of monthly expense", time: "19:30" }]
 
-export const expenseCategoryType = [{ id: 0, name: "Shopping", value: "shopping" }, { id: 1, name: "Subscription", value: "subscription" }, { id: 2, name: "Food", value: "food" }, { id: 3, name: "Transportation", value: "transportation" }]
+export const expenseCategoryType = [{ id: 0, name: "Shopping", value: "Shopping" }, { id: 1, name: "Subscription", value: "Subscription" }, { id: 2, name: "Food", value: "Food" }, { id: 3, name: "Transportation", value: "Transportation" }]
 
 export const incomeCategoryType = [{ id: 0, name: "Salary", value: "salary" }, { id: 1, name: "Passive Income", value: "passiveIncome" }]
 
@@ -48,3 +48,4 @@ export const endAfterDetails = [{}]
 export const monthsDetails = [{ id: 0, name: 'Jan', value: 'January' }, { id: 0, name: 'Feb', value: 'February' }, { id: 0, name: 'Mar', value: 'March' }, { id: 0, name: 'Apr', value: 'April' }, { id: 0, name: 'May', value: 'May' }, { id: 0, name: 'Jun', value: 'June' }, { id: 0, name: 'July', value: 'July' }, { id: 0, name: 'Aug', value: 'August' }, { id: 0, name: 'Sep', value: 'September' }, { id: 0, name: 'Oct', value: 'October' }, { id: 0, name: 'Nov', value: 'November' }, { id: 0, name: 'Dec', value: 'December' }]
 
 // export const dateDetails = [{id:0}]
+

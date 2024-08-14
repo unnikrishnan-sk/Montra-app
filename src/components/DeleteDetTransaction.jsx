@@ -6,13 +6,9 @@ import ButtonComponent from './ButtonComponent';
 import BottomSlider from './BottomSlider';
 import { shadowStyles } from '../constants/shadow';
 
-const DeleteDetTransaction = ({deleteModal, setDeleteModal}) => {
+const DeleteDetTransaction = ({deleteModal, setDeleteModal, title, desc, onButtonHandler}) => {
 
   const [transModal,setTransModal] = useState();
-
-  const handleDeleteTrans = () => {
-
-  }
     console.log("deleteModal");
 
   return (
@@ -47,21 +43,24 @@ const DeleteDetTransaction = ({deleteModal, setDeleteModal}) => {
             fontWeight: '600',
             textAlign: 'center',
             marginTop: HEIGHT*0.03
-          }}>Remove this transaction ?</Text>
+          }}>{title}</Text>
           <Text style={{
             width: WIDTH*0.85,
             alignSelf: 'center',
             marginTop: HEIGHT*0.02,
             textAlign: 'center',
+            fontSize: HEIGHT*0.024,
             color: colorMix.dark_25
-          }}>Are you sure do you wanna remove this transaction?</Text>
+          }}>{desc}</Text>
           <View style={{
             // borderWidth: 1,
+            paddingHorizontal: WIDTH*0.05,
+            justifyContent: 'space-between',
             marginTop: HEIGHT*0.02,
             flexDirection: 'row'
           }}>
            <ButtonComponent title="No" bgColor={colorMix.violet_20} txtColor={colorMix.violet_100} btnWidth={WIDTH*0.4} onButtonHandler={()=>setDeleteModal(false)}/>
-           <ButtonComponent title="Yes" btnWidth={WIDTH*0.4} onButtonHandler={handleDeleteTrans}/>
+           <ButtonComponent title="Yes" btnWidth={WIDTH*0.4} onButtonHandler={onButtonHandler}/>
           </View>
           
           </View>

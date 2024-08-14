@@ -63,6 +63,56 @@ export const latTransaction = async () => {
     }
 }
 
+export const getBudgetData = async () => {
+
+    try {
+        const querySnapshot = await firestore().collection('Budget').get();
+        const budgetData = querySnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }))
+        return budgetData;
+
+    } catch (error) {
+        console.log("error fetching budget data", error);
+        return [];
+    }
+}
+
+export const getTotalExpenseForCategory = async (category) => {
+    try {
+        console.log("category here", category);
+        const expenseSnapshot = await firestore().collection('Expenses').where('category', '==', category).get();
+        console.log("expense Snapshot", expenseSnapshot);
+        const expenses = expenseSnapshot.docs.map(doc => doc.data());
+        console.log("expenses here", expenses);
+        const totalExpense = expenses.reduce((total, expense) => total + (Number(expense.amount) || 0), 0);
+        return totalExpense;
+    } catch (error) {
+        console.log("Error fetching expenses", error);
+    }
+}
+
+export const getAllBudgetData = async () => {
+    try {
+        const budgetData = await getBudgetData();
+        console.log("here", budgetData);
+        const budgetDataWithExpenses = await Promise.all(
+            budgetData.map(async (budget) => {
+                const totalExpense = await getTotalExpenseForCategory(budget.budgetCat);
+                return {
+                    ...budget,
+                    totalExpense,
+                };
+            })
+        );
+        return budgetDataWithExpenses;
+    } catch (error) {
+        console.log('Error combining budget data with expenses:', error);
+        return [];
+    }
+};
+
 export const renderTansData = async (btnVal) => {
     console.log("btn value", btnVal);
 

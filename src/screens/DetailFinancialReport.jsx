@@ -11,6 +11,7 @@ import { BarChart, LineChart, PieChart, PieChartPro } from 'react-native-gifted-
 import RenderTransactionItems from '../components/RenderTransactionItems'
 import PieChartData from '../components/PieChartData'
 import { latTransaction } from '../http/api'
+import { Circle, Svg } from 'react-native-svg'
 
 const DetailFinancialReport = () => {
 
@@ -161,6 +162,19 @@ console.log(chartSelected);
         shadowOpacity: 0.5,
         shadowRadius: 5,
         elevation: 50, }} innerRadius={WIDTH*0.22} radius={WIDTH*0.28} shadow innerCircleBorderWidth={10} shiftInnerCenterX={100} shiftInnerCenterY={100} tilt={0.5}  isThreeD   />
+
+         <Svg height={WIDTH * 1} width={WIDTH * 1} style={{ position: 'absolute', top: 0.5, left: 0 }}>
+          <Circle cx={WIDTH * 0.53} cy={WIDTH * 0.21} r={WIDTH * 0.25} stroke="blue" strokeWidth={WIDTH*0.06} fill="none" transform={`rotate(${10}, ${WIDTH*0.04},${WIDTH*0.04})`} />
+          {/* <SvgText
+            x={WIDTH * 0.4}
+            y={WIDTH * 0.4}
+            textAnchor="middle"
+            alignmentBaseline="central"
+            fontSize="20"
+            fill="black">
+            Custom Text
+          </SvgText> */}
+        </Svg>
        
        </View>)}
 

@@ -1,16 +1,55 @@
-import React, { useState } from 'react'
-import { Image, Pressable, Text, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { FlatList, Image, Pressable, Text, View } from 'react-native'
 import { HEIGHT, WIDTH } from '../constants/dimension'
-import { arrow_left, arrow_right, arrow_right_white, back_arrow_white, right_arrow } from '../assets'
+import { arrow_left, arrow_right, arrow_right_white, back_arrow_white, right_arrow, warning_symbol } from '../assets'
 import { colorMix } from '../constants/color'
 import moment from 'moment'
+import * as Progress from 'react-native-progress'
+import ButtonComponent from '../components/ButtonComponent'
+import { useNavigation } from '@react-navigation/native'
+import RenderBudgets from '../components/RenderBudgets'
+import BottomSlider from '../components/BottomSlider'
+import { getAllBudgetData, getBudgetData } from '../http/api'
 
-// const months = [{name: }]
+
+const budgetData = [{id:0, category: 'Shopping', amountSpent: '1200' , totalBudget: '1000', isLimitExceeded: true}, {id:1, category: 'Transportation', amountSpent: '350' , totalBudget: '700', isLimitExceeded: false}] 
 
 const BudgetScreen = () => {
 
     const [ month,setMonth ] = useState(moment(new Date()));
-     console.log(moment(month).format('MMMM'));
+    const [budgetDatas,setBudgetDatas] = useState([]);
+
+    const navigation = useNavigation();
+
+    //  console.log(moment(month).format('MMMM'));
+
+     useEffect(()=>{
+        fetchData()
+     },[])
+
+     const fetchData = async () => {
+        const data = await getAllBudgetData();
+        console.log("datas",data.id);
+        setBudgetDatas(data);
+    }
+
+    //  console.log("budgetDatas here",budgetDatas);
+
+    //  const getAllBudgetData = async () => {
+    //     const data = await getBudgetData()
+    //     const budgetDataWithExpenses = await Promise.all(
+    //         budgetData.map(async (budget) => {
+    //             const totalExpense = await getTotalExpenseForCategory(budget.budgetCat);
+    //             return{
+    //                 ...budget,
+    //                 totalExpense,
+    //             }
+    //         })
+    //     )
+    //     return budgetDataWithExpenses;
+    //     setBudgetDatas(data)
+    //     console.log(data);
+    //  }
 
      const previousMonth = () => {
         setMonth(month.clone().subtract(1,'month'))
@@ -23,11 +62,15 @@ const BudgetScreen = () => {
      
 
   return (
-    <View>
+    <View style={{
+        backgroundColor: colorMix.violet_100,
+        // height: HEIGHT
+    }}>
         <View style={{
             // borderWidth: 1,
+            // height: HEIGHT,
             // marginTop: HEIGHT*0.03
-            paddingTop: HEIGHT*0.06,
+            paddingTop: HEIGHT*0.08,
             backgroundColor: colorMix.violet_100,
             flexDirection: 'row',
             paddingHorizontal: WIDTH*0.05,
@@ -60,11 +103,65 @@ const BudgetScreen = () => {
             />
             </Pressable>
         </View>
-        <View style={{
-            
-        }}>
 
+       
+        <View style={{
+            // borderWidth:1,
+            marginTop: HEIGHT*0.02,
+            height: HEIGHT*0.75,
+            backgroundColor: colorMix.light_80,
+            borderTopLeftRadius: HEIGHT*0.03,
+            borderTopRightRadius: HEIGHT*0.03,
+            // height: HEIGHT*0.9,
+            // alignItems: 'center',
+            // justifyContent: 'center'
+        }}>
+            {budgetDatas && budgetDatas.length>0 ?
+            <View style={{
+            // borderWidth: 1,
+            // height: HEIGHT*0.2,
+            // borderRadius: HEIGHT*0.02
+            paddingHorizontal: WIDTH*0.05,
+            paddingVertical: HEIGHT*0.02
+        }}>
+           <FlatList 
+        data={budgetDatas}
+        showsVerticalScrollIndicator={false}
+        renderItem={({item})=><RenderBudgets data={item}/> }
+        keyExtractor={item=>item.id}
+        />
+
+        </View> : 
+         <View style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: HEIGHT*0.72
+        }}>
+        <Text style={{
+            textAlign: 'center',
+            marginTop: HEIGHT*0.02,
+            color: colorMix.dark_25
+        }}>You don't have a budget.</Text>
+        <Text style={{
+            textAlign: 'center',
+            color: colorMix.dark_25
+        }}>Let's make one so you in control.</Text>
         </View>
+        }
+        </View>
+          
+        <View style={{
+            // borderWidth:1,
+            width: WIDTH,
+                position: 'absolute',
+                bottom: HEIGHT*0.01,
+                // marginBottom: HEIGHT*0.03,
+                // marginTop: HEIGHT*0.03,
+                paddingHorizontal: WIDTH*0.05
+            }}>
+            <ButtonComponent title="Create a budget" onButtonHandler={()=>navigation.navigate('createbudget')}/>
+            </View>
+           
     </View>
   )
 }

@@ -215,7 +215,7 @@ const DetailTransaction = () => {
         <BottomSlider/>
 
         {/* <View> */}
-        <DeleteDetTransaction deleteModal={deleteModal} setDeleteModal={setDeleteModal}/>
+        <DeleteDetTransaction title="Remove this transaction?" desc="Are you sure you wanna remove this transaction?" deleteModal={deleteModal} setDeleteModal={setDeleteModal}/>
         {/* </View> */}
             </View>
         )

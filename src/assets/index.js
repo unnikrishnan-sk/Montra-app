@@ -81,6 +81,9 @@ import scanned_image from './scanned_image/scanned_image.png'
 
 import arrow_left from './arrow_left/arrow_left.png'
 import arrow_right_white from './arrow_right_white/arrow_right_white.png'
+import warning_symbol from './warning_symbol/warning_symbol.png'
+import trash_icon_dark from './trash_icon_dark/trash_icon_dark.png'
+import warning_icon_white from './warning_icon_white/warning_icon_white.png'
 
 // Financial Report Detail
 
@@ -90,4 +93,4 @@ import pie_chart_icon_violet from './pie_chart_icon_violet/pie_chart_icon_violet
 import line_chart_icon_violet from './line_chart_icon_violet/line_chart_icon_violet.png'
 import report_sort_icon from './report_sort_icon/report_sort_icon.png'
 
-export { ellipse, onboarding_1, onboarding_2, onboarding_3, back_arrow, pass_icon, google_logo, tick_icon, email_sent, arrow_right, success_icon, back_arrow_white, chase_bank, paypal_bank, citi_bank, bank_of_america, jago_bank, mandiri_bank, bca_bank, profile_avatar, notification_icon, dropdown_arrow, income_icon, expense_icon, shopping_icon, subscription_icon, food_icon, more_icon, arrow_down, attachment_icon, transfer_icon, camera_icon, gallery_icon, doc_icon, close_icon, success_icon_blue, home_icon, income_icon_white, expense_icon_white, transfer_icon_white, sort_icon, right_arrow, income_general_icon, transportation_general_icon, trash_icon, scanned_image, arrow_left, arrow_right_white, line_chart_icon_white, line_chart_icon_violet, pie_chart_icon_violet, pie_chart_icon_white, report_sort_icon }
+export { ellipse, onboarding_1, onboarding_2, onboarding_3, back_arrow, pass_icon, google_logo, tick_icon, email_sent, arrow_right, success_icon, back_arrow_white, chase_bank, paypal_bank, citi_bank, bank_of_america, jago_bank, mandiri_bank, bca_bank, profile_avatar, notification_icon, dropdown_arrow, income_icon, expense_icon, shopping_icon, subscription_icon, food_icon, more_icon, arrow_down, attachment_icon, transfer_icon, camera_icon, gallery_icon, doc_icon, close_icon, success_icon_blue, home_icon, income_icon_white, expense_icon_white, transfer_icon_white, sort_icon, right_arrow, income_general_icon, transportation_general_icon, trash_icon, scanned_image, arrow_left, arrow_right_white, line_chart_icon_white, line_chart_icon_violet, pie_chart_icon_violet, pie_chart_icon_white, report_sort_icon, warning_symbol, trash_icon_dark, warning_icon_white }
