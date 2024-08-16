@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { NavigationContainer, useNavigation } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import LaunchScreen from './screens/LaunchScreen';
@@ -19,7 +19,7 @@ import IncomeScreen from './screens/IncomeScreen';
 import ExpenseScreen from './screens/ExpenseScreen';
 import TransferScreen from './screens/TransferScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { expense_icon, expense_icon_white, home_icon, income_icon, income_icon_white, transfer_icon, transfer_icon_white } from './assets';
+import { budget_tab, expense_icon, expense_icon_white, home_icon, income_icon, income_icon_white, plus_icon_tab, profile_tab, transaction_tab, transfer_icon, transfer_icon_white } from './assets';
 import { FlatList, Image, Pressable, Text, View } from 'react-native';
 import { HEIGHT, WIDTH } from './constants/dimension';
 import { colorMix } from './constants/color';
@@ -30,44 +30,79 @@ import FinancialReport from './screens/FinancialReport';
 import DetailFinancialReport from './screens/DetailFinancialReport';
 import CreateBudget from './screens/CreateBudget';
 import DetailBudgetScreen from './screens/DetailBudgetScreen';
+import ProfileScreen from './screens/ProfileScreen';
+import AccountScreen from './screens/AccountScreen';
+import DetailAccountScreen from './screens/DetailAccountScreen';
 
-const tabBarData = [{ id: 0, logo: home_icon, title: "Home", route: "home" }, { id: 1, logo: income_icon, title: "Income", route: "income" }, { id: 2, logo: expense_icon, title: "Expense", route: "expense" }, { id: 3, logo: transfer_icon, title: "Transfer", route: "transfer" }]
+const tabBarData = [{ id: 0, logo: home_icon, title: "Home", route: "home" }, { id: 1, logo: transaction_tab, title: "Transaction", route: "transaction" }, { id: 2, logo: plus_icon_tab }, { id: 3, logo: budget_tab, title: "Budget", route: "budget" }, { id: 4, logo: profile_tab, title: "Profile", route: "profile" }]
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const RenderTabBar = ({ data }) => {
+const RenderTabBar = ({ data, isFocused }) => {
 
+    const [centerTab, setCenterTab] = useState(false);
     const { id, logo, title, route } = data;
     const navigation = useNavigation();
 
     return (
-        <Pressable
-            onPress={() => navigation.navigate(route)}
-            style={{
-                // borderWidth: 1,
-                borderColor: colorMix.light_80,
-                alignItems: 'center',
-                // justifyContent: 'space-between',
-                marginLeft: id !== 0 ? WIDTH * 0.03 : 0
-            }}>
-            <Image
-                style={{
-                    height: id === 3 ? HEIGHT * 0.03 : HEIGHT * 0.033,
-                    padding: HEIGHT * 0.01,
-                    width: HEIGHT * 0.033
-                }}
-                source={logo}
-            />
-            <Text style={{
-                fontSize: HEIGHT * 0.02,
-                color: colorMix.white
-            }}>{title}</Text>
-        </Pressable>
+        <>
+            {id === 2 ?
+
+                <Pressable
+                    onPress={() => setCenterTab(!centerTab)}
+                    style={{
+                        // borderWidth: 1,
+                        height: HEIGHT * 0.07,
+                        width: HEIGHT * 0.07,
+                        borderRadius: HEIGHT * 0.035,
+                        backgroundColor: colorMix.violet_100,
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
+                    <Image
+                        style={{
+                            height: HEIGHT * 0.033,
+                            width: HEIGHT * 0.033,
+                            // rotate: transform: [{rotate: '45deg'}],
+                        }}
+                        source={plus_icon_tab}
+                    />
+                </Pressable>
+
+                : <Pressable
+                    onPress={() => navigation.navigate(route)}
+                    style={{
+                        // borderWidth: 1,
+                        // borderColor: colorMix.light_80,
+                        alignItems: 'center',
+                        // justifyContent: 'space-between',
+                        marginLeft: id !== 0 ? WIDTH * 0.03 : 0
+                    }}>
+                    <Image
+                        style={{
+                            // borderWidth: 1,
+                            tintColor: isFocused ? colorMix.blue_100 : colorMix.light_20,
+                            height: id === 3 ? HEIGHT * 0.035 : HEIGHT * 0.037,
+                            // : HEIGHT * 0.033,
+                            padding: HEIGHT * 0.01,
+                            width: id === 3 ? HEIGHT * 0.03 : HEIGHT * 0.035
+                        }}
+                        source={logo}
+                    />
+                    <Text style={{
+                        fontSize: HEIGHT * 0.018,
+                        marginTop: HEIGHT * 0.006,
+                        color: isFocused ? colorMix.blue_100 : colorMix.dark_25
+                    }}>{title}</Text>
+                </Pressable>}
+
+        </>
     )
 }
 
-const MyTabBar = () => {
+const MyTabBar = ({ state, descriptors, navigation }) => {
+
     return (
         <View style={{
             // borderWidth: 1,
@@ -78,6 +113,12 @@ const MyTabBar = () => {
             // alignItems: 'center',
             // justifyContent: 'space-between'
         }}>
+            {state.routes.map((route, index) => {
+                const { options } = descriptors[route.key];
+                const label = options.tabBarLabel !== undefined ? options.tabBarLabel : options.title !== undefined ? options.title : route.name;
+
+                const isFocused = state.index === index;
+            })}
             <FlatList
                 contentContainerStyle={{
                     justifyContent: 'space-between',
@@ -85,8 +126,11 @@ const MyTabBar = () => {
                     width: WIDTH * 0.9
                 }}
                 horizontal
-                data={tabBarData}
-                renderItem={({ item }) => <RenderTabBar data={item} />}
+                data={tabBarData.map((item, index) => ({
+                    ...item,
+                    isFocused: state.index === index
+                }))}
+                renderItem={({ item }) => <RenderTabBar data={item} isFocused={item.isFocused} />}
                 keyExtractor={item => item.id}
             />
         </View>
@@ -98,9 +142,9 @@ const MyTabs = () => {
         <Tab.Navigator tabBar={props => <MyTabBar {...props} />}
         >
             <Tab.Screen name="home" component={HomeScreen} options={{ headerShown: false }} />
-            <Tab.Screen name="income" component={IncomeScreen} options={{ headerShown: false }} />
-            <Tab.Screen name="expense" component={ExpenseScreen} options={{ headerShown: false }} />
-            <Tab.Screen name="transfer" component={TransferScreen} options={{ headerShown: false }} />
+            <Tab.Screen name="transaction" component={TransactionScreen} options={{ headerShown: false }} />
+            <Tab.Screen name="budget" component={BudgetScreen} options={{ headerShown: false }} />
+            <Tab.Screen name="profile" component={ProfileScreen} options={{ headerShown: false }} />
             {/* <Tab.Screen name="transaction" component={TransactionScreen} options={{ headerShown: false }} /> */}
         </Tab.Navigator>
     )
@@ -109,7 +153,7 @@ const MyTabs = () => {
 const Router = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName='budget' screenOptions={{ headerShown: false }}>
+            <Stack.Navigator initialRouteName='launch' screenOptions={{ headerShown: false }}>
                 <Stack.Screen name='launch' component={LaunchScreen} />
                 <Stack.Screen name='onboard' component={OnboardingScreen} />
                 <Stack.Screen name='signup' component={SignupScreen} />
@@ -124,16 +168,19 @@ const Router = () => {
                 <Stack.Screen name='signsuccess' component={SignupSuccess} />
                 <Stack.Screen name='myTabs' component={MyTabs} />
                 <Stack.Screen name='notification' component={NotificationScreen} />
-                <Stack.Screen name='income' component={IncomeScreen} />
-                <Stack.Screen name='expense' component={ExpenseScreen} />
+                {/* <Stack.Screen name='income' component={IncomeScreen} /> */}
+                {/* <Stack.Screen name='expense' component={ExpenseScreen} /> */}
                 <Stack.Screen name='transfer' component={TransferScreen} />
-                <Stack.Screen name='transaction' component={TransactionScreen} />
+                {/* <Stack.Screen name='transaction' component={TransactionScreen} /> */}
                 <Stack.Screen name='detailtransaction' component={DetailExpenseScreen} />
                 <Stack.Screen name='financialreport' component={FinancialReport} />
                 <Stack.Screen name='detailfinancialreport' component={DetailFinancialReport} />
-                <Stack.Screen name='budget' component={BudgetScreen} />
+                {/* <Stack.Screen name='budget' component={BudgetScreen} /> */}
                 <Stack.Screen name='createbudget' component={CreateBudget} />
                 <Stack.Screen name='detailbudget' component={DetailBudgetScreen} />
+                {/* <Stack.Screen name='profile' component={ProfileScreen} /> */}
+                <Stack.Screen name='account' component={AccountScreen} />
+                <Stack.Screen name='detailaccount' component={DetailAccountScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     )

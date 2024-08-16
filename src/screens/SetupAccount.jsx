@@ -34,7 +34,8 @@ const SetupAccount = () => {
         position: 'absolute',
         bottom: HEIGHT*0.08,
         right: 0,
-        left: 0
+        left: 0,
+        paddingHorizontal: WIDTH*0.05
         // marginTop: HEIGHT*0.4
     }}>
     <ButtonComponent title="Let's go" onButtonHandler={()=>navigation.navigate('addaccount')}/>

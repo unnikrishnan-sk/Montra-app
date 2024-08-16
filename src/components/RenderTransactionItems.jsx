@@ -10,11 +10,11 @@ const RenderTransactionItems = ({data}) => {
     // console.log("data", data);
     // console.log("category", category);
     const value ={
-            "shopping": "shopping",
-            "subscription":"subscription",
-            "food": "food",
-            "salary" : "salary",
-            "transportation": "transportation"
+            "shopping": "Shopping",
+            "subscription":"Subscription",
+            "food": "Food",
+            "salary" : "Salary",
+            "transportation": "Transportation"
     }
 
     let backgroundColor;
@@ -80,7 +80,8 @@ const RenderTransactionItems = ({data}) => {
             </View>
             </View>
             <View style={{ justifyContent: 'space-around' }}>
-                <Text style={{ alignSelf: 'flex-end', fontWeight: '500', color: colorMix.red_100, fontSize: HEIGHT*0.023 }}>-${amount}</Text>
+                <Text style={{ alignSelf: 'flex-end', fontWeight: '500', color: category===value.salary ? colorMix.green_100 : colorMix.red_100, fontSize: HEIGHT*0.023 }}>
+                    {category===value.salary ? `$${amount}`: `-$${amount}`}</Text>
                 <Text style={{ color: colorMix.dark_25, fontSize: HEIGHT*0.018 }}>{formattedTime}</Text>
             </View>
         </View>

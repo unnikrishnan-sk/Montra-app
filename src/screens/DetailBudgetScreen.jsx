@@ -20,7 +20,6 @@ const DetailBudgetScreen = ({route}) => {
     const [isLimitExceeded,setIsLimitExceeded] = useState(false);
     const bgColor = handleCategoryColor(budgetCat)
     console.log(bgColor);
-    // const n=backImage = handleCategoryColor(b)
     const RemainingAmnt = Number(budgetAmnt-totalExpense);
     const progress = Number(totalExpense/budgetAmnt)
     const navigation = useNavigation();

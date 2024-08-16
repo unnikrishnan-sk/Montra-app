@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Navbar from '../components/Navbar'
 import { Easing, Text, View } from 'react-native'
 import { colorMix } from '../constants/color'
-import { HEIGHT } from '../constants/dimension'
+import { HEIGHT, WIDTH } from '../constants/dimension'
 import InputComponent from '../components/InputComponent'
 import { loginDetails } from '../constants/dummyData'
 import ButtonComponent from '../components/ButtonComponent'
@@ -34,7 +34,7 @@ const LoginScreen = () => {
           const {email,password} = logindata;
           try {
             await auth().signInWithEmailAndPassword(email, password)
-            navigation.navigate('home')
+            navigation.navigate('myTabs')
           } catch (error) {
             handleAuthError(error,setFirebaseError)
           }
@@ -83,7 +83,8 @@ const LoginScreen = () => {
         marginTop: HEIGHT*0.01
        }}>{firebaseError}</Text> : null }
         <View style={{
-            marginTop: firebaseError ? HEIGHT*0.015 :HEIGHT*0.05
+            marginTop: firebaseError ? HEIGHT*0.015 :HEIGHT*0.05,
+            paddingHorizontal: WIDTH*0.05
         }}>
         <ButtonComponent title="Login" onButtonHandler={()=>loginFn()}/>
         </View>

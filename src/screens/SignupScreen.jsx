@@ -86,11 +86,11 @@ const SignupScreen = () => {
         {agreeError && !agree && <Text style={{ color: colorMix.red_100, fontWeight: '500', marginLeft: WIDTH*0.05 }}>{agreeError}</Text>}
       </View>
       {firebaseError ? <Text style={{ color: colorMix.red_100, fontWeight: '500', alignSelf: 'center', marginTop: HEIGHT*0.01 }}>{firebaseError}</Text> : null }
-      <View style={{ marginTop:firebaseError ? HEIGHT*0.015 : HEIGHT*0.025 }}>
+      <View style={{ marginTop:firebaseError ? HEIGHT*0.015 : HEIGHT*0.025, paddingHorizontal: WIDTH*0.05 }}>
       <ButtonComponent title="Sign Up" onButtonHandler={()=>signFn()}/>
       </View>
       <Text style={{ alignSelf: 'center', marginTop: HEIGHT*0.015, fontSize: HEIGHT*0.018, color: colorMix.dark_50 }}>Or with</Text>
-      <View style={{ marginTop: HEIGHT*0.02 }}>
+      <View style={{ marginTop: HEIGHT*0.02, paddingHorizontal:WIDTH*0.05 }}>
       <ButtonComponent onButtonHandler={()=>signFn()} title="Sign Up with Google" bgColor={colorMix.light_100} txtColor={colorMix.dark_100} brdrColor={colorMix.light_20} logo={google_logo}/>
       </View>
       <Text style={{ alignSelf: 'center', marginTop: HEIGHT*0.02, color: colorMix.dark_25 }}>Already have an account? <Text onPress={()=>navigation.navigate('login')}

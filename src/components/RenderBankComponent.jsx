@@ -1,4 +1,7 @@
 import React from 'react'
+import { Image, Pressable, Text } from 'react-native';
+import { HEIGHT, WIDTH } from '../constants/dimension';
+import { colorMix } from '../constants/color';
 
 const RenderBank = ({data,onPress,selectedBank}) => {
     const {id,name,logo,text} = data;

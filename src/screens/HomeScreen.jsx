@@ -27,7 +27,7 @@ const HomeScreen = () => {
     const [accountBal,setAccountBal] = useState();
     const navigation = useNavigation();
 
-    // console.log("starts here",onPressed);
+    console.log("starts here_ ",graphData);
     
     useEffect(()=>{
       getData();
@@ -41,6 +41,7 @@ const HomeScreen = () => {
       getDataDetails(onPressed,expensess);
       
       const graphArr = expensess.map(item => ({['value']: parseFloat(item.amount)}))
+      console.log("graph_arr",graphArr);
       setGraphData(graphArr)
       const latTransactionDet = await latTransaction();
       setRecentTransData(latTransactionDet)
@@ -148,22 +149,22 @@ const HomeScreen = () => {
             backgroundColor: colorMix.yellow_10, 
             borderColor: colorMix.light_20, 
             color: colorMix.dark_100 }}
-          selectedTextStyle={{ fontSize: HEIGHT*0.022, color: colorMix.dark_100, fontWeight: '500' }}
-          inputSearchStyle={{ height: HEIGHT*0.3, fontSize: HEIGHT*0.02, color: colorMix.dark_100 }}
-          data={monthData}
-          maxHeight={HEIGHT*0.3}
-          labelField="name"
-          valueField="value"
-          placeholderStyle={{ color: colorMix.dark_100, fontSize: HEIGHT*0.02 }}
-          showsVerticalScrollIndicator={false}
-          value={value}
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
-          onChange={(item) => handleDroponChange(item)}
-          renderLeftIcon={() => (
-            <Image style={{ marginRight: WIDTH*0.02, height: HEIGHT*0.0143, width: HEIGHT*0.03, marginLeft: WIDTH*0.01 }} source={dropdown_arrow} />
-          )}
-          renderRightIcon={() => null} /> 
+            selectedTextStyle={{ fontSize: HEIGHT*0.022, color: colorMix.dark_100, fontWeight: '500' }}
+            inputSearchStyle={{ height: HEIGHT*0.3, fontSize: HEIGHT*0.02, color: colorMix.dark_100 }}
+            data={monthData}
+            maxHeight={HEIGHT*0.3}
+            labelField="name"
+            valueField="value"
+            placeholderStyle={{ color: colorMix.dark_100, fontSize: HEIGHT*0.02 }}
+            showsVerticalScrollIndicator={false}
+            value={value}
+            onFocus={() => setIsFocus(true)}
+            onBlur={() => setIsFocus(false)}
+            onChange={(item) => handleDroponChange(item)}
+            renderLeftIcon={() => (
+              <Image style={{ marginRight: WIDTH*0.02, height: HEIGHT*0.0143, width: HEIGHT*0.03, marginLeft: WIDTH*0.01 }} source={dropdown_arrow} />
+            )}
+            renderRightIcon={() => null} /> 
 
     <Pressable onPress={()=>navigation.navigate('notification')} >
 

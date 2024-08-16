@@ -20,7 +20,7 @@ const Navbar = ({title,titleColor,image_source,trash_height,trash_width, onPress
           onPress={onPressRightIcon}
           >
         <Image 
-        style={{height: trash_height? trash_height : HEIGHT*0.02,width: trash_width ? trash_width : HEIGHT*0.03 }} source={image_source} />
+        style={{height: trash_height? trash_height : HEIGHT*0.025,width: trash_width ? trash_width : HEIGHT*0.035 }} source={image_source} />
         </Pressable>
         </View>
         </View>

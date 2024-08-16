@@ -12,7 +12,7 @@ const SignupSuccess = () => {
 
   useEffect(()=>{
     const timer = setTimeout(()=>{
-      navigation.navigate('home')
+      navigation.navigate('myTabs')
     },2000)
   },[])
 

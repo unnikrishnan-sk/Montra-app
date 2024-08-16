@@ -73,7 +73,12 @@ const AddAccount = () => {
           onPress={handlePress} selectedBank={selectedBank} 
           />} keyExtractor={item => item.id}/>
         </View>)}
-        <View style={{ marginTop: Platform.OS==='ios' ? HEIGHT*0.1 : error ? HEIGHT*0.033 :HEIGHT*0.06 }}>
+        <View style={{ 
+          // marginTop: Platform.OS==='ios' ? HEIGHT*0.1 : error ? HEIGHT*0.033 :HEIGHT*0.06, 
+          paddingHorizontal: WIDTH*0.05,
+          position: 'absolute',
+          width: WIDTH,
+          bottom: HEIGHT*0.06 }}>
         <ButtonComponent title="Continue" onButtonHandler={onPressHandler}/>
         </View>
         <BottomSlider />

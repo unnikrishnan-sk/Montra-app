@@ -21,7 +21,7 @@ useEffect(()=>{
     setLatTransactionDet(data)
   }
   
-  // console.log("here",recentTransData);
+  console.log("here",latTransactionDet);
 
   return (
     <>
