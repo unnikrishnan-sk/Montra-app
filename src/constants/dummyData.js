@@ -15,6 +15,8 @@ export const chartData = [{ "value": 30 }, { "value": 35 }, { "value": 25 }, { "
 export const pieChartData = [{ value: 30 }, { value: 40 }, { value: 80 }]
 // export const chartData = [30,35,20,50,40,79,82,35,30]
 
+export const noExpMnthChartData = [{ "value": 0 }, { "value": 0 }, { "value": 0 }]
+
 export const dataTimeframe = [{ id: 0, title: 'Today' }, { id: 1, title: 'Week' }, { id: 2, title: 'Month' }, { id: 3, title: 'Year' }]
 
 export const recentTransactionData = [{ id: 0, image: shopping_icon, title: "Shopping", dec: 'Buy some grocery', amount: '120', time: '10:00 AM' }, { id: 1, image: subscription_icon, title: "Subscription", dec: 'Disney + Annual...', amount: '80', time: '03:30 PM' }, { id: 2, image: food_icon, title: "Food", dec: 'Buy a ramen', amount: '32', time: '07:30 PM' }]

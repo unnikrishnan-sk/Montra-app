@@ -8,6 +8,8 @@
 import React from 'react';
 import { SafeAreaView, StatusBar, useColorScheme } from 'react-native';
 import Router from './src/router';
+import { Provider } from 'react-redux';
+import { store } from './src/redux/store/store';
 
 
 function App(): React.JSX.Element {
@@ -16,12 +18,15 @@ function App(): React.JSX.Element {
   return (
     <>
       {/* // <SafeAreaView> */}
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor='transparent'
-      />
-      <Router />
-      {/* // </SafeAreaView> */}
+      <Provider store={store}>
+        <StatusBar
+          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+          backgroundColor='transparent'
+        />
+
+        <Router />
+        {/* // </SafeAreaView> */}
+      </Provider>
     </>
   );
 }

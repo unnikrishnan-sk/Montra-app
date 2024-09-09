@@ -156,10 +156,7 @@ const DetailTransaction = () => {
                     // borderWidth: 1,
                     // borderRadius: 1
                     }}>- - - - - -</Text> */}
-                    {/* <View style={{  width: '100%', borderRadius: 1, borderWidth: 1, 
-                         borderColor: 'red', borderStyle: 'dashed', zIndex: 0, }}> */}
-  {/* <View style={{ position: 'absolute', left: 0, bottom: 0, width: '100%', height: 1, backgroundColor: 'white', zIndex: 1 }} /> */}
-{/* </View> */}
+                
 
 <View style={{
     // borderWidth: 1,

@@ -41,9 +41,9 @@ export const getConstants = async () => {
     }
 }
 
-export const expenseArr = async () => {
+export const expenseArr = async (selectedMonth) => {
     try {
-        const expenseArray = await firestore().collection('Expenses').get();
+        const expenseArray = await firestore().collection('Expenses').where('createdMonth', '==', selectedMonth).get();
         return expenseArray.docs.map(doc => doc.data());
     } catch (error) {
         console.log(error);

@@ -1,9 +1,10 @@
 import React from 'react'
-import { FlatList, Image, Text, View } from 'react-native'
+import { FlatList, Image, Pressable, Text, View } from 'react-native'
 import Navbar from '../components/Navbar'
 import { HEIGHT, WIDTH } from '../constants/dimension'
 import { colorMix } from '../constants/color'
 import { right_arrow } from '../assets'
+import { useNavigation } from '@react-navigation/native'
 
 const settingsData = [{id:0, name:"Currency", type: "USD"}, {id:1, name: "Language", type: "English"}, {id:2, name: "Theme", type: "Dark"}, {id:3, name: "Security", type:" Fingerprint"}, {id:4, name: "Notification"},{id:5, name: "About"}, {id:6, name: "Help"}]
 
@@ -12,6 +13,8 @@ const RenderSettings = ({data}) => {
     const { id,name,type } = data;
 
     const settingValue = {"currency" : "Currency", "Language": "language", "Theme": "theme", "Security": "security","Notification": "notification", "about": "About", "Help": "help"}
+
+    const navigation = useNavigation();
 
     return(
         <View style={{
@@ -30,7 +33,9 @@ const RenderSettings = ({data}) => {
                 fontWeight: 400
             }}>{name}</Text>
 
-            <View style={{
+            <Pressable 
+            onPress={()=>navigation.navigate('theme')}
+            style={{
                 flexDirection: 'row',
                 alignItems: 'center'
             }}>
@@ -46,7 +51,7 @@ const RenderSettings = ({data}) => {
             }}
             source={right_arrow}
             />
-            </View>
+            </Pressable>
              </View>
     )
 }

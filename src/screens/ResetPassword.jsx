@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import Navbar from '../components/Navbar'
 import InputComponent from '../components/InputComponent'
 import { colorMix } from '../constants/color'
-import { HEIGHT } from '../constants/dimension'
+import { HEIGHT, WIDTH } from '../constants/dimension'
 import ButtonComponent from '../components/ButtonComponent'
 import BottomSlider from '../components/BottomSlider'
 import isEmpty from 'lodash/isEmpty'
@@ -56,7 +56,7 @@ const ResetPassword = () => {
                 <InputComponent key={data.id} placeholder={data.placeholder} value={reset?.[data.value]} onChangeText={text=>handleChangeForm(data.value,text)} error={error?.[data.value]} passIcon={data.passIcon}/>
             ))}
         </View>
-        <View style={{ marginTop: HEIGHT*0.045 }}>
+        <View style={{ marginTop: HEIGHT*0.045, paddingHorizontal: WIDTH*0.05 }}>
             <ButtonComponent title="Continue" onButtonHandler={()=>resetFn()}/>
         </View>
         <BottomSlider />

@@ -10,6 +10,7 @@ import { useNavigation } from '@react-navigation/native'
 import RenderBudgets from '../components/RenderBudgets'
 import BottomSlider from '../components/BottomSlider'
 import { getAllBudgetData, getBudgetData } from '../http/api'
+import { useSelector } from 'react-redux'
 
 
 const budgetData = [{id:0, category: 'Shopping', amountSpent: '1200' , totalBudget: '1000', isLimitExceeded: true}, {id:1, category: 'Transportation', amountSpent: '350' , totalBudget: '700', isLimitExceeded: false}] 
@@ -26,6 +27,8 @@ const BudgetScreen = () => {
      useEffect(()=>{
         fetchData()
      },[])
+
+     const darkMode = useSelector((state)=>state.mode.darkMode)
 
      const fetchData = async () => {
         const data = await getAllBudgetData();

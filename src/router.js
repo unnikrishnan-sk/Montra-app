@@ -34,6 +34,7 @@ import ProfileScreen from './screens/ProfileScreen';
 import AccountScreen from './screens/AccountScreen';
 import DetailAccountScreen from './screens/DetailAccountScreen';
 import SettingScreen from './screens/SettingScreen';
+import ThemeScreen from './screens/ThemeScreen';
 
 const tabBarData = [{ id: 0, logo: home_icon, title: "Home", route: "home" }, { id: 1, logo: transaction_tab, title: "Transaction", route: "transaction" }, { id: 2, logo: plus_icon_tab }, { id: 3, logo: budget_tab, title: "Budget", route: "budget" }, { id: 4, logo: profile_tab, title: "Profile", route: "profile" }]
 
@@ -191,7 +192,7 @@ const Router = () => {
                 <Stack.Screen name='income' component={IncomeScreen} />
                 <Stack.Screen name='expense' component={ExpenseScreen} />
                 <Stack.Screen name='transfer' component={TransferScreen} />
-                <Stack.Screen name='transaction' component={TransactionScreen} />
+                {/* <Stack.Screen name='transaction' component={TransactionScreen} /> */}
                 <Stack.Screen name='detailtransaction' component={DetailExpenseScreen} />
                 <Stack.Screen name='financialreport' component={FinancialReport} />
                 <Stack.Screen name='detailfinancialreport' component={DetailFinancialReport} />
@@ -202,6 +203,7 @@ const Router = () => {
                 <Stack.Screen name='account' component={AccountScreen} />
                 <Stack.Screen name='detailaccount' component={DetailAccountScreen} />
                 <Stack.Screen name='settings' component={SettingScreen} />
+                <Stack.Screen name='theme' component={ThemeScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     )

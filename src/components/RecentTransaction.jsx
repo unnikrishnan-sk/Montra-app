@@ -7,7 +7,7 @@ import RenderTransactionItems from './RenderTransactionItems'
 import { useNavigation } from '@react-navigation/native'
 import { latTransaction } from '../http/api'
 
-const RecentTransaction = ({recentTransData, centerTab}) => {
+const RecentTransaction = ({recentTransData, centerTab, darkMode}) => {
 
   const navigation = useNavigation();
   // const [latTransactionDet,setLatTransactionDet] = useState([])

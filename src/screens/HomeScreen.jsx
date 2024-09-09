@@ -5,7 +5,7 @@ import { colorMix } from '../constants/color'
 import { dropdown_arrow, expense_icon_white, income_icon, income_icon_white, notification_icon, profile_avatar, transfer_icon_white } from '../assets'
 import { Dropdown } from 'react-native-element-dropdown'
 import { LineChart } from 'react-native-gifted-charts'
-import { chartData, dataTimeframe, incomeExpenseData, monthData } from '../constants/dummyData'
+import { chartData, dataTimeframe, incomeExpenseData, monthData, noExpMnthChartData } from '../constants/dummyData'
 import RecentTransaction from '../components/RecentTransaction'
 import BottomSlider from '../components/BottomSlider'
 import { useNavigation, useRoute } from '@react-navigation/native'
@@ -14,6 +14,7 @@ import RenderTimeframe from '../components/RenderTimeFrame'
 import firestore from '@react-native-firebase/firestore';
 import { calculateExpense, calculateIncome, expenseArr, latTransaction, networkApi, renderTansData } from '../http/api'
 import moment from 'moment'
+import { useSelector } from 'react-redux'
 
 const HomeScreen = () => {
 
@@ -21,7 +22,7 @@ const HomeScreen = () => {
     const [incomeExpenseDetails,setIncomeExpenseDetails] = useState(incomeExpenseData)
     // const [showFreq,setShowFreq] = useState()
     const [recentTransData,setRecentTransData] = useState([])
-    const [graphData,setGraphData] = useState([]);
+    const [graphData,setGraphData] = useState(noExpMnthChartData);
     const [isFocus, setIsFocus] = useState(false);
     const [onPressed,setOnPressed] = useState(0);
     const [accountBal,setAccountBal] = useState();
@@ -31,6 +32,8 @@ const HomeScreen = () => {
     console.log("center tab",centerTab);
 
     console.log("starts here_ ",recentTransData);
+
+    const darkMode = useSelector((state)=>state.mode.darkMode)
     
     useEffect(()=>{
       getData();
@@ -39,13 +42,18 @@ const HomeScreen = () => {
     const getData = async () => {
       const expense = await calculateExpense(value);
       const income = await calculateIncome(value);
-      const expensess = await expenseArr();
+      const expensess = await expenseArr(value);
 
       getDataDetails(onPressed,expensess);
       
       const graphArr = expensess.map(item => ({['value']: parseFloat(item.amount)}))
-      // console.log("graph_arr",graphArr);
-      setGraphData(graphArr)
+      if(graphArr.length>0){
+        console.log("graph_arr",graphArr);
+        setGraphData(graphArr)
+      }else{
+        setGraphData(noExpMnthChartData)
+      }
+      
       const latTransactionDet = await latTransaction();
       setRecentTransData(prev => {
         return JSON.stringify(prev) !== JSON.stringify(latTransactionDet) ? latTransactionDet : prev
@@ -62,8 +70,6 @@ const HomeScreen = () => {
       setIncomeExpenseDetails(updatedData)
       setAccountBal(income-expense)
     }
-    // console.log("recentTRANS", recentTransData);
-
 
     const getDataDetails = (onPressed,data) => {
 
@@ -75,20 +81,23 @@ const HomeScreen = () => {
       const currentDay = currentDateFormat.getDate().toString();
 
       if(onPressed===0){
+        
       data.forEach(item=>{
         if(item?.createdDate && item?.createdMonth && item?.createdYear){
-          const itemDate = item.createdDate.toString().trim();
+          const itemDate = parseInt(item.createdDate.toString().trim(),10);
           const itemMonth = item.createdMonth.trim();
           const itemYear = item.createdYear.toString().trim();
 
+          console.log(itemDate,currentDate.toString());
           if(itemDate==currentDate.toString() && itemMonth==currentMonth && itemYear==currentYear)
           {
+            console.log("data_here_item",item);
           sortedData.push(item)
           }
         }
       })
 
-      // setRecentTransData(todaysData)
+      setRecentTransData(sortedData)
       // console.log("todaysData", todaysData);
       }
       if(onPressed===2){
@@ -288,8 +297,8 @@ const HomeScreen = () => {
           marginLeft: -WIDTH*0.1 
           }}>
 
-        <LineChart areaChart data = {chartData}
-      style={{ marginLeft: WIDTH*0.1 }} spacing={55} initialSpacing={0} thickness={6} hideAxesAndRules hideDataPoints width={WIDTH} curved startFillColor={colorMix.violet_80} endFillColor={centerTab ? colorMix.violet_20 : colorMix.violet_20}  startOpacity={0.4} endOpacity={0.1} color={colorMix.violet_100}/>
+        <LineChart areaChart data = {graphData}
+      style={{ marginLeft: WIDTH*0.1 }} spacing={WIDTH} initialSpacing={0} thickness={6} hideAxesAndRules hideDataPoints width={WIDTH} curved startFillColor={colorMix.violet_80} endFillColor={centerTab ? colorMix.violet_20 : colorMix.violet_20}  startOpacity={0.4} endOpacity={0.1} color={colorMix.violet_100}/>
 
        </View>
        <View style={{ 
@@ -302,7 +311,7 @@ const HomeScreen = () => {
         <FlatList data={dataTimeframe} horizontal showsHorizontalScrollIndicator={false} renderItem={({item})=><RenderTimeframe data={item} setOnPressed={setOnPressed} onPressed={onPressed} centerTab={centerTab}/> } keyExtractor={item=>item.id}/>
        </View>
 
-       <RecentTransaction recentTransData={recentTransData} centerTab={centerTab}/>
+       <RecentTransaction recentTransData={recentTransData} centerTab={centerTab} darkMode={darkMode}/>
        
        </ScrollView>
        <BottomSlider />

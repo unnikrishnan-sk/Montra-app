@@ -14,6 +14,8 @@ const TransactionScreen = () => {
     const [sort,setSort] = useState(null)
     console.log(sort);
 
+    const darkMode = useSelector((state)=>state.mode.darkMode)
+
   return (
     <View style={{
         // borderWidth: 1

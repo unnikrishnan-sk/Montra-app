@@ -11,6 +11,7 @@ import isEmpty from 'lodash/isEmpty'
 import { handleAuthError, validateEmail } from '../constants/common'
 import { useNavigation } from '@react-navigation/native'
 import auth from '@react-native-firebase/auth';
+import { useSelector } from 'react-redux'
 
 const LoginScreen = () => {
 
@@ -19,6 +20,8 @@ const LoginScreen = () => {
     const [firebaseError,setFirebaseError] = useState();
     const navigation = useNavigation();
     // console.log("firebase",firebaseError);
+
+    const darkMode = useSelector((state)=>state.mode.darkMode)
 
     const handleChangeForm = (key,value) => {
         logindata[key] = value;
@@ -63,16 +66,16 @@ const LoginScreen = () => {
 
   return (
     <View style={{
-        backgroundColor: colorMix.light_100,
+        backgroundColor: darkMode ? colorMix.dark_100 : colorMix.light_100,
         height: HEIGHT
     }}>
-        <Navbar title="Login"/>
+        <Navbar title="Login" darkMode={darkMode}/>
         <View style={{
             marginTop: HEIGHT*0.065
         }}>
             {loginDetails.map((data)=>(
                 <InputComponent key={data.id} placeholder={data.placeholder} value={logindata?.[data.value]}
-                onChangeText={text=>handleChangeForm(data.value,text)} error={error?.[data.value]} passIcon={data.passIcon}
+                onChangeText={text=>handleChangeForm(data.value,text)} error={error?.[data.value]} passIcon={data.passIcon} darkMode={darkMode}
                 />
             ))}
         </View>
@@ -108,7 +111,7 @@ const LoginScreen = () => {
             color: colorMix.violet_100,
             textDecorationLine: 'underline',
         }}>Sign Up</Text></Text>
-        <BottomSlider />
+        <BottomSlider darkMode={darkMode}/>
     </View>
   )
 }

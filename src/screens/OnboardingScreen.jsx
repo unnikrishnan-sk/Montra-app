@@ -5,15 +5,16 @@ import { HEIGHT, WIDTH } from '../constants/dimension'
 import { onboardData } from '../constants/dummyData'
 import { useNavigation } from '@react-navigation/native'
 import BottomSlider from '../components/BottomSlider'
+import { useSelector } from 'react-redux'
 
-const RenderBoading = ({data, index}) => {
+const RenderBoading = ({data, index, darkMode}) => {
 
     const { id, image, heading, desc } = data;
     const isSelected = id === index+1
 
     return(
         <View style={{
-            backgroundColor: colorMix.light_100,
+            backgroundColor: darkMode ? colorMix.dark_100 : colorMix.light_100,
             alignItems: 'center',
             justifyContent: 'center',
             width: WIDTH,
@@ -36,7 +37,7 @@ const RenderBoading = ({data, index}) => {
             fontSize: HEIGHT*0.04,
             fontWeight: '700',
             textAlign: 'center',
-            color: colorMix.dark_100
+            color: darkMode ? colorMix.light_100 : colorMix.dark_100
         }}>{heading}</Text>
         <Text style={{
             fontSize: HEIGHT*0.022,
@@ -98,6 +99,8 @@ const OnboardingScreen = () => {
 
     const navigation = useNavigation();
 
+    const darkMode = useSelector((state)=>state.mode.darkMode)
+
     const onScroll = useCallback((event)=>{
         const slideSize = event.nativeEvent.layoutMeasurement.width;
         const index = event.nativeEvent.contentOffset.x / slideSize*1.1;
@@ -118,13 +121,13 @@ const OnboardingScreen = () => {
         justifyContent: 'center',
         alignItems: 'center',
         height: HEIGHT,
-        backgroundColor: colorMix.light_100
+        backgroundColor: darkMode ? colorMix.dark_100 : colorMix.light_100
     }}>
         <FlatList 
         data={onboardData}
         horizontal
         showsHorizontalScrollIndicator={false}
-        renderItem={({item})=><RenderBoading data={item} index={index}/> }
+        renderItem={({item})=><RenderBoading data={item} index={index} darkMode={darkMode}/> }
         // ref={flatListRef}
         keyExtractor={item=>item.id}
         onScroll={onScroll}
@@ -167,7 +170,7 @@ const OnboardingScreen = () => {
             fontSize: HEIGHT*0.025,
             fontWeight: '600'
         }}>Login</Text></Pressable>
-        <BottomSlider />
+        <BottomSlider darkMode={darkMode}/>
     </View>
   )
 }

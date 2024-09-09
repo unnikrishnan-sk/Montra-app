@@ -6,8 +6,9 @@ import { HEIGHT, WIDTH } from '../constants/dimension'
 import BottomSlider from '../components/BottomSlider'
 import { more_icon } from '../assets'
 import { notificationData } from '../constants/dummyData'
+import { useSelector } from 'react-redux'
 
-const RenderNotificationItems = ({data}) => {
+const RenderNotificationItems = ({data, darkMode}) => {
 
     const {id,title,desc,time} = data;
 
@@ -32,7 +33,7 @@ const RenderNotificationItems = ({data}) => {
                 fontSize: HEIGHT*0.025,
                 fontWeight: '500',
                 width: WIDTH*0.75,
-                color: colorMix.dark_100
+                color: darkMode ? colorMix.light_100 : colorMix.dark_100
             }}>{title}</Text>
             <Text 
             numberOfLines={1}
@@ -55,18 +56,21 @@ const RenderNotificationItems = ({data}) => {
 }
 
 const NotificationScreen = () => {
+
+    const darkMode = useSelector((state)=>state.mode.darkMode)
+
   return (
     <View style={{
-        backgroundColor: colorMix.light_100,
+        backgroundColor: darkMode ? colorMix.dark_100 : colorMix.light_100,
         height: HEIGHT       
     }}>
-        <Navbar title="Notification" image_source={more_icon}/>
+        <Navbar title="Notification" image_source={more_icon} darkMode={darkMode}/>
 
 {notificationData.length >0 ? (
  <FlatList
  data={notificationData}
  showsVerticalScrollIndicator={false}
- renderItem={({item})=><RenderNotificationItems data={item}/> }
+ renderItem={({item})=><RenderNotificationItems data={item} darkMode={darkMode}/> }
  keyExtractor={item=>item.id}
  />
 ) : (
@@ -75,12 +79,12 @@ const NotificationScreen = () => {
         marginTop: HEIGHT*0.4
     }}>
     <Text style={{
-        color: colorMix.dark_25
+        color: darkMode ? colorMix.light_80 : colorMix.dark_25
     }}>There is no notification for you now</Text>
     </View>
 )}
        
-       <BottomSlider />
+       <BottomSlider darkMode={darkMode}/>
     </View>
   )
 }

@@ -19,6 +19,7 @@ import CameraModal from '../components/CameraModal'
 import CategoryComponent from '../components/CategoryComponent'
 import moment from 'moment'
 import { getConstants } from '../http/api'
+import { useSelector } from 'react-redux'
 
 const repeatDetails = [{id:0, name: "Frequency"}, {id:1, name: "End After"}]
 
@@ -52,6 +53,8 @@ const ExpenseScreen = () => {
     const [repeatModal,setRepeatModal] = useState(false);
     // const [amount,setAmount] = useState(0);
     console.log(categoryList);
+
+    const darkMode = useSelector((state)=>state.mode.darkMode)
 
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
@@ -160,7 +163,7 @@ const ExpenseScreen = () => {
         />
         </View>
     </View>
-    <View style={{  backgroundColor: colorMix.light_100, borderTopRightRadius: HEIGHT*0.04, borderTopLeftRadius: HEIGHT*0.04, marginTop: HEIGHT*0.01 }}>
+    <View style={{  backgroundColor: darkMode? colorMix.dark_100 : colorMix.light_100, borderTopRightRadius: HEIGHT*0.04, borderTopLeftRadius: HEIGHT*0.04, marginTop: HEIGHT*0.01 }}>
         <View style={{ paddingHorizontal: WIDTH*0.05 }}>
         <DropdownComponent value={expenseData?.category} setValue={(value)=>handleExpenseData('category',value)} title="Category" data={expenseCategoryType}/>
         </View>
@@ -197,7 +200,7 @@ const ExpenseScreen = () => {
         
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
         <View>
-        <Text style={{ marginTop: HEIGHT*0.03, fontSize: HEIGHT*0.024,color: colorMix.dark_100 }}>Repeat</Text>
+        <Text style={{ marginTop: HEIGHT*0.03, fontSize: HEIGHT*0.024,color: darkMode? colorMix.light_100 : colorMix.dark_100 }}>Repeat</Text>
         <Text style={{ fontSize: HEIGHT*0.02, color: colorMix.dark_25, marginTop: HEIGHT*0.01 }}>{isEnabled ? 'Repeat transaction, set your own time' : 'Repeat transaction'}</Text>
         </View>
         <Switch style={{transform: [{scaleX: .8}, {scaleY: .8}]}} trackColor={{false: colorMix.violet_20, true: colorMix.violet_100}} thumbColor={ colorMix.light_100} onValueChange={toggleSwitch} value={isEnabled} />

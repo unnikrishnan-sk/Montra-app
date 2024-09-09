@@ -13,6 +13,7 @@ import BottomSlider from '../components/BottomSlider'
 import { handleAuthError } from '../constants/common'
 import moment from 'moment'
 import { useNavigation } from '@react-navigation/native'
+import { useSelector } from 'react-redux'
 
 const IncomeScreen = () => {
 
@@ -38,6 +39,7 @@ const IncomeScreen = () => {
     
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
+    const darkMode = useSelector((state)=>state.mode.darkMode)
 
     const handleTextInputChange = (key,value) => {
         setIncomeData(prevState => ({
@@ -71,7 +73,7 @@ const IncomeScreen = () => {
         <View style={{
             flexDirection: 'row'
         }}>
-            <Text style={{color: colorMix.light_100, fontSize: HEIGHT*0.085, marginTop: HEIGHT*0.01, fontWeight: '600'}}>$</Text>
+            <Text style={{color: colorMix.light_100, fontSize: HEIGHT*0.085, marginTop: HEIGHT*0.02, fontWeight: '600'}}>$</Text>
         <TextInput 
         style={{ color: colorMix.light_100, fontSize: HEIGHT*0.085, marginTop: HEIGHT*0.01, fontWeight: '600' }}
         placeholder='0'
@@ -82,7 +84,7 @@ const IncomeScreen = () => {
         </View>
           
     </View>
-    <View style={{ backgroundColor: colorMix.light_100, borderTopRightRadius: HEIGHT*0.04, borderTopLeftRadius: HEIGHT*0.04, marginTop: HEIGHT*0.01 }}>
+    <View style={{ backgroundColor: darkMode ? colorMix.dark_100 : colorMix.light_100, borderTopRightRadius: HEIGHT*0.04, borderTopLeftRadius: HEIGHT*0.04, marginTop: HEIGHT*0.01 }}>
         <View style={{ paddingHorizontal: WIDTH*0.05 }}>
         <DropdownComponent value={incomeData?.category} setValue={(value)=>handleIncomeData('category',value)} title="Category" data={incomeCategoryType}/>
         </View>
