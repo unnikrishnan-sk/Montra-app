@@ -7,21 +7,22 @@ import RenderTransactionItems from './RenderTransactionItems'
 import { useNavigation } from '@react-navigation/native'
 import { latTransaction } from '../http/api'
 
-const RecentTransaction = ({recentTransData}) => {
+const RecentTransaction = ({recentTransData, centerTab}) => {
 
   const navigation = useNavigation();
-  const [latTransactionDet,setLatTransactionDet] = useState([])
+  // const [latTransactionDet,setLatTransactionDet] = useState([])
 
-useEffect(()=>{
-  getData();
-},[])
+// useEffect(()=>{
+//   getData();
+// },[])
 
-  const getData = async () => {
-    const data = await latTransaction();
-    setLatTransactionDet(data)
-  }
+  // const getData = async () => {
+  //   console.log(recentTransData);
+  //   // const data = await latTransaction();
+  //   setLatTransactionDet(recentTransData)
+  // }
   
-  console.log("here",latTransactionDet);
+  console.log("in transaction",recentTransData);
 
   return (
     <>
@@ -29,14 +30,14 @@ useEffect(()=>{
         <Text style={{ fontWeight: '500', fontSize: HEIGHT*0.025, color: colorMix.dark_100 }}>Recent Transaction</Text>
         <Pressable 
         onPress={()=>navigation.navigate('transaction')}
-        style={{ paddingTop: HEIGHT*0.008, paddingBottom: HEIGHT*0.008, paddingLeft: WIDTH*0.035, paddingRight: WIDTH*0.035, borderRadius: HEIGHT*0.02, backgroundColor: colorMix.violet_20 }}>
+        style={{ paddingTop: HEIGHT*0.008, paddingBottom: HEIGHT*0.008, paddingLeft: WIDTH*0.035, paddingRight: WIDTH*0.035, borderRadius: HEIGHT*0.02, backgroundColor: centerTab ? colorMix.violet_40 : colorMix.violet_20 }}>
             <Text style={{ color: colorMix.violet_100, fontSize: HEIGHT*0.02 }}>See All</Text>
         </Pressable>
     </View>
     <FlatList 
-        data={latTransactionDet}
+        data={recentTransData}
         showsVerticalScrollIndicator={false}
-        renderItem={({item})=><RenderTransactionItems data={item}/> }
+        renderItem={({item})=><RenderTransactionItems data={item} centerTab={centerTab}/> }
         keyExtractor={item=>item.id}
         />
     </>

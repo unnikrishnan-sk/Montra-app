@@ -81,7 +81,8 @@ const TransferScreen = () => {
         </View>
         <View style={{
           marginTop:HEIGHT*0.04,
-          height: HEIGHT*0.2
+          height: HEIGHT*0.2,
+          paddingHorizontal: WIDTH*0.05
         }}> 
         <ButtonComponent title="Continue"/>
         </View>

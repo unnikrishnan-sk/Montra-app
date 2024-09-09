@@ -24,7 +24,10 @@ const IncomeScreen = () => {
         // wallet: '',
         // amount: 0,
         createdAt: new Date(),
-        month: moment().format('MMMM'),
+        createdMonth: moment().format('MMMM'),
+        createdDate: moment(new Date()).format('DD'),
+        createdDay: moment(new Date()).format('dddd'),
+        createdYear: moment(new Date()).format('YYYY')
     });
     const [error,setError] = useState({})
     // const [category,setCategory] = useState()
@@ -35,9 +38,6 @@ const IncomeScreen = () => {
     
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
-    // const handleChangeForm = (key,value) => {
-    //   setDescription(value)
-    // }
 
     const handleTextInputChange = (key,value) => {
         setIncomeData(prevState => ({
@@ -62,16 +62,6 @@ const IncomeScreen = () => {
             }
         navigation.navigate('myTabs')
     }
-
-//     const handleIncome = async () => {
-//           const incomeData = {"amount" : amount, "category": category, "description": description, createdAt: new Date()}
-//           console.log(incomeData);
-//           try {
-//               await firestore().collection('Income').add(incomeData);
-//           } catch (error) {
-//               console.log("error_handleIncome", error);
-//           }
-//   }
 
   return (
    <View style={{ backgroundColor: colorMix.green_100, height: HEIGHT }}>
@@ -106,7 +96,7 @@ const IncomeScreen = () => {
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
         </View>
         </View>
-        <View style={{ marginTop: HEIGHT*0.17, height: HEIGHT*0.2 }}>
+        <View style={{ marginTop: HEIGHT*0.17, height: HEIGHT*0.2, paddingHorizontal: WIDTH*0.05 }}>
         <ButtonComponent title="Continue" onButtonHandler={()=>handleIncome()}/>
         </View>  
     </View>

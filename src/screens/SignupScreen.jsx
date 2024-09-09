@@ -12,6 +12,7 @@ import isEmpty from 'lodash/isEmpty';
 import BottomSlider from '../components/BottomSlider'
 import { handleAuthError, validateEmail } from '../constants/common'
 import auth from '@react-native-firebase/auth';
+// import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 const SignupScreen = () => {
 
@@ -45,6 +46,15 @@ const SignupScreen = () => {
     }else{
       console.log("error_signFn",error);
     }
+  }
+
+  const onGoogleButtonPress = async () => {
+    // await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true});
+
+    // const { idToken } = await GoogleSignin.signIn();
+    // const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+    // return auth().signInWithCredential(googleCredential);
   }
 
   const validateSignForm = () => {
@@ -91,7 +101,7 @@ const SignupScreen = () => {
       </View>
       <Text style={{ alignSelf: 'center', marginTop: HEIGHT*0.015, fontSize: HEIGHT*0.018, color: colorMix.dark_50 }}>Or with</Text>
       <View style={{ marginTop: HEIGHT*0.02, paddingHorizontal:WIDTH*0.05 }}>
-      <ButtonComponent onButtonHandler={()=>signFn()} title="Sign Up with Google" bgColor={colorMix.light_100} txtColor={colorMix.dark_100} brdrColor={colorMix.light_20} logo={google_logo}/>
+      <ButtonComponent onButtonHandler={()=>onGoogleButtonPress()} title="Sign Up with Google" bgColor={colorMix.light_100} txtColor={colorMix.dark_100} brdrColor={colorMix.light_20} logo={google_logo}/>
       </View>
       <Text style={{ alignSelf: 'center', marginTop: HEIGHT*0.02, color: colorMix.dark_25 }}>Already have an account? <Text onPress={()=>navigation.navigate('login')}
       style={{ color: colorMix.violet_100, textDecorationLine: 'underline' }}>Login</Text></Text>

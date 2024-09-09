@@ -1,12 +1,19 @@
-import React from 'react'
-import { FlatList, Image, Text, View } from 'react-native'
+import React, { useState } from 'react'
+import { FlatList, Image, Modal, Pressable, Text, View } from 'react-native'
 import { HEIGHT, WIDTH } from '../constants/dimension'
 import { arrow_right, dropdown_arrow, right_arrow, sort_icon } from '../assets'
 import { colorMix } from '../constants/color'
 import { allTransactionData } from '../constants/dummyData'
 import RenderTransactionItems from '../components/RenderTransactionItems'
+import SortModal from '../components/SortModal'
 
 const TransactionScreen = () => {
+
+    const [openFilter,setOpenFilter] = useState(false);
+    const [filter,setFilter] = useState(null)
+    const [sort,setSort] = useState(null)
+    console.log(sort);
+
   return (
     <View style={{
         // borderWidth: 1
@@ -45,9 +52,13 @@ const TransactionScreen = () => {
                     marginHorizontal: WIDTH*0.02
                 }}>Month</Text>
             </View>
+            <Pressable 
+            onPress={()=>setOpenFilter(!openFilter)}
+            >
             <Image 
             source={sort_icon}
             />
+            </Pressable>
         </View>
 
         <View style={{
@@ -100,6 +111,15 @@ const TransactionScreen = () => {
         keyExtractor={item=>item.id}
         />
         </View>
+
+        <Modal
+        animationType="slide"
+        transparent={true}
+        visible={openFilter}
+        >
+            <SortModal  openFilter={openFilter} setOpenFilter={setOpenFilter} setFilter={setFilter} filter={filter} sort={sort} setSort={setSort}/>
+
+      </Modal>
 
     </View>
   )

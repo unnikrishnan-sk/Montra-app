@@ -15,6 +15,7 @@ export const colorMix = {
     violet_60: '#B18AFF',
     violet_40: '#D3BDFF',
     violet_20: '#EEE5FF',
+    violet_10: '#E9E1FC',
 
     red_100: '#F53C4B',
     red_80: '#F55763',

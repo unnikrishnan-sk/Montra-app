@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { FlatList, Image, Pressable, ScrollView, Text, View } from 'react-native'
 import { HEIGHT, WIDTH } from '../constants/dimension'
 import { colorMix } from '../constants/color'
-import { dropdown_arrow, notification_icon, profile_avatar } from '../assets'
+import { dropdown_arrow, expense_icon_white, income_icon, income_icon_white, notification_icon, profile_avatar, transfer_icon_white } from '../assets'
 import { Dropdown } from 'react-native-element-dropdown'
 import { LineChart } from 'react-native-gifted-charts'
 import { chartData, dataTimeframe, incomeExpenseData, monthData } from '../constants/dummyData'
 import RecentTransaction from '../components/RecentTransaction'
 import BottomSlider from '../components/BottomSlider'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import RenderIncomeExpense from '../components/RenderIncomeExpense'
 import RenderTimeframe from '../components/RenderTimeFrame'
 import firestore from '@react-native-firebase/firestore';
@@ -26,8 +26,11 @@ const HomeScreen = () => {
     const [onPressed,setOnPressed] = useState(0);
     const [accountBal,setAccountBal] = useState();
     const navigation = useNavigation();
+    const route = useRoute();
+    const { centerTab } = route.params || {};
+    console.log("center tab",centerTab);
 
-    console.log("starts here_ ",graphData);
+    console.log("starts here_ ",recentTransData);
     
     useEffect(()=>{
       getData();
@@ -41,10 +44,13 @@ const HomeScreen = () => {
       getDataDetails(onPressed,expensess);
       
       const graphArr = expensess.map(item => ({['value']: parseFloat(item.amount)}))
-      console.log("graph_arr",graphArr);
+      // console.log("graph_arr",graphArr);
       setGraphData(graphArr)
       const latTransactionDet = await latTransaction();
-      setRecentTransData(latTransactionDet)
+      setRecentTransData(prev => {
+        return JSON.stringify(prev) !== JSON.stringify(latTransactionDet) ? latTransactionDet : prev
+      })
+
       const updatedData = incomeExpenseData.map((item)=>{
         if(item.title==="Income"){
           return {...item,amount:income.toString()};
@@ -61,9 +67,6 @@ const HomeScreen = () => {
 
     const getDataDetails = (onPressed,data) => {
 
-        console.log("onpressed",onPressed);
-        console.log("data",data);
-
       const sortedData=[];
       const currentDateFormat = new Date();
       const currentDate = currentDateFormat.getDate();
@@ -74,16 +77,12 @@ const HomeScreen = () => {
       if(onPressed===0){
       data.forEach(item=>{
         if(item?.createdDate && item?.createdMonth && item?.createdYear){
-          const itemDate = item.createdDate.toString();
-          const itemMonth = item.createdMonth;
-          const itemYear = item.createdYear.toString();
-
-          // console.log("itemDate", typeof(itemDate),typeof(currentDate.toString()),itemDate, currentDay, itemMonth,currentMonth, currentYear, itemYear);
+          const itemDate = item.createdDate.toString().trim();
+          const itemMonth = item.createdMonth.trim();
+          const itemYear = item.createdYear.toString().trim();
 
           if(itemDate==currentDate.toString() && itemMonth==currentMonth && itemYear==currentYear)
           {
-            console.log("sortedDate",sortedData);
-            console.log("item_here",item);
           sortedData.push(item)
           }
         }
@@ -93,26 +92,43 @@ const HomeScreen = () => {
       // console.log("todaysData", todaysData);
       }
       if(onPressed===2){
-        console.log("month_here");
-        console.log("data_here",data);
+       
+        // console.log("data_here",data);
         data.forEach(item=>{
           if(item?.createdMonth && item?.createdYear){
             const itemMonth = item.createdMonth;
             const itemYear = item.createdYear.toString();
-
-            console.log("itemDate", typeof(itemMonth),typeof(currentMonth),itemDate, currentDay, itemMonth,currentMonth, currentYear, itemYear);
+            
+            // console.log("itemDate", typeof(itemMonth),typeof(currentMonth),itemDate, currentDay, itemMonth,currentMonth, currentYear, itemYear);
   
             if(itemMonth===currentMonth && itemYear===currentYear)
             {
-              console.log("here",item);
-            sortedData.push(item)
+              // console.log("pressed",onPressed);
+              // console.log("here",item);
+            // sortedData.push(item)
             }
           }
         })
         setRecentTransData(sortedData)
-        console.log("monthdata", sortedData);
+        // console.log("monthdata", sortedData);
         }
+        if(onPressed===3){
+          data.forEach(item=>{
+            if(item?.createdYear){
+              const itemYear = item.createdYear.toString().trim();
+
+              if(itemYear==currentYear)
+              {
+                // console.log(item);
+              sortedData.push(item)
+              }
+            }
+          })
+          }
+          setRecentTransData([...sortedData])
+          console.log("sorted",sortedData);
     }
+    
 
     const handleDroponChange = (item) => {
       setValue(item.value);
@@ -121,7 +137,7 @@ const HomeScreen = () => {
 
   return (
     <View style={{ 
-      backgroundColor: colorMix.light_100 
+      backgroundColor:centerTab ? colorMix.violet_20 : colorMix.light_100 
       }}>
 
         <View style={{ 
@@ -130,14 +146,14 @@ const HomeScreen = () => {
           backgroundColor: colorMix.yellow_10, 
           paddingBottom: HEIGHT*0.03 }}>
 
-            <View style={{ 
-              marginTop: HEIGHT*0.07, 
-              paddingHorizontal: WIDTH*0.05, 
-              flexDirection: 'row', 
-              justifyContent: 'space-between', 
-              alignItems: 'center' }}>
+        <View style={{ 
+          marginTop: HEIGHT*0.07, 
+          paddingHorizontal: WIDTH*0.05, 
+          flexDirection: 'row', 
+          justifyContent: 'space-between', 
+          alignItems: 'center' }}>
 
-                <Image source={profile_avatar}/>
+        <Image source={profile_avatar}/>
         <Dropdown
           style={{ 
             height: HEIGHT*0.08, 
@@ -162,7 +178,7 @@ const HomeScreen = () => {
             onBlur={() => setIsFocus(false)}
             onChange={(item) => handleDroponChange(item)}
             renderLeftIcon={() => (
-              <Image style={{ marginRight: WIDTH*0.02, height: HEIGHT*0.0143, width: HEIGHT*0.03, marginLeft: WIDTH*0.01 }} source={dropdown_arrow} />
+              <Image style={{ marginRight: WIDTH*0.02, height: HEIGHT*0.0151, width: HEIGHT*0.03, marginLeft: WIDTH*0.01 }} source={dropdown_arrow} />
             )}
             renderRightIcon={() => null} /> 
 
@@ -196,9 +212,67 @@ const HomeScreen = () => {
         </View>
         </View>
 
-<ScrollView 
-showsVerticalScrollIndicator={false}
-style={{ marginBottom: HEIGHT*0.4 }}>
+        { centerTab && (<><Pressable 
+        onPress={()=>navigation.navigate('income')}
+        style={{
+          // borderWidth: 1,
+          height: HEIGHT*0.08,
+          width: HEIGHT*0.08,
+          borderRadius: HEIGHT*0.05,
+          position: 'absolute',
+          bottom: HEIGHT*0.42,
+          zIndex: 1,
+          left: WIDTH*0.26,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: colorMix.green_100
+        }}>
+          <Image 
+          source={income_icon_white}
+          />
+        </Pressable>
+         <Pressable 
+         onPress={()=>navigation.navigate('expense')}
+         style={{
+          // borderWidth: 1,
+          height: HEIGHT*0.08,
+          width: HEIGHT*0.08,
+          position: 'absolute',
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderRadius: HEIGHT*0.05,
+          bottom: HEIGHT*0.42,
+          zIndex: 1,
+          left: WIDTH*0.6,
+          backgroundColor: colorMix.red_100
+        }}>
+          <Image 
+          source={expense_icon_white}
+          />
+        </Pressable>
+         <Pressable 
+         onPress={()=>navigation.navigate('transfer')}
+         style={{
+          // borderWidth: 1,
+          height: HEIGHT*0.08,
+          width: HEIGHT*0.08,
+          position: 'absolute',
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderRadius: HEIGHT*0.05,
+          bottom: HEIGHT*0.55,
+          zIndex: 1,
+          left: WIDTH*0.42,
+          backgroundColor: colorMix.blue_100
+        }}>
+          <Image 
+          source={transfer_icon_white}
+          />
+        </Pressable></>)}
+
+        <ScrollView 
+        showsVerticalScrollIndicator={false}
+        style={{ marginBottom: HEIGHT*0.4 , backgroundColor: centerTab ? colorMix.violet_20 : colorMix.light_100}}>
         <View style={{ 
           paddingHorizontal: WIDTH*0.05, 
           marginTop: HEIGHT*0.01 }}>
@@ -215,21 +289,21 @@ style={{ marginBottom: HEIGHT*0.4 }}>
           }}>
 
         <LineChart areaChart data = {chartData}
-      style={{ marginLeft: WIDTH*0.1 }} spacing={55} initialSpacing={0} thickness={6} hideAxesAndRules hideDataPoints width={WIDTH} curved startFillColor={colorMix.violet_80} endFillColor={colorMix.violet_20}  startOpacity={0.4} endOpacity={0.1} color={colorMix.violet_100}/>
+      style={{ marginLeft: WIDTH*0.1 }} spacing={55} initialSpacing={0} thickness={6} hideAxesAndRules hideDataPoints width={WIDTH} curved startFillColor={colorMix.violet_80} endFillColor={centerTab ? colorMix.violet_20 : colorMix.violet_20}  startOpacity={0.4} endOpacity={0.1} color={colorMix.violet_100}/>
 
        </View>
-
        <View style={{ 
         height: HEIGHT*0.05, 
+        backgroundColor: centerTab ? colorMix.violet_20 : colorMix.light_100,
         paddingHorizontal: WIDTH*0.05, 
         flexDirection: 'row', 
         alignItems: 'center' }}>
 
-        <FlatList data={dataTimeframe} horizontal showsHorizontalScrollIndicator={false} renderItem={({item})=><RenderTimeframe data={item} setOnPressed={setOnPressed} onPressed={onPressed}/> } keyExtractor={item=>item.id}/>
+        <FlatList data={dataTimeframe} horizontal showsHorizontalScrollIndicator={false} renderItem={({item})=><RenderTimeframe data={item} setOnPressed={setOnPressed} onPressed={onPressed} centerTab={centerTab}/> } keyExtractor={item=>item.id}/>
        </View>
 
-       <RecentTransaction recentTransData={recentTransData}/>
-
+       <RecentTransaction recentTransData={recentTransData} centerTab={centerTab}/>
+       
        </ScrollView>
        <BottomSlider />
     </View>

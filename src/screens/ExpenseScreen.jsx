@@ -203,7 +203,7 @@ const ExpenseScreen = () => {
         <Switch style={{transform: [{scaleX: .8}, {scaleY: .8}]}} trackColor={{false: colorMix.violet_20, true: colorMix.violet_100}} thumbColor={ colorMix.light_100} onValueChange={toggleSwitch} value={isEnabled} />
         </View>
         </View>
-        <View style={{  marginTop: Platform.OS==='ios' ?  HEIGHT*0.14 : HEIGHT*0.035 }}>
+        <View style={{  marginTop: Platform.OS==='ios' ?  HEIGHT*0.14 : HEIGHT*0.035, paddingHorizontal: WIDTH*0.05 }}>
         <ButtonComponent title="Continue" onButtonHandler={()=>handleExpense()}/>
         
         </View> 

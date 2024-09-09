@@ -4,13 +4,14 @@ import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
 export const calculateExpense = async (selectedMonth) => {
     try {
-        const expenses = await firestore().collection('Expenses').where('month', '==', selectedMonth).get();
-        console.log(selectedMonth);
+        const expenses = await firestore().collection('Expenses').where('createdMonth', '==', selectedMonth).get();
+        // console.log(selectedMonth);
         const expensesDet = expenses.docs.reduce((sum, doc) => {
             const data = doc.data()
             const amount = parseFloat(data.amount)
             return sum + amount;
         }, 0)
+        // console.log(expensesDet);
         return expensesDet
     } catch (error) {
         console.log(error);
@@ -19,7 +20,7 @@ export const calculateExpense = async (selectedMonth) => {
 
 export const calculateIncome = async (selectedMonth) => {
     try {
-        const income = await firestore().collection('Income').where('month', '==', selectedMonth).get();
+        const income = await firestore().collection('Income').where('createdMonth', '==', selectedMonth).get();
         const incomeDet = income.docs.reduce((sum, doc) => {
             const data = doc.data()
             const amount = parseFloat(data.amount)
@@ -52,8 +53,8 @@ export const expenseArr = async () => {
 export const latTransaction = async () => {
     const transactions = []
     try {
-        const latestExpenseTrans = await firestore().collection('Expenses').orderBy('createdAt', 'desc').limit(3).get();
-        const latestIncomeTrans = await firestore().collection('Income').orderBy('createdAt', 'desc').limit(3).get();
+        const latestExpenseTrans = await firestore().collection('Expenses').orderBy('createdAt', 'desc').get();
+        const latestIncomeTrans = await firestore().collection('Income').orderBy('createdAt', 'desc').get();
         latestExpenseTrans.forEach(doc => { transactions.push({ ...doc.data(), id: doc.id, type: 'expense' }) })
         latestIncomeTrans.forEach(doc => { transactions.push({ ...doc.data(), id: doc.id, type: 'expense' }) })
         transactions.sort((a, b) => b.createdAt.toDate() - a.createdAt.toDate());
@@ -81,11 +82,11 @@ export const getBudgetData = async () => {
 
 export const getTotalExpenseForCategory = async (category) => {
     try {
-        console.log("category here", category);
+        // console.log("category here", category);
         const expenseSnapshot = await firestore().collection('Expenses').where('category', '==', category).get();
         console.log("expense Snapshot", expenseSnapshot);
         const expenses = expenseSnapshot.docs.map(doc => doc.data());
-        console.log("expenses here", expenses);
+        // console.log("expenses here", expenses);
         const totalExpense = expenses.reduce((total, expense) => total + (Number(expense.amount) || 0), 0);
         return totalExpense;
     } catch (error) {
@@ -96,7 +97,7 @@ export const getTotalExpenseForCategory = async (category) => {
 export const getAllBudgetData = async () => {
     try {
         const budgetData = await getBudgetData();
-        console.log("here", budgetData);
+        // console.log("here", budgetData);
         const budgetDataWithExpenses = await Promise.all(
             budgetData.map(async (budget) => {
                 const totalExpense = await getTotalExpenseForCategory(budget.budgetCat);
@@ -117,7 +118,7 @@ export const renderTansData = async (btnVal) => {
     console.log("btn value", btnVal);
 
     if (btnVal === 0) {
-        console.log("here");
+        // console.log("here");
         const nowDate = new Date();
         const startDay = new Date(nowDate.setHours(0, 0, 0));
         const endOfDay = new Date(nowDate.setHours(23, 59, 59, 999))

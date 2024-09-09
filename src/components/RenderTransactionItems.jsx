@@ -4,7 +4,7 @@ import { colorMix } from "../constants/color";
 import { food_icon, income_general_icon, income_icon, shopping_icon, subscription_icon, transportation_general_icon } from "../assets";
 import moment from "moment";
 
-const RenderTransactionItems = ({data}) => {
+const RenderTransactionItems = ({data, centerTab}) => {
 
     const {id,image,title,description,amount,createdAt,category} = data;
     // console.log("data", data);
@@ -13,7 +13,7 @@ const RenderTransactionItems = ({data}) => {
             "shopping": "Shopping",
             "subscription":"Subscription",
             "food": "Food",
-            "salary" : "Salary",
+            "salary" : "salary",
             "transportation": "Transportation"
     }
 
@@ -64,7 +64,7 @@ const RenderTransactionItems = ({data}) => {
 
     return(
         <ScrollView style={{ paddingHorizontal: WIDTH*0.07, paddingTop: HEIGHT*0.01, paddingBottom: HEIGHT*0.01 }}>
-        <View style={{ borderRadius: HEIGHT*0.03, backgroundColor: colorMix.light_80, flexDirection: 'row', justifyContent: 'space-between', paddingTop: HEIGHT*0.02, paddingBottom: HEIGHT*0.02, paddingHorizontal:WIDTH*0.025 }}>
+        <View style={{ borderRadius: HEIGHT*0.03, backgroundColor:centerTab ? colorMix.violet_10 : colorMix.light_80, flexDirection: 'row', justifyContent: 'space-between', paddingTop: HEIGHT*0.02, paddingBottom: HEIGHT*0.02, paddingHorizontal:WIDTH*0.025, }}>
             <View style={{ flexDirection: 'row' }}>
             <View style={{ height: HEIGHT*0.08, width: HEIGHT*0.09,
             // borderWidth:1,

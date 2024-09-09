@@ -33,42 +33,57 @@ import DetailBudgetScreen from './screens/DetailBudgetScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import AccountScreen from './screens/AccountScreen';
 import DetailAccountScreen from './screens/DetailAccountScreen';
+import SettingScreen from './screens/SettingScreen';
 
 const tabBarData = [{ id: 0, logo: home_icon, title: "Home", route: "home" }, { id: 1, logo: transaction_tab, title: "Transaction", route: "transaction" }, { id: 2, logo: plus_icon_tab }, { id: 3, logo: budget_tab, title: "Budget", route: "budget" }, { id: 4, logo: profile_tab, title: "Profile", route: "profile" }]
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const RenderTabBar = ({ data, isFocused }) => {
+const RenderTabBar = ({ data, isFocused, index }) => {
 
     const [centerTab, setCenterTab] = useState(false);
     const { id, logo, title, route } = data;
     const navigation = useNavigation();
+    console.log("isFocused", centerTab);
 
     return (
         <>
             {id === 2 ?
-
-                <Pressable
-                    onPress={() => setCenterTab(!centerTab)}
-                    style={{
-                        // borderWidth: 1,
-                        height: HEIGHT * 0.07,
-                        width: HEIGHT * 0.07,
-                        borderRadius: HEIGHT * 0.035,
-                        backgroundColor: colorMix.violet_100,
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                    }}>
-                    <Image
-                        style={{
-                            height: HEIGHT * 0.033,
-                            width: HEIGHT * 0.033,
-                            // rotate: transform: [{rotate: '45deg'}],
+                <>
+                    <View style={{
+                        borderWidth: 1,
+                        position: 'absolute',
+                        bottom: HEIGHT * 0.3,
+                        height: HEIGHT * 0.1,
+                        width: HEIGHT * 0.1,
+                        zIndex: 1
+                    }}></View>
+                    <Pressable
+                        onPress={() => {
+                            setCenterTab(!centerTab)
+                            navigation.navigate('home', { centerTab: !centerTab })
                         }}
-                        source={plus_icon_tab}
-                    />
-                </Pressable>
+
+                        style={{
+                            // borderWidth: 1,
+                            height: HEIGHT * 0.07,
+                            width: HEIGHT * 0.07,
+                            borderRadius: HEIGHT * 0.035,
+                            backgroundColor: colorMix.violet_100,
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}>
+                        <Image
+                            style={{
+                                height: HEIGHT * 0.033,
+                                width: HEIGHT * 0.033,
+                                transform: centerTab ? [{ rotate: '45deg' }] : [{ rotate: '0deg' }],
+                            }}
+                            source={plus_icon_tab}
+                        />
+                    </Pressable>
+                </>
 
                 : <Pressable
                     onPress={() => navigation.navigate(route)}
@@ -82,7 +97,7 @@ const RenderTabBar = ({ data, isFocused }) => {
                     <Image
                         style={{
                             // borderWidth: 1,
-                            tintColor: isFocused ? colorMix.blue_100 : colorMix.light_20,
+                            tintColor: isFocused ? colorMix.violet_100 : colorMix.light_20,
                             height: id === 3 ? HEIGHT * 0.035 : HEIGHT * 0.037,
                             // : HEIGHT * 0.033,
                             padding: HEIGHT * 0.01,
@@ -93,7 +108,7 @@ const RenderTabBar = ({ data, isFocused }) => {
                     <Text style={{
                         fontSize: HEIGHT * 0.018,
                         marginTop: HEIGHT * 0.006,
-                        color: isFocused ? colorMix.blue_100 : colorMix.dark_25
+                        color: isFocused ? colorMix.violet_100 : colorMix.dark_25
                     }}>{title}</Text>
                 </Pressable>}
 
@@ -113,12 +128,12 @@ const MyTabBar = ({ state, descriptors, navigation }) => {
             // alignItems: 'center',
             // justifyContent: 'space-between'
         }}>
-            {state.routes.map((route, index) => {
+            {/* {state.routes.map((route, index) => {
                 const { options } = descriptors[route.key];
                 const label = options.tabBarLabel !== undefined ? options.tabBarLabel : options.title !== undefined ? options.title : route.name;
-
+                console.log("index", index);
                 const isFocused = state.index === index;
-            })}
+            })} */}
             <FlatList
                 contentContainerStyle={{
                     justifyContent: 'space-between',
@@ -130,7 +145,12 @@ const MyTabBar = ({ state, descriptors, navigation }) => {
                     ...item,
                     isFocused: state.index === index
                 }))}
-                renderItem={({ item }) => <RenderTabBar data={item} isFocused={item.isFocused} />}
+                renderItem={({ item, index }) => {
+                    const isFocused = state.index === index;
+                    return (
+                        <RenderTabBar data={item} isFocused={isFocused} />
+                    );
+                }}
                 keyExtractor={item => item.id}
             />
         </View>
@@ -168,10 +188,10 @@ const Router = () => {
                 <Stack.Screen name='signsuccess' component={SignupSuccess} />
                 <Stack.Screen name='myTabs' component={MyTabs} />
                 <Stack.Screen name='notification' component={NotificationScreen} />
-                {/* <Stack.Screen name='income' component={IncomeScreen} /> */}
-                {/* <Stack.Screen name='expense' component={ExpenseScreen} /> */}
+                <Stack.Screen name='income' component={IncomeScreen} />
+                <Stack.Screen name='expense' component={ExpenseScreen} />
                 <Stack.Screen name='transfer' component={TransferScreen} />
-                {/* <Stack.Screen name='transaction' component={TransactionScreen} /> */}
+                <Stack.Screen name='transaction' component={TransactionScreen} />
                 <Stack.Screen name='detailtransaction' component={DetailExpenseScreen} />
                 <Stack.Screen name='financialreport' component={FinancialReport} />
                 <Stack.Screen name='detailfinancialreport' component={DetailFinancialReport} />
@@ -181,6 +201,7 @@ const Router = () => {
                 {/* <Stack.Screen name='profile' component={ProfileScreen} /> */}
                 <Stack.Screen name='account' component={AccountScreen} />
                 <Stack.Screen name='detailaccount' component={DetailAccountScreen} />
+                <Stack.Screen name='settings' component={SettingScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     )
