@@ -60,10 +60,10 @@ const RenderTransactionItems = ({data, centerTab}) => {
     }
 
     const date = createdAt?.toDate ? createdAt?.toDate() : new Date(createdAt)
-    const formattedTime = moment(createdAt).format('h:mm A')
+    const formattedTime = moment(date).format('h:mm A')
 
     return(
-        <ScrollView style={{ paddingHorizontal: WIDTH*0.07, paddingTop: HEIGHT*0.01, paddingBottom: HEIGHT*0.01 }}>
+        <View style={{ paddingHorizontal: WIDTH*0.07, paddingTop: HEIGHT*0.01, paddingBottom: HEIGHT*0.02 }}>
         <View style={{ borderRadius: HEIGHT*0.03, backgroundColor:centerTab ? colorMix.violet_10 : colorMix.light_80, flexDirection: 'row', justifyContent: 'space-between', paddingTop: HEIGHT*0.02, paddingBottom: HEIGHT*0.02, paddingHorizontal:WIDTH*0.025, }}>
             <View style={{ flexDirection: 'row' }}>
             <View style={{ height: HEIGHT*0.08, width: HEIGHT*0.09,
@@ -85,7 +85,7 @@ const RenderTransactionItems = ({data, centerTab}) => {
                 <Text style={{ color: colorMix.dark_25, fontSize: HEIGHT*0.018 }}>{formattedTime}</Text>
             </View>
         </View>
-        </ScrollView>
+        </View>
     )
 }
 

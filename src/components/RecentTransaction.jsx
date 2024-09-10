@@ -22,7 +22,7 @@ const RecentTransaction = ({recentTransData, centerTab, darkMode}) => {
   //   setLatTransactionDet(recentTransData)
   // }
   
-  console.log("in transaction",recentTransData);
+  // console.log("in transaction",recentTransData);
 
   return (
     <>

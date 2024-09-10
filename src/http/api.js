@@ -50,6 +50,24 @@ export const expenseArr = async (selectedMonth) => {
     }
 }
 
+export const allExpense = async () => {
+    try {
+        const expenseArray = await firestore().collection('Expenses').get();
+        return expenseArray.docs.map(doc => doc.data());
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const allIncome = async () => {
+    try {
+        const incomeArray = await firestore().collection('Income').get();
+        return incomeArray.docs.map(doc => doc.data());
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const latTransaction = async () => {
     const transactions = []
     try {

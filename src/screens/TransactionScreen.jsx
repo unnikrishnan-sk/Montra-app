@@ -1,21 +1,36 @@
-import React, { useState } from 'react'
-import { FlatList, Image, Modal, Pressable, Text, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { FlatList, Image, Modal, Pressable, ScrollView, Text, View } from 'react-native'
 import { HEIGHT, WIDTH } from '../constants/dimension'
 import { arrow_right, dropdown_arrow, right_arrow, sort_icon } from '../assets'
 import { colorMix } from '../constants/color'
 import { allTransactionData } from '../constants/dummyData'
 import RenderTransactionItems from '../components/RenderTransactionItems'
 import SortModal from '../components/SortModal'
+import { useSelector } from 'react-redux'
+import { allExpense } from '../http/api'
+import { useNavigation } from '@react-navigation/native'
 
 const TransactionScreen = () => {
 
     const [openFilter,setOpenFilter] = useState(false);
     const [filter,setFilter] = useState(null)
+    const [allData,setAllData] = useState([]);
     const [sort,setSort] = useState(null)
     console.log(sort);
 
     const darkMode = useSelector((state)=>state.mode.darkMode)
+    const navigation = useNavigation();
 
+    useEffect(()=>{
+        getData();
+    },[])
+
+    const getData = async () => {
+        const allExpenses = await allExpense();
+        console.log("allExpense", allExpenses);
+        setAllData(allExpenses)
+    }
+    
   return (
     <View style={{
         // borderWidth: 1
@@ -69,7 +84,9 @@ const TransactionScreen = () => {
             marginTop: HEIGHT*0.02,
             paddingHorizontal: WIDTH*0.05
         }}>
-            <View style={{
+            <Pressable
+            onPress={()=>navigation.navigate('financialreport')}
+             style={{
                 // borderWidth: 1,
                 height: HEIGHT*0.06,
                 borderRadius:HEIGHT*0.01,
@@ -91,28 +108,30 @@ const TransactionScreen = () => {
                 }}
                 source={right_arrow} 
                 />
-            </View>
+            </Pressable>
         </View>
 
-        <Text style={{
+        {/* <Text style={{
             marginTop: HEIGHT*0.02,
             marginLeft: WIDTH*0.05,
             fontSize: HEIGHT*0.022,
             fontWeight: '500'
-        }}>Today</Text>
+        }}>Today</Text> */}
 
 
-        <View style={{
+        <ScrollView 
+        showsVerticalScrollIndicator={false}
+        style={{
             // borderWidth: 1,
             marginTop: HEIGHT*0.02
         }}>
              <FlatList 
-        data={allTransactionData}
+        data={allData}
         showsVerticalScrollIndicator={false}
         renderItem={({item})=><RenderTransactionItems data={item}/> }
         keyExtractor={item=>item.id}
         />
-        </View>
+        </ScrollView>
 
         <Modal
         animationType="slide"

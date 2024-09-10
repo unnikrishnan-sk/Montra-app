@@ -5,40 +5,62 @@ import DropdownComponent from '../components/DropdownComponent'
 import { Dropdown } from 'react-native-element-dropdown'
 import { HEIGHT, WIDTH } from '../constants/dimension'
 import { colorMix } from '../constants/color'
-import { allTransactionData, chartData, monthData, pieChartData } from '../constants/dummyData'
+import { allTransactionData, chartData, monthData, noExpMnthChartData, pieChartData } from '../constants/dummyData'
 import { dropdown_arrow, line_chart_icon_violet, line_chart_icon_white, pie_chart_icon_violet, pie_chart_icon_white, report_sort_icon } from '../assets'
 import { BarChart, LineChart, PieChart, PieChartPro } from 'react-native-gifted-charts'
 import RenderTransactionItems from '../components/RenderTransactionItems'
 import PieChartData from '../components/PieChartData'
-import { latTransaction } from '../http/api'
+import { allExpense, allIncome, calculateExpense, expenseArr, latTransaction } from '../http/api'
 import { Circle, Svg } from 'react-native-svg'
+import moment from 'moment'
 
 const DetailFinancialReport = () => {
 
-    const [value,setValue] = useState();
+    const [value,setValue] = useState(moment().format('MMMM'));
     const [focus,setIsFocus] = useState();
     const [transactionData,setTransactionData] = useState([])
+    const [totalExpense,setTotalExpense] = useState(0);
+    const [graphData,setGraphData] = useState(noExpMnthChartData);
     const [detail,setDetail] = useState(true)
     const [chartType,setChartType] = useState(true)
     const [chartSelected,setChartSelected] = useState(true)
-console.log(chartSelected);
+
     const handleDroponChange = (item) => {
         setValue(item);
         setIsFocus(false);
       }
 
       const onSelectChart = () => {
-        console.log("here");
+        // console.log("here");
         setChartSelected(!chartSelected);
       }
 
       useEffect(()=>{
         getData()
-      },[])
+      },[detail,value])
       
       const getData = async () => {
         const transactionDet = await latTransaction();
-      setTransactionData(transactionDet)
+        const allExpenses = await allExpense();
+        const allIncomes = await allIncome();
+        const expensess = await expenseArr(value);
+        const expense = await calculateExpense(value);
+        console.log("total Expenses", totalExpense);
+        setTotalExpense(expense);
+
+        const graphArr = expensess.map(item => ({['value']: parseFloat(item.amount)}))
+      if(graphArr.length>0){
+        // console.log("graph_arr",graphArr);
+        setGraphData(graphArr)
+      }else{
+        setGraphData(noExpMnthChartData)
+      }
+        
+        if(detail=== true){
+          setTransactionData(allExpenses)
+        }else if(detail === false){
+          setTransactionData(allIncomes)
+        }
       }
 
   return (
@@ -69,7 +91,7 @@ console.log(chartSelected);
           value={value}
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
-          onChange={(item) => handleDroponChange()}
+          onChange={(item) => handleDroponChange(item)}
           renderLeftIcon={() => (
             <Image style={{ marginRight: WIDTH*0.02, height: HEIGHT*0.014, width: HEIGHT*0.028, marginLeft: WIDTH*0.01 }} source={dropdown_arrow} />
           )}
@@ -136,10 +158,10 @@ console.log(chartSelected);
             marginTop: HEIGHT*0.02,
             color: colorMix.dark_100,
             fontSize: HEIGHT*0.04
-        }}>$332</Text>
+        }}>$ {totalExpense}</Text>
         </View><View style={{ marginLeft: -WIDTH*0.1 }}>
-        <LineChart areaChart data = {chartData}
-      style={{ marginLeft: WIDTH*0.1 }} spacing={55} initialSpacing={0} thickness={6} hideAxesAndRules hideDataPoints width={WIDTH} curved startFillColor={colorMix.violet_80} endFillColor={colorMix.violet_20}  startOpacity={0.4} endOpacity={0.1} color={colorMix.violet_100}/>
+        <LineChart areaChart data = {graphData}
+      style={{ marginLeft: WIDTH*0.1 }} spacing={WIDTH} initialSpacing={0} thickness={6} hideAxesAndRules hideDataPoints width={WIDTH} curved startFillColor={colorMix.violet_80} endFillColor={colorMix.violet_20}  startOpacity={0.4} endOpacity={0.1} color={colorMix.violet_100}/>
        </View></>) : (<View style={{ alignItems: 'center',marginBottom: HEIGHT*0.03, marginTop: HEIGHT*0.03, 
     justifyContent: 'center'}}>
         <View style={{
@@ -154,7 +176,7 @@ console.log(chartSelected);
             marginTop: HEIGHT*0.13,
             color: colorMix.dark_100,
             fontSize: HEIGHT*0.04
-        }}>$332</Text>
+        }}>$ {totalExpense}</Text>
         </View>
         <PieChartPro donut areaChart data = {pieChartData} 
       style={{ marginLeft: WIDTH*0.1, shadowColor: '#000',
@@ -163,7 +185,7 @@ console.log(chartSelected);
         shadowRadius: 5,
         elevation: 50, }} innerRadius={WIDTH*0.22} radius={WIDTH*0.28} shadow innerCircleBorderWidth={10} shiftInnerCenterX={100} shiftInnerCenterY={100} tilt={0.5}  isThreeD   />
 
-         <Svg height={WIDTH * 1} width={WIDTH * 1} style={{ position: 'absolute', top: 0.5, left: 0 }}>
+         {/* <Svg height={WIDTH * 1} width={WIDTH * 1} style={{ position: 'absolute', top: 0.5, left: 0 }}>
           <Circle cx={WIDTH * 0.53} cy={WIDTH * 0.21} r={WIDTH * 0.25} stroke="blue" strokeWidth={WIDTH*0.06} fill="none" transform={`rotate(${10}, ${WIDTH*0.04},${WIDTH*0.04})`} />
           {/* <SvgText
             x={WIDTH * 0.4}
@@ -174,7 +196,7 @@ console.log(chartSelected);
             fill="black">
             Custom Text
           </SvgText> */}
-        </Svg>
+        {/* </Svg> */} 
        
        </View>)}
 
@@ -296,12 +318,18 @@ console.log(chartSelected);
         }}>
 
 {chartSelected ? ( <FlatList 
+        contentContainerStyle={{
+          paddingBottom: HEIGHT*0.03
+        }}
         data={transactionData}
         showsVerticalScrollIndicator={false}
         renderItem={({item})=><RenderTransactionItems data={item}/> }
         keyExtractor={item=>item.id}
         />) : (
           <FlatList 
+          contentContainerStyle={{
+            paddingBottom: HEIGHT*0.05
+          }}
         data={transactionData}
         showsVerticalScrollIndicator={false}
         renderItem={({item})=><PieChartData data={item}/> }

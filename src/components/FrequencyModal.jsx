@@ -198,6 +198,7 @@ const daysArray = [];
         </View>
         <View style={{
             marginTop: HEIGHT*0.02,
+            paddingHorizontal: WIDTH*0.05
         }}>
         <ButtonComponent title="Next" onButtonHandler={onHandleFrequency}/>
         </View>

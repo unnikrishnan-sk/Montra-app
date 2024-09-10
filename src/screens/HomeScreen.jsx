@@ -12,7 +12,7 @@ import { useNavigation, useRoute } from '@react-navigation/native'
 import RenderIncomeExpense from '../components/RenderIncomeExpense'
 import RenderTimeframe from '../components/RenderTimeFrame'
 import firestore from '@react-native-firebase/firestore';
-import { calculateExpense, calculateIncome, expenseArr, latTransaction, networkApi, renderTansData } from '../http/api'
+import { allExpense, calculateExpense, calculateIncome, expenseArr, latTransaction, networkApi, renderTansData } from '../http/api'
 import moment from 'moment'
 import { useSelector } from 'react-redux'
 
@@ -29,7 +29,7 @@ const HomeScreen = () => {
     const navigation = useNavigation();
     const route = useRoute();
     const { centerTab } = route.params || {};
-    console.log("center tab",centerTab);
+    // console.log("center tab",centerTab);
 
     console.log("starts here_ ",recentTransData);
 
@@ -43,21 +43,22 @@ const HomeScreen = () => {
       const expense = await calculateExpense(value);
       const income = await calculateIncome(value);
       const expensess = await expenseArr(value);
+      const allExpenses = await allExpense();
 
-      getDataDetails(onPressed,expensess);
+      getDataDetails(onPressed,allExpenses);
       
       const graphArr = expensess.map(item => ({['value']: parseFloat(item.amount)}))
       if(graphArr.length>0){
-        console.log("graph_arr",graphArr);
+        // console.log("graph_arr",graphArr);
         setGraphData(graphArr)
       }else{
         setGraphData(noExpMnthChartData)
       }
       
       const latTransactionDet = await latTransaction();
-      setRecentTransData(prev => {
-        return JSON.stringify(prev) !== JSON.stringify(latTransactionDet) ? latTransactionDet : prev
-      })
+      // setRecentTransData(prev => {
+      //   return JSON.stringify(prev) !== JSON.stringify(latTransactionDet) ? latTransactionDet : prev
+      // })
 
       const updatedData = incomeExpenseData.map((item)=>{
         if(item.title==="Income"){
@@ -79,6 +80,7 @@ const HomeScreen = () => {
       const currentYear = currentDateFormat.getFullYear().toString();
       const currentMonth = currentDateFormat.toLocaleString('default', { month: 'long'});
       const currentDay = currentDateFormat.getDate().toString();
+      const currentWeek = moment().week();
 
       if(onPressed===0){
         
@@ -88,38 +90,48 @@ const HomeScreen = () => {
           const itemMonth = item.createdMonth.trim();
           const itemYear = item.createdYear.toString().trim();
 
-          console.log(itemDate,currentDate.toString());
           if(itemDate==currentDate.toString() && itemMonth==currentMonth && itemYear==currentYear)
           {
-            console.log("data_here_item",item);
+            // console.log("data_here_item_today",item);
           sortedData.push(item)
           }
         }
       })
+      // console.log("data _ day",[...sortedData]);
+      setRecentTransData([...sortedData])
+      } 
+      if (onPressed===1){
+        data.forEach(item => {
+          if(item?.createdDate && item?.createdMonth && item?.createdYear) {
+            const itemDate = moment(`${item.createdYear}-${item.createdMonth}-${item.createdDate}`,'YYYY-MMMM-DD')
+            const itemWeek = moment(itemDate).week();
+            console.log("item_week", itemWeek);
 
-      setRecentTransData(sortedData)
-      // console.log("todaysData", todaysData);
+            if(itemWeek === currentWeek){
+              // console.log("data_here_item_week",item);
+              sortedData.push(item);
+            }
+          }
+        })
+        // console.log("data _ week",sortedData);
+        setRecentTransData([...sortedData])
       }
       if(onPressed===2){
        
-        // console.log("data_here",data);
         data.forEach(item=>{
           if(item?.createdMonth && item?.createdYear){
             const itemMonth = item.createdMonth;
             const itemYear = item.createdYear.toString();
-            
-            // console.log("itemDate", typeof(itemMonth),typeof(currentMonth),itemDate, currentDay, itemMonth,currentMonth, currentYear, itemYear);
   
             if(itemMonth===currentMonth && itemYear===currentYear)
             {
-              // console.log("pressed",onPressed);
-              // console.log("here",item);
-            // sortedData.push(item)
+              // console.log("data_here_item_month",item);
+            sortedData.push(item)
             }
           }
         })
-        setRecentTransData(sortedData)
-        // console.log("monthdata", sortedData);
+        setRecentTransData([...sortedData])
+        // console.log("monthdata", [...sortedData]);
         }
         if(onPressed===3){
           data.forEach(item=>{
@@ -128,16 +140,16 @@ const HomeScreen = () => {
 
               if(itemYear==currentYear)
               {
-                // console.log(item);
+              // console.log("data_here_item_year",item);
               sortedData.push(item)
               }
             }
           })
-          }
           setRecentTransData([...sortedData])
-          console.log("sorted",sortedData);
+          // console.log("data _ year",sortedData);
+          }
+          
     }
-    
 
     const handleDroponChange = (item) => {
       setValue(item.value);
