@@ -13,7 +13,6 @@ export const incomeExpenseData = [{ id: 0, image: income_icon, title: 'Income', 
 export const chartData = [{ "value": 30 }, { "value": 35 }, { "value": 25 }, { "value": 50 }, { "value": 40 }, { "value": 79 }, { "value": 82 }, { "value": 35 }, { 'value': 30 }]
 
 export const pieChartData = [{ value: 30 }, { value: 40 }, { value: 80 }]
-// export const chartData = [30,35,20,50,40,79,82,35,30]
 
 export const noExpMnthChartData = [{ "value": 0 }, { "value": 0 }, { "value": 0 }]
 
@@ -49,9 +48,13 @@ export const endAfterDetails = [{}]
 
 export const monthsDetails = [{ id: 0, name: 'Jan', value: 'January' }, { id: 0, name: 'Feb', value: 'February' }, { id: 0, name: 'Mar', value: 'March' }, { id: 0, name: 'Apr', value: 'April' }, { id: 0, name: 'May', value: 'May' }, { id: 0, name: 'Jun', value: 'June' }, { id: 0, name: 'July', value: 'July' }, { id: 0, name: 'Aug', value: 'August' }, { id: 0, name: 'Sep', value: 'September' }, { id: 0, name: 'Oct', value: 'October' }, { id: 0, name: 'Nov', value: 'November' }, { id: 0, name: 'Dec', value: 'December' }]
 
-// export const dateDetails = [{id:0}]
-
 export const accountData = [{ id: 0, icon: wallet_icon, name: "Wallet", amount: '$400', }, { id: 1, icon: chase_bank, name: 'Chase', amount: '$1000' }, { id: 2, icon: citi_bank, name: 'Citi', amount: '$6000' }, { id: 3, icon: paypal_bank, name: 'Paypal', amount: '$2000' }]
 
-export const profileDatas = [{ id: 0, icon: account_wallet, name: 'Account', route: 'account' }, { id: 1, icon: settings_icon, name: 'Settings' }, { id: 2, icon: upload_icon, name: 'Export Data' }, { id: 3, icon: logout_icon, name: 'Logout' }]
+export const forgotPasswordDetails = { id: 0, placeholder: 'Email', value: 'email', passwordSecure: false };
+
+export const profileDatas = [{ id: 0, icon: account_wallet, name: 'Account', route: 'account' }, { id: 1, icon: settings_icon, name: 'Settings', route: 'settings' }, { id: 2, icon: upload_icon, name: 'Export Data' }, { id: 3, icon: logout_icon, name: 'Logout' }]
+
+export const budgetData = [{ id: 0, category: 'Shopping', amountSpent: '1200', totalBudget: '1000', isLimitExceeded: true }, { id: 1, category: 'Transportation', amountSpent: '350', totalBudget: '700', isLimitExceeded: false }]
+
+export const settingsData = [{ id: 0, name: "Currency", type: "USD", route: 'currency' }, { id: 1, name: "Language", type: "English", route: 'language' }, { id: 2, name: "Theme", type: "Light", route: 'theme' }, { id: 3, name: "Security", type: " Fingerprint", route: 'security' }, { id: 4, name: "Notification", route: 'notification' }, { id: 5, name: "About" }, { id: 6, name: "Help" }]
 

@@ -8,7 +8,7 @@ import { handleCategoryColor } from '../constants/common'
 import { useNavigation } from '@react-navigation/native'
 
 const RenderBudgets = ({data}) => {
-console.log(data);
+// console.log(data);
     const {id,category, budgetCat,remainingBalance,budgetAmnt, totalBudget,totalExpense,amountSpent} = data;
     const [isLimitExceeded,setIsLimitExceeded] = useState(false)
     const RemainingAmnt = Number(budgetAmnt-totalExpense);
@@ -83,7 +83,7 @@ console.log(data);
         {/* <View style={{
             marginTop
         }}> */}
-    <Progress.Bar progress={progress<=0 ?  1: progress} width={WIDTH*0.8} height={HEIGHT*0.015} borderRadius={HEIGHT*0.02} color={bgColor} size={HEIGHT*0.02} thickness={HEIGHT*0.01} unfilledColor={colorMix.light_40} borderColor={colorMix.light_20} marginTop={HEIGHT*0.01} />
+    <Progress.Bar progress={progress<=0 ?  0: progress} width={WIDTH*0.8} height={HEIGHT*0.015} borderRadius={HEIGHT*0.02} color={bgColor} size={HEIGHT*0.02} thickness={HEIGHT*0.01} unfilledColor={colorMix.light_40} borderColor={colorMix.light_20} marginTop={HEIGHT*0.01} />
 
     <Text style={{
         marginTop: HEIGHT*0.01,

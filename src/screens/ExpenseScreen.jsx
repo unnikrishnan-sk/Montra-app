@@ -20,6 +20,7 @@ import CategoryComponent from '../components/CategoryComponent'
 import moment from 'moment'
 import { getConstants } from '../http/api'
 import { useSelector } from 'react-redux'
+import { useNavigation } from '@react-navigation/native'
 
 const repeatDetails = [{id:0, name: "Frequency"}, {id:1, name: "End After"}]
 
@@ -55,6 +56,7 @@ const ExpenseScreen = () => {
     console.log(categoryList);
 
     const darkMode = useSelector((state)=>state.mode.darkMode)
+    const navigation = useNavigation();
 
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
@@ -79,6 +81,7 @@ const ExpenseScreen = () => {
             console.log(expenseData);
             try {
                 await firestore().collection('Expenses').add(expenseData);
+                navigation.navigate('myTabs')
             } catch (error) {
                 console.log("error_handleExpense", error);
             }

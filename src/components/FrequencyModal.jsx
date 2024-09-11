@@ -13,7 +13,7 @@ import { startAfter } from '@react-native-firebase/firestore'
 import { useNavigation } from '@react-navigation/native'
 
 const FrequencyModal = ({expenseData}) => {
-  console.log(expenseData);
+  // console.log(expenseData);
 
   const [frequencyData,setFrequencyData] = useState({
     frequency: '',
@@ -44,9 +44,9 @@ const daysArray = [];
     const daysInMonth = moment(frequencyData.month, 'MMMM').daysInMonth();
     // console.log("daysinmonth",daysInMonth);
     for(let i=0;i<daysInMonth-1;i++){
-      daysArray.push({name: i+1, value: i+1})
+      daysArray.push({name: (i+1).toString(), value: (i+1).toString()})
     }
-    console.log("daysarray",daysArray);
+    // console.log("daysarray",daysArray);
     // setDateData(daysArray)
     // console.log(dateData);
   },[frequencyData.month])
@@ -75,6 +75,7 @@ const daysArray = [];
   // }
 
   const handleSelectValue = (key,value) => {
+    console.log("updating", key, 'to', value);
     setFrequencyData(prevState => ({
       ...prevState,
       [key]: value
@@ -85,14 +86,15 @@ const daysArray = [];
     setFrequencyData(prevState => ({
       ...prevState,
       endDate: date
-    }))
+    }
+  ))
   }
 
   const handlePostSuccess = () => {
-    console.log("here");
+    // console.log("here");
     setIsDatePickerVisible(false)
-    navigation.navigate('expense')
-    console.log("also here");
+    navigation.navigate('myTabs')
+    // console.log("also here");
   }
 
   const onHandleFrequency = async () => {

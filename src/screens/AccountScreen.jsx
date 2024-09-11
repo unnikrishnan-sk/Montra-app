@@ -15,52 +15,31 @@ const AccountScreen = () => {
     const navigation = useNavigation();
 
   return (
-    <View style={{
-        height: HEIGHT,
-        backgroundColor: colorMix.light_100
-    }}>
+    <View style={{ height: HEIGHT, backgroundColor: colorMix.light_100 }}>
+
         <Navbar title="Account"/>
-        <ImageBackground 
-        style={{
-            height: HEIGHT*0.28,
-            marginTop: HEIGHT*0.03
-        }}
+
+        <ImageBackground style={{ height: HEIGHT*0.28, marginTop: HEIGHT*0.03 }}
         source={account_background}>
-            <Text style={{
-                alignSelf: 'center',
-                marginTop: HEIGHT*0.06,
-                color: colorMix.dark_25
+
+            <Text style={{ alignSelf: 'center', marginTop: HEIGHT*0.06, color: colorMix.dark_25
             }}>Account Balance</Text>
-            <Text style={{
-                fontSize: HEIGHT*0.05,
-                fontWeight: 600,
-                alignSelf: 'center',
-                marginTop: HEIGHT*0.01
+
+            <Text style={{ fontSize: HEIGHT*0.05, fontWeight: 600, alignSelf: 'center', marginTop: HEIGHT*0.01
             }}>$9400</Text>
+
         </ImageBackground>
 
-            <View style={{
-                // borderWidth: 1,
-                // height: HEIGHT*0.5,
-                paddingHorizontal: WIDTH*0.05
-            }}>
-                <FlatList
-                contentContainerStyle={{
-                    // borderWidth: 1,
-                    borderRadius: HEIGHT*0.02
-                }}
-                data={accountData}
-                showsVerticalScrollIndicator={false}
-                renderItem={({item})=><RenderAccountItems data={item} navigation={navigation}/> }
-                keyExtractor={item=>item.id}
-                /> 
+            <View style={{ paddingHorizontal: WIDTH*0.05 }}>
+
+                <FlatList contentContainerStyle={{ borderRadius: HEIGHT*0.02 }}
+                    data={accountData}
+                    showsVerticalScrollIndicator={false}
+                    renderItem={({item})=><RenderAccountItems data={item} navigation={navigation}/> }
+                    keyExtractor={item=>item.id}/> 
             </View>
-            <View style={{
-                paddingHorizontal: WIDTH*0.05,
-                position: 'absolute',
-                width: WIDTH,
-                bottom: HEIGHT*0.07
-            }}>
+
+            <View style={{ paddingHorizontal: WIDTH*0.05, position: 'absolute', width: WIDTH, bottom: HEIGHT*0.07 }}>
             <ButtonComponent title="+ Add new wallet"/>
             </View>
             <BottomSlider />

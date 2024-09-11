@@ -24,15 +24,15 @@ const DeleteDetTransaction = ({deleteModal, setDeleteModal, title, desc, onButto
         visible={deleteModal}
         style={{
           borderWidth:1,
-          height: HEIGHT*0.3
+          height: HEIGHT*0.35
         }}
         >
           <View style={{
             // borderWidth: 1,
             ...shadowStyles,
             backgroundColor: colorMix.light_100,
-            height: HEIGHT*0.3,
-            marginTop: HEIGHT*0.7,
+            height: HEIGHT*0.35,
+            marginTop: HEIGHT*0.65,
             borderTopLeftRadius: HEIGHT*0.03,
             borderTopRightRadius: HEIGHT*0.03,
             // paddingHorizontal: WIDTH*0.05

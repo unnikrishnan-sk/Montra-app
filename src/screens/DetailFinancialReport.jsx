@@ -13,6 +13,7 @@ import PieChartData from '../components/PieChartData'
 import { allExpense, allIncome, calculateExpense, expenseArr, latTransaction } from '../http/api'
 import { Circle, Svg } from 'react-native-svg'
 import moment from 'moment'
+import { useNavigation } from '@react-navigation/native'
 
 const DetailFinancialReport = () => {
 
@@ -25,8 +26,10 @@ const DetailFinancialReport = () => {
     const [chartType,setChartType] = useState(true)
     const [chartSelected,setChartSelected] = useState(true)
 
+    const navigation = useNavigation();
+
     const handleDroponChange = (item) => {
-        setValue(item);
+        setValue(item.value);
         setIsFocus(false);
       }
 
@@ -63,13 +66,17 @@ const DetailFinancialReport = () => {
         }
       }
 
+      const onBackBtn = () => {
+        navigation.pop(2)
+      }
+
   return (
    <View style={{
     backgroundColor: colorMix.light_100,
     height: HEIGHT,
     // paddingHorizontal: WIDTH*0.05
    }}>
-        <Navbar title="Financial Report"/>
+        <Navbar onBackBtn={onBackBtn} title="Financial Report"/>
         <View style={{
             // borderWidth:1,
             alignItems: 'center',
@@ -83,7 +90,7 @@ const DetailFinancialReport = () => {
           selectedTextStyle={{ fontSize: HEIGHT*0.022, color: colorMix.dark_100, fontWeight: '500' }}
           inputSearchStyle={{ height: HEIGHT*0.3, fontSize: HEIGHT*0.02, color: colorMix.dark_100 }}
           data={monthData}
-        //   maxHeight={HEIGHT*0.3}
+          maxHeight={HEIGHT*0.3}
           labelField="name"
           valueField="value"
           placeholderStyle={{ color: colorMix.dark_100, fontSize: HEIGHT*0.02 }}
@@ -178,7 +185,7 @@ const DetailFinancialReport = () => {
             fontSize: HEIGHT*0.04
         }}>$ {totalExpense}</Text>
         </View>
-        <PieChartPro donut areaChart data = {pieChartData} 
+        <PieChartPro donut areaChart data = {graphData} 
       style={{ marginLeft: WIDTH*0.1, shadowColor: '#000',
         shadowOffset: { width: 10, height: 20 },
         shadowOpacity: 0.5,

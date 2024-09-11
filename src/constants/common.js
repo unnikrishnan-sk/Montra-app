@@ -41,7 +41,7 @@ export const handleAuthError = (error, setFirebaseError) => {
 
 
 export const handleCategoryColor = (category) => {
-    console.log(category);
+    // console.log(category);
     const categoryValue = {
         "shopping": "Shopping",
         "subscription": "Subscription",

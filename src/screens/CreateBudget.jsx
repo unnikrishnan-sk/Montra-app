@@ -11,13 +11,14 @@ import BottomSlider from '../components/BottomSlider'
 import Slider from '@react-native-community/slider'
 import { useNavigation } from '@react-navigation/native'
 import firestore from '@react-native-firebase/firestore';
+import uuid from 'react-native-uuid'
 
 
 const CreateBudget = ({route}) => {
-// console.log("params here",route?.params);
+console.log("params here",route?.params);
 // const {alert, alertLimit,budgetAmnt,budgetCat,totalExpense }  = route?.params ;
     const [budgetData,setBudgetData] = useState({
-        // id: '',
+        id: uuid.v4(),
         budgetAmnt: 0,
         budgetCat: '',
         alert: false,
@@ -66,24 +67,35 @@ const CreateBudget = ({route}) => {
       }
 
       const handleCreateBudget = async () => {
-        console.log("budgetData",budgetData);
+        // console.log("budgetData",budgetData);
         try {
-            if(budgetData?.id===''){
-                await firestore().collection('Budget').add(budgetData);
-            }else{
-                await firestore().collection('Budget').doc(budgetData?.id).update(budgetData);
-            }
+            const budgetId = budgetData?.id
+            if(budgetId){
+                const querySnapShot = await firestore().collection('Budget').where('id', '==', budgetId).get();
+
+                if(!querySnapShot.empty) {
+                    querySnapShot.forEach(async (doc)=> {
+                        await firestore().collection('Budget').doc(doc.id).update(budgetData)
+                    })
+                }else{
+                    await firestore().collection('Budget').add(budgetData);
+                }
+                
+            // }else{
+                // await firestore().collection('Budget').doc(budgetData?.id).update(budgetData);
+            // }
             navigation.navigate('budget')
-        } catch (error) {
+        }
+    } catch (error) {
             console.log("error_handleCreateBudget", error);
         }
       }
 
   return (
     <View style={{ backgroundColor: colorMix.violet_100 }}>
-        <Navbar title="Create Budget" titleColor={colorMix.light_100} />
+        <Navbar title={route?.params ? 'Edit Budget' : 'Create Budget'} titleColor={colorMix.light_100} />
 
-        <View style={{ backgroundColor: colorMix.violet_100, paddingTop: budgetData?.alert ? HEIGHT*0.325 : HEIGHT*0.35, paddingHorizontal: WIDTH*0.05, paddingBottom: HEIGHT*0.02 }}>
+        <View style={{ backgroundColor: colorMix.violet_100, paddingTop: budgetData?.alert ? HEIGHT*0.25 : HEIGHT*0.28, paddingHorizontal: WIDTH*0.05, paddingBottom: HEIGHT*0.02, }}>
             <Text style={{ color: colorMix.light_100, fontSize: HEIGHT*0.023
             }}>How much do you want to spend?</Text>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -116,7 +128,7 @@ const CreateBudget = ({route}) => {
 
             {budgetData?.alert && <View style={{ height: HEIGHT*0.03, position: 'relative' }}>
             <Slider
-                style={{width: WIDTH*0.9, }}
+                style={{width: WIDTH*0.9, height: HEIGHT*0.03}}
                 minimumValue={0}
                 maximumValue={100}
                 minimumTrackTintColor={colorMix.violet_100}
@@ -125,6 +137,7 @@ const CreateBudget = ({route}) => {
                 tapToSeek
                 value={budgetData?.alertLimit}
                 onValueChange={(value)=>{onSlideChange(value)}}
+                trackStyle={{height: HEIGHT*0.05}}
                 />
                 <View style={[{position: 'absolute', top: -30, justifyContent: 'center', alignItems: 'center'},  {left: (budgetData?.alertLimit/100)*(WIDTH*0.9)-20, top:HEIGHT*0.01 }]}>
 
@@ -139,7 +152,7 @@ const CreateBudget = ({route}) => {
             <View style={{ marginTop:HEIGHT*0.02, marginBottom: HEIGHT*0.02, paddingTop: HEIGHT*0.02 }}>
                 <ButtonComponent title="Continue" width={WIDTH} onButtonHandler={()=>handleCreateBudget()}/>
             </View>
-            <View style={{ marginTop: HEIGHT*0.03, paddingBottom: HEIGHT*0.01 }}>
+            <View style={{ marginTop: HEIGHT*0.04, paddingBottom: HEIGHT*0.01 }}>
             <BottomSlider />
             </View>  
         </View>  

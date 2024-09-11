@@ -102,7 +102,7 @@ export const getTotalExpenseForCategory = async (category) => {
     try {
         // console.log("category here", category);
         const expenseSnapshot = await firestore().collection('Expenses').where('category', '==', category).get();
-        console.log("expense Snapshot", expenseSnapshot);
+        // console.log("expense Snapshot", expenseSnapshot);
         const expenses = expenseSnapshot.docs.map(doc => doc.data());
         // console.log("expenses here", expenses);
         const totalExpense = expenses.reduce((total, expense) => total + (Number(expense.amount) || 0), 0);
@@ -111,6 +111,24 @@ export const getTotalExpenseForCategory = async (category) => {
         console.log("Error fetching expenses", error);
     }
 }
+
+export const handleDeleteByFieldId = async (fieldIdValue) => {
+    try {
+        const querySnapshot = await firestore().collection('Budget').where('id', '==', fieldIdValue).get();
+
+        // Loop through the matching documents and delete them
+        querySnapshot.forEach(async (doc) => {
+            await firestore().collection('Budget').doc(doc.id).delete();
+        });
+
+        if (querySnapshot.empty) {
+            console.log("No matching documents found.");
+        }
+
+    } catch (error) {
+        console.log("Error deleting document(s):", error);
+    }
+};
 
 export const getAllBudgetData = async () => {
     try {
@@ -133,7 +151,7 @@ export const getAllBudgetData = async () => {
 };
 
 export const renderTansData = async (btnVal) => {
-    console.log("btn value", btnVal);
+    // console.log("btn value", btnVal);
 
     if (btnVal === 0) {
         // console.log("here");
@@ -141,16 +159,16 @@ export const renderTansData = async (btnVal) => {
         const startDay = new Date(nowDate.setHours(0, 0, 0));
         const endOfDay = new Date(nowDate.setHours(23, 59, 59, 999))
         const db = getFirestore();
-        console.log("db", db);
+        // console.log("db", db);
         const eventsCollection = collection(db, "Expenses")
-        console.log("eventsCollection", eventsCollection);
+        // console.log("eventsCollection", eventsCollection);
 
         const q = query(eventsCollection, where("timestamp", ">=", startDay), where("timestamp", "<=", endOfDay)
         );
 
         try {
             const querySnapshot = await getDocs(q);
-            console.log("querysnapshot", querySnapshot);
+            // console.log("querysnapshot", querySnapshot);
             const daysTransaction = querySnapshot.docs.map(doc => doc.data());
             console.log("today", daysTransaction);
         } catch (error) {

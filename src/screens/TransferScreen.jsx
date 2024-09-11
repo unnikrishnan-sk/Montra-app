@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Image, Text, TextInput, View } from 'react-native'
 import Navbar from '../components/Navbar'
 import { colorMix } from '../constants/color'
@@ -8,21 +8,51 @@ import { attachment_icon, transfer_icon } from '../assets'
 import ButtonComponent from '../components/ButtonComponent'
 import BottomSlider from '../components/BottomSlider'
 import { useSelector } from 'react-redux'
+import { useNavigation } from '@react-navigation/native'
 
 const TransferScreen = () => {
 
+  const [transferData,setTransferData] = useState(
+    {
+      amount: '',
+      fromAccount: '',
+      toAccount: '',
+      description: ''
+    }
+  )
+
+  const handleTextInputChange = (key,value) => {
+    setTransferData(prevState => ({
+        ...prevState,
+        [key]: value
+    }))
+}
+
   const darkMode = useSelector((state)=>state.mode.darkMode)
+  const navigation = useNavigation();
 
   return (
     <View style={{backgroundColor: colorMix.blue_100, height: HEIGHT}}>
         <Navbar title="Transfer" titleColor={colorMix.light_100}/>
-        <View style={{ paddingHorizontal: WIDTH*0.05, marginTop: HEIGHT*0.3 }}>
+        <View style={{ paddingHorizontal: WIDTH*0.05, marginTop: HEIGHT*0.25, }}>
         <Text style={{ color: colorMix.light_20, fontWeight: '500', fontSize: HEIGHT*0.024 }}>How much?</Text>
-        <Text style={{ color: colorMix.light_100, fontSize: HEIGHT*0.085, marginTop: HEIGHT*0.01, fontWeight: '600' }}>$0</Text>
+        <View style={{ 
+        flexDirection: 'row',
+            alignItems: 'center'
+        }}>
+            <Text style={{color: colorMix.light_100, fontSize: HEIGHT*0.085, marginTop: HEIGHT*0.01, fontWeight:'600'}}>$</Text>
+        <TextInput 
+        style={{ color: colorMix.light_100, fontSize: HEIGHT*0.085, marginTop: HEIGHT*0.01, fontWeight: '600' }}
+        placeholder='0'
+        placeholderTextColor={colorMix.light_100}
+        onChangeText={(text)=>handleTextInputChange('amount',text)}
+        value={transferData?.amount}
+        />
+        </View>
     </View>
     <View style={{ backgroundColor: darkMode ? colorMix.dark_100 : colorMix.light_100, borderTopRightRadius: HEIGHT*0.04, borderTopLeftRadius: HEIGHT*0.04, marginTop: HEIGHT*0.01 }}>
       <View style={{
-        height: HEIGHT*0.07,
+        height: HEIGHT*0.05,
         marginTop: HEIGHT*0.04,
         paddingHorizontal: WIDTH*0.05,
         flexDirection: 'row',
@@ -88,7 +118,7 @@ const TransferScreen = () => {
           height: HEIGHT*0.2,
           paddingHorizontal: WIDTH*0.05
         }}> 
-        <ButtonComponent title="Continue"/>
+        <ButtonComponent onButtonHandler={()=>navigation.navigate('myTabs')} title="Continue"/>
         </View>
         
     </View>

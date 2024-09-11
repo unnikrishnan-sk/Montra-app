@@ -11,15 +11,17 @@ import DeleteDetTransaction from '../components/DeleteDetTransaction'
 import { handleCategoryColor } from '../constants/common'
 import { useNavigation } from '@react-navigation/native'
 import firestore from '@react-native-firebase/firestore';
+import { handleDeleteByFieldId } from '../http/api'
 
 const DetailBudgetScreen = ({route}) => {
 
     const {alert, alertLimit,budgetAmnt,budgetCat,totalExpense, id } = route?.params?.data;
-    console.log("id here",id);
+    console.log("detail screen", route?.params?.data);
+    // console.log("id here",id);
     const [deleteModal,setDeleteModal] = useState(false)
     const [isLimitExceeded,setIsLimitExceeded] = useState(false);
     const bgColor = handleCategoryColor(budgetCat)
-    console.log(bgColor);
+    // console.log(bgColor);
     const RemainingAmnt = Number(budgetAmnt-totalExpense);
     const progress = Number(totalExpense/budgetAmnt)
     const navigation = useNavigation();
@@ -38,7 +40,7 @@ const DetailBudgetScreen = ({route}) => {
         console.log("id inside",id);
         if(id){
             try {
-                await firestore().collection('Budget').doc(id).delete();
+                await handleDeleteByFieldId(id)
                 navigation.navigate('budget')
             } catch (error) {
                 console.log("error in handle delete",error);
@@ -130,10 +132,11 @@ const DetailBudgetScreen = ({route}) => {
 
     </View>
     <View style={{
+        // borderWidth:1,
         paddingHorizontal: WIDTH*0.05,
         position: 'absolute',
         width: WIDTH,
-        bottom: HEIGHT*0.06
+        bottom: HEIGHT*0.07
     }}>
         <ButtonComponent title="Edit" onButtonHandler={()=>onEditHandler()}/>
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, Image, Pressable, Text, View } from 'react-native'
+import { FlatList, Image, Pressable, ScrollView, Text, View } from 'react-native'
 import { HEIGHT, WIDTH } from '../constants/dimension'
 import { arrow_left, arrow_right, arrow_right_white, back_arrow_white, right_arrow, warning_symbol } from '../assets'
 import { colorMix } from '../constants/color'
@@ -12,9 +12,6 @@ import BottomSlider from '../components/BottomSlider'
 import { getAllBudgetData, getBudgetData } from '../http/api'
 import { useSelector } from 'react-redux'
 
-
-const budgetData = [{id:0, category: 'Shopping', amountSpent: '1200' , totalBudget: '1000', isLimitExceeded: true}, {id:1, category: 'Transportation', amountSpent: '350' , totalBudget: '700', isLimitExceeded: false}] 
-
 const BudgetScreen = () => {
 
     const [ month,setMonth ] = useState(moment(new Date()));
@@ -26,13 +23,13 @@ const BudgetScreen = () => {
 
      useEffect(()=>{
         fetchData()
-     },[])
+     },[budgetDatas])
 
      const darkMode = useSelector((state)=>state.mode.darkMode)
 
      const fetchData = async () => {
         const data = await getAllBudgetData();
-        console.log("datas",data.id);
+        // console.log("datas",data.id);
         setBudgetDatas(data);
     }
 
@@ -63,7 +60,6 @@ const BudgetScreen = () => {
      }
 
      
-
   return (
     <View style={{
         backgroundColor: colorMix.violet_100,
@@ -107,7 +103,9 @@ const BudgetScreen = () => {
             </Pressable>
         </View>
 
-       
+       <ScrollView contentContainerStyle={{
+        flexGrow: 1
+       }}>
         <View style={{
             // borderWidth:1,
             marginTop: HEIGHT*0.02,
@@ -157,13 +155,14 @@ const BudgetScreen = () => {
             // borderWidth:1,
             width: WIDTH,
                 position: 'absolute',
-                bottom: HEIGHT*0.01,
+                bottom: HEIGHT*0.05,
                 // marginBottom: HEIGHT*0.03,
                 // marginTop: HEIGHT*0.03,
                 paddingHorizontal: WIDTH*0.05
             }}>
             <ButtonComponent title="Create a budget" onButtonHandler={()=>navigation.navigate('createbudget')}/>
             </View>
+            </ScrollView>
            
     </View>
   )

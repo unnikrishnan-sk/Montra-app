@@ -35,6 +35,9 @@ import AccountScreen from './screens/AccountScreen';
 import DetailAccountScreen from './screens/DetailAccountScreen';
 import SettingScreen from './screens/SettingScreen';
 import ThemeScreen from './screens/ThemeScreen';
+import CurrencyScreen from './screens/CurrencyScreen';
+import LanguageScreen from './screens/LanguageScreen';
+import SecurityScreen from './screens/SecurityScreen';
 
 const tabBarData = [{ id: 0, logo: home_icon, title: "Home", route: "home" }, { id: 1, logo: transaction_tab, title: "Transaction", route: "transaction" }, { id: 2, logo: plus_icon_tab }, { id: 3, logo: budget_tab, title: "Budget", route: "budget" }, { id: 4, logo: profile_tab, title: "Profile", route: "profile" }]
 
@@ -147,7 +150,13 @@ const MyTabBar = ({ state, descriptors, navigation }) => {
                     isFocused: state.index === index
                 }))}
                 renderItem={({ item, index }) => {
-                    const isFocused = state.index === index;
+                    let isFocused;
+                    if (index < 2) {
+                        isFocused = state.index === index;
+                    } else {
+                        isFocused = state.index === index - 1;
+                    }
+
                     return (
                         <RenderTabBar data={item} isFocused={isFocused} />
                     );
@@ -204,6 +213,9 @@ const Router = () => {
                 <Stack.Screen name='detailaccount' component={DetailAccountScreen} />
                 <Stack.Screen name='settings' component={SettingScreen} />
                 <Stack.Screen name='theme' component={ThemeScreen} />
+                <Stack.Screen name='currency' component={CurrencyScreen} />
+                <Stack.Screen name='language' component={LanguageScreen} />
+                <Stack.Screen name='security' component={SecurityScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     )
