@@ -86,7 +86,7 @@ const DetailFinancialReport = () => {
             paddingHorizontal: WIDTH*0.05
         }}>
         <Dropdown
-          style={{ borderColor: 'gray', borderRadius: HEIGHT*0.03, paddingHorizontal: WIDTH*0.01, borderWidth: 1, width: WIDTH*0.29, height: HEIGHT*0.05, backgroundColor: colorMix.light_80, borderColor: colorMix.light_20, color: colorMix.dark_100, marginTop: HEIGHT*0.02 }}
+          style={{ borderColor: 'gray', borderRadius: HEIGHT*0.03, paddingHorizontal: WIDTH*0.01, borderWidth: 1, width: WIDTH*0.32, height: HEIGHT*0.05, backgroundColor: colorMix.light_80, borderColor: colorMix.light_20, color: colorMix.dark_100, marginTop: HEIGHT*0.02 }}
           selectedTextStyle={{ fontSize: HEIGHT*0.022, color: colorMix.dark_100, fontWeight: '500' }}
           inputSearchStyle={{ height: HEIGHT*0.3, fontSize: HEIGHT*0.02, color: colorMix.dark_100 }}
           data={monthData}

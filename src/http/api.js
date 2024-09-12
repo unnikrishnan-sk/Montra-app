@@ -5,13 +5,11 @@ import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 export const calculateExpense = async (selectedMonth) => {
     try {
         const expenses = await firestore().collection('Expenses').where('createdMonth', '==', selectedMonth).get();
-        // console.log(selectedMonth);
         const expensesDet = expenses.docs.reduce((sum, doc) => {
             const data = doc.data()
             const amount = parseFloat(data.amount)
             return sum + amount;
         }, 0)
-        // console.log(expensesDet);
         return expensesDet
     } catch (error) {
         console.log(error);
@@ -27,6 +25,20 @@ export const calculateIncome = async (selectedMonth) => {
             return sum + amount;
         }, 0)
         return incomeDet
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const accountBal = async () => {
+    try {
+        const balAmount = await firestore().collection('Accounts').get();
+        const balDetail = balAmount.docs.reduce((sum, doc) => {
+            const data = doc.data()
+            const amount = parseFloat(data.balance)
+            return sum + amount;
+        }, 0)
+        return balDetail
     } catch (error) {
         console.log(error)
     }
@@ -54,6 +66,16 @@ export const allExpense = async () => {
     try {
         const expenseArray = await firestore().collection('Expenses').get();
         return expenseArray.docs.map(doc => doc.data());
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const allAccounts = async () => {
+    try {
+        const accountsArray = await firestore().collection('Accounts').get();
+        console.log("accountsArray", accountsArray);
+        return accountsArray.docs.map(doc => doc.data());
     } catch (error) {
         console.log(error);
     }
@@ -100,11 +122,8 @@ export const getBudgetData = async () => {
 
 export const getTotalExpenseForCategory = async (category) => {
     try {
-        // console.log("category here", category);
         const expenseSnapshot = await firestore().collection('Expenses').where('category', '==', category).get();
-        // console.log("expense Snapshot", expenseSnapshot);
         const expenses = expenseSnapshot.docs.map(doc => doc.data());
-        // console.log("expenses here", expenses);
         const totalExpense = expenses.reduce((total, expense) => total + (Number(expense.amount) || 0), 0);
         return totalExpense;
     } catch (error) {
@@ -151,31 +170,27 @@ export const getAllBudgetData = async () => {
 };
 
 export const renderTansData = async (btnVal) => {
-    // console.log("btn value", btnVal);
 
     if (btnVal === 0) {
-        // console.log("here");
         const nowDate = new Date();
         const startDay = new Date(nowDate.setHours(0, 0, 0));
         const endOfDay = new Date(nowDate.setHours(23, 59, 59, 999))
         const db = getFirestore();
-        // console.log("db", db);
         const eventsCollection = collection(db, "Expenses")
-        // console.log("eventsCollection", eventsCollection);
 
         const q = query(eventsCollection, where("timestamp", ">=", startDay), where("timestamp", "<=", endOfDay)
         );
 
         try {
             const querySnapshot = await getDocs(q);
-            // console.log("querysnapshot", querySnapshot);
             const daysTransaction = querySnapshot.docs.map(doc => doc.data());
             console.log("today", daysTransaction);
         } catch (error) {
-
+            console.log("Error in getting expenses :", error);
         }
 
     }
 }
+
 
 

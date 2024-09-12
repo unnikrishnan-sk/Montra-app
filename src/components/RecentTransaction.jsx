@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Pressable, Text, View, FlatList } from 'react-native'
 import { HEIGHT, WIDTH } from '../constants/dimension'
 import { colorMix } from '../constants/color'
@@ -10,36 +10,28 @@ import { latTransaction } from '../http/api'
 const RecentTransaction = ({recentTransData, centerTab, darkMode}) => {
 
   const navigation = useNavigation();
-  // const [latTransactionDet,setLatTransactionDet] = useState([])
-
-// useEffect(()=>{
-//   getData();
-// },[])
-
-  // const getData = async () => {
-  //   console.log(recentTransData);
-  //   // const data = await latTransaction();
-  //   setLatTransactionDet(recentTransData)
-  // }
-  
-  // console.log("in transaction",recentTransData);
 
   return (
     <>
     <View style={{ flexDirection: 'row', paddingHorizontal: WIDTH*0.05, justifyContent: 'space-between', alignItems: 'center', marginTop: HEIGHT*0.03 }}>
+
         <Text style={{ fontWeight: '500', fontSize: HEIGHT*0.025, color: colorMix.dark_100 }}>Recent Transaction</Text>
-        <Pressable 
-        onPress={()=>navigation.navigate('transaction')}
+
+        <Pressable onPress={()=>navigation.navigate('transaction')}
         style={{ paddingTop: HEIGHT*0.008, paddingBottom: HEIGHT*0.008, paddingLeft: WIDTH*0.035, paddingRight: WIDTH*0.035, borderRadius: HEIGHT*0.02, backgroundColor: centerTab ? colorMix.violet_40 : colorMix.violet_20 }}>
             <Text style={{ color: colorMix.violet_100, fontSize: HEIGHT*0.02 }}>See All</Text>
         </Pressable>
     </View>
-    <FlatList 
+
+    {recentTransData?.length === 0 ? <View style={{ paddingTop: WIDTH*0.05, marginBottom: WIDTH*0.08, alignItems: 'center' }}>
+      <Text style={{ fontSize: HEIGHT*0.022, fontWeight: 500, color: colorMix.violet_100
+      }}>No transactions to show here</Text></View> 
+      : <FlatList 
         data={recentTransData}
         showsVerticalScrollIndicator={false}
         renderItem={({item})=><RenderTransactionItems data={item} centerTab={centerTab}/> }
         keyExtractor={item=>item.id}
-        />
+        />}
     </>
   )
 }

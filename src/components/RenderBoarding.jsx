@@ -9,7 +9,7 @@ const RenderBoarding = ({data, index, darkMode}) => {
     const isSelected = id === index+1
 
     return(
-        <View style={{ backgroundColor: darkMode ? colorMix.dark_100 : colorMix.light_100, alignItems: 'center', justifyContent: 'center', width: WIDTH, paddingTop: HEIGHT*0.03 }}>
+      <View style={{ backgroundColor: darkMode ? colorMix.dark_100 : colorMix.light_100, alignItems: 'center', justifyContent: 'center', width: WIDTH, paddingTop: HEIGHT*0.03 }}>
 
         <Image style={{ height: HEIGHT*0.33, width: HEIGHT*0.42 }}
         source={image} />
@@ -23,7 +23,7 @@ const RenderBoarding = ({data, index, darkMode}) => {
         }}>{desc}</Text>
         
          </View>
-        </View>
+      </View>
   )
 }
 

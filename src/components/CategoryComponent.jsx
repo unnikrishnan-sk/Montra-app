@@ -7,7 +7,7 @@ import { expenseCategoryType, walletType } from '../constants/dummyData'
 import InputComponent from './InputComponent'
 import { attachment_icon } from '../assets'
 
-const CategoryComponent = ({amount,category,setCategory,wallet,setWallet,response,isEnabled}) => {
+const CategoryComponent = ({amount,setAmount,category,setCategory,wallet,setWallet,response,isEnabled}) => {
   return (
     <View>
          <View style={{ paddingHorizontal: WIDTH*0.05, marginTop: HEIGHT*0.12 }}>

@@ -7,7 +7,7 @@ import { allTransactionData } from '../constants/dummyData'
 import RenderTransactionItems from '../components/RenderTransactionItems'
 import SortModal from '../components/SortModal'
 import { useSelector } from 'react-redux'
-import { allExpense } from '../http/api'
+import { allExpense, allIncome } from '../http/api'
 import { useNavigation } from '@react-navigation/native'
 
 const TransactionScreen = () => {
@@ -16,7 +16,8 @@ const TransactionScreen = () => {
     const [filter,setFilter] = useState(null)
     const [allData,setAllData] = useState([]);
     const [sort,setSort] = useState(null)
-    console.log(sort);
+    console.log("sort",sort);
+    console.log("filter",filter);
 
     const darkMode = useSelector((state)=>state.mode.darkMode)
     const navigation = useNavigation();
@@ -27,8 +28,15 @@ const TransactionScreen = () => {
 
     const getData = async () => {
         const allExpenses = await allExpense();
-        console.log("allExpense", allExpenses);
-        setAllData(allExpenses)
+        // const allExpenses = await allExpense();
+        const allIncomes = await allIncome();
+        // if(filter===0){
+        //     console.log("all incomes",allIncomes);
+        //     setAllData(allIncomes)
+        //     console.log("all data here", allData);
+        // }
+        // console.log("allExpense", allExpenses);
+        setAllData(allExpenses.concat(allIncomes))
     }
     
   return (
@@ -66,7 +74,9 @@ const TransactionScreen = () => {
                 />
                 <Text style={{
                     // marginLeft: WIDTH*0.02,
-                    marginHorizontal: WIDTH*0.02
+                    marginHorizontal: WIDTH*0.02,
+                    color: colorMix.dark_100,
+                    fontWeight: 500
                 }}>Month</Text>
             </View>
             <Pressable 
@@ -126,6 +136,9 @@ const TransactionScreen = () => {
             marginTop: HEIGHT*0.02
         }}>
              <FlatList 
+             contentContainerStyle={{
+                paddingBottom: HEIGHT*0.12
+             }}
         data={allData}
         showsVerticalScrollIndicator={false}
         renderItem={({item})=><RenderTransactionItems data={item}/> }
@@ -138,7 +151,7 @@ const TransactionScreen = () => {
         transparent={true}
         visible={openFilter}
         >
-            <SortModal  openFilter={openFilter} setOpenFilter={setOpenFilter} setFilter={setFilter} filter={filter} sort={sort} setSort={setSort}/>
+            <SortModal  openFilter={openFilter} setOpenFilter={setOpenFilter} setFilter={setFilter} filter={filter} sort={sort} setSort={setSort} setAllData={setAllData}/>
 
       </Modal>
 

@@ -175,7 +175,6 @@ const MyTabs = () => {
             <Tab.Screen name="transaction" component={TransactionScreen} options={{ headerShown: false }} />
             <Tab.Screen name="budget" component={BudgetScreen} options={{ headerShown: false }} />
             <Tab.Screen name="profile" component={ProfileScreen} options={{ headerShown: false }} />
-            {/* <Tab.Screen name="transaction" component={TransactionScreen} options={{ headerShown: false }} /> */}
         </Tab.Navigator>
     )
 }

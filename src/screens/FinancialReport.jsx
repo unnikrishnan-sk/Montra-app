@@ -92,7 +92,7 @@ const FinancialReport = () => {
     // borderWidth: 1,
     height: HEIGHT*0.01,
     paddingHorizontal: WIDTH*0.05,
-    paddingTop: HEIGHT*0.02,
+    paddingTop: HEIGHT*0.04,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between'
@@ -123,7 +123,7 @@ const FinancialReport = () => {
    
    </View>
    {reports===3 ? <View style={{
-    // paddingHorizontal: WIDTH*0.05,
+    paddingHorizontal: WIDTH*0.05,
     marginTop: HEIGHT*0.2,
     // borderWidth: 1
    }}>
@@ -184,7 +184,7 @@ const FinancialReport = () => {
                     //     justifyContent: 'space-between'
                     // }}
                     contentContainerStyle={{
-                        borderWidth: 1,
+                        // borderWidth: 1,
                         alignItems: 'center',
                         justifyContent: 'space-between'
                     }}

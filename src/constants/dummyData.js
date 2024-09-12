@@ -58,3 +58,7 @@ export const budgetData = [{ id: 0, category: 'Shopping', amountSpent: '1200', t
 
 export const settingsData = [{ id: 0, name: "Currency", type: "USD", route: 'currency' }, { id: 1, name: "Language", type: "English", route: 'language' }, { id: 2, name: "Theme", type: "Light", route: 'theme' }, { id: 3, name: "Security", type: " Fingerprint", route: 'security' }, { id: 4, name: "Notification", route: 'notification' }, { id: 5, name: "About" }, { id: 6, name: "Help" }]
 
+export const filterData = [{ id: 0, name: 'Income' }, { id: 1, name: 'Expense' }, { id: 2, name: 'Transfer' }]
+
+export const sortData = [{ id: 0, name: 'Highest' }, { id: 1, name: 'Lowest' }, { id: 2, name: 'Newest' }, { id: 3, name: 'Oldest' }]
+
