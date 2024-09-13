@@ -5,13 +5,12 @@ import { colorMix } from '../constants/color'
 import { HEIGHT, WIDTH } from '../constants/dimension'
 import InputComponent from '../components/InputComponent'
 import DropdownComponent from '../components/DropdownComponent'
-import { expenseCategoryType, expenseDetails, imageDetails, walletType } from '../constants/dummyData'
+import { expenseCategoryType, walletType } from '../constants/dummyData'
 import { attachment_icon, close_icon } from '../assets'
 import ButtonComponent from '../components/ButtonComponent'
 import BottomSlider from '../components/BottomSlider'
 import firestore from '@react-native-firebase/firestore';
 import RenderAttachments from '../components/RenderAttachments'
-import { shadowStyles } from '../constants/shadow'
 import * as ImagePicker from 'react-native-image-picker'
 import * as DocumentPicker from 'react-native-document-picker'
 import RepeatModalComponent from '../components/RepeatModalComponent'
@@ -21,8 +20,6 @@ import moment from 'moment'
 import { getConstants } from '../http/api'
 import { useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
-
-const repeatDetails = [{id:0, name: "Frequency"}, {id:1, name: "End After"}]
 
 const ExpenseScreen = () => {
 
@@ -37,7 +34,7 @@ const ExpenseScreen = () => {
         createdDay: moment(new Date()).format('dddd'),
         createdYear: moment(new Date()).format('YYYY')
     });
-    const [error,setError] = useState({})
+    const [error,setError] = useState("")
     const [categoryList,setCategoryList] = useState([]);
     const [walletList,setWalletList] = useState([]);
     const [response, setResponse] = useState('');
@@ -68,10 +65,27 @@ const ExpenseScreen = () => {
         if(isEnabled){
             setRepeatModal(true)
         }else{
-            console.log(expenseData);
             try {
-                await firestore().collection('Expenses').add(expenseData);
-                navigation.navigate('myTabs')
+                const bank = expenseData?.wallet;
+                const querySnapShotBank = await firestore().collection('Accounts').where('bank', '==', bank).get();
+                console.log("querySnap", !querySnapShotBank.empty);
+
+                if(!querySnapShotBank.empty){
+                    await firestore().collection('Expenses').add(expenseData);
+                    querySnapShotBank.forEach(async (doc)=>{
+                      const existingData = doc.data();
+                      const updatedBalance = Number(existingData.balance) - Number(expenseData?.amount);
+                      await firestore().collection('Accounts').doc(doc.id).update({
+                        ...existingData,
+                        balance: updatedBalance
+                      })
+                    });
+                    navigation.navigate('myTabs')
+                  }else{
+                    setError("No balance in the bank selected")
+                  }
+
+               
             } catch (error) {
                 console.log("error_handleExpense", error);
             }
@@ -171,51 +185,31 @@ const ExpenseScreen = () => {
         
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
         <View>
-        <Text style={{ marginTop: HEIGHT*0.03, fontSize: HEIGHT*0.024,color: darkMode? colorMix.light_100 : colorMix.dark_100 }}>Repeat</Text>
+        <Text style={{ marginTop: HEIGHT*0.02, fontSize: HEIGHT*0.024,color: darkMode? colorMix.light_100 : colorMix.dark_100 }}>Repeat</Text>
         <Text style={{ fontSize: HEIGHT*0.02, color: colorMix.dark_25, marginTop: HEIGHT*0.01 }}>{isEnabled ? 'Repeat transaction, set your own time' : 'Repeat transaction'}</Text>
         </View>
+
         <Switch style={{transform: [{scaleX: .8}, {scaleY: .8}]}} trackColor={{false: colorMix.violet_20, true: colorMix.violet_100}} thumbColor={ colorMix.light_100} onValueChange={toggleSwitch} value={isEnabled} />
         </View>
         </View>
-        <View style={{  marginTop: Platform.OS==='ios' ?  HEIGHT*0.14 : HEIGHT*0.035, paddingHorizontal: WIDTH*0.05 }}>
+
+        {error && (<View style={{ alignItems: 'center', paddingTop: HEIGHT*0.02 }}><Text style={{color: colorMix.red_100, alignItems: 'center',}}>{error}</Text></View>)}
+
+        <View style={{  marginTop: Platform.OS==='ios' ?  HEIGHT*0.11 : HEIGHT*0.02, paddingHorizontal: WIDTH*0.05 }}>
         <ButtonComponent title="Continue" onButtonHandler={()=>handleExpense()}/>
-        
         </View> 
-        <View style={{
-            marginTop: Platform.OS==='ios'?HEIGHT*0.05:HEIGHT*0.08
-        }}>
+
+        <View style={{ marginTop: Platform.OS==='ios'?HEIGHT*0.05:HEIGHT*0.08 }}>
         <BottomSlider />
         </View>
     </View>
     
     <Modal animationType="slide" transparent={true} visible={modalVisible} onRequestClose={() => { setModalVisible(!modalVisible) }}>
     <RepeatModalComponent setModalVisible={setModalVisible} onButtonPress={onButtonPress} onNavigate="Attachment"/>
-      </Modal>
+    </Modal>
 
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={repeatModal}
-        >
-             <RepeatModalComponent setModalVisible={setModalVisible} onButtonPress={onButtonPress} setRepeatModal={setRepeatModal} expenseData={expenseData} />
-        {/* <View style={{ height: HEIGHT*0.32, position: 'absolute', bottom: HEIGHT*0.03, width: WIDTH, backgroundColor: colorMix.light_100,
-        // paddingHorizontal: WIDTH* 0.05,
-            borderTopLeftRadius: HEIGHT*0.04, borderTopRightRadius: HEIGHT*0.04, ...shadowStyles }}>
-        <Pressable onPress={()=>setRepeatModal(false)}style={{ height: HEIGHT*0.005, marginTop: HEIGHT*0.02, width: WIDTH*0.08, alignSelf: 'center', borderRadius: HEIGHT*0.03, backgroundColor: colorMix.violet_40 }}></Pressable>
-        <View style={{
-            paddingHorizontal: WIDTH*0.05
-        }}>
-         <DropdownComponent value={frequency} setValue={setFrequency} title="Frequency" data={frequencyDetails}/>
-        
-        <DropdownComponent value={category} setValue={setCategory} title="End After" data={endAfter}/>
-        </View>
-        <View style={{
-            marginTop: HEIGHT*0.02,
-        }}>
-        <ButtonComponent title="Next"/>
-        </View>
-          
-        </View> */}
+      <Modal animationType="slide" transparent={true} visible={repeatModal}>
+        <RepeatModalComponent setModalVisible={setModalVisible} onButtonPress={onButtonPress} setRepeatModal={setRepeatModal} expenseData={expenseData} />
       </Modal>
    </View>
   )

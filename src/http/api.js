@@ -74,7 +74,6 @@ export const allExpense = async () => {
 export const allAccounts = async () => {
     try {
         const accountsArray = await firestore().collection('Accounts').get();
-        console.log("accountsArray", accountsArray);
         return accountsArray.docs.map(doc => doc.data());
     } catch (error) {
         console.log(error);

@@ -1,4 +1,4 @@
-import { account_wallet, arrow_right, bank_of_america, bca_bank, camera_icon, chase_bank, citi_bank, doc_icon, expense_icon, food_icon, gallery_icon, income_general_icon, income_icon, jago_bank, logout_icon, mandiri_bank, onboarding_1, onboarding_2, onboarding_3, pass_icon, paypal_bank, settings_icon, shopping_icon, subscription_icon, transportation_general_icon, upload_icon, wallet_icon } from "../assets";
+import { account_wallet, arrow_right, bank_of_america, bca_bank, budget_tab, camera_icon, chase_bank, citi_bank, doc_icon, expense_icon, food_icon, gallery_icon, home_icon, income_general_icon, income_icon, jago_bank, logout_icon, mandiri_bank, onboarding_1, onboarding_2, onboarding_3, pass_icon, paypal_bank, plus_icon_tab, profile_tab, settings_icon, shopping_icon, subscription_icon, transaction_tab, transportation_general_icon, upload_icon, wallet_icon } from "../assets";
 
 export const onboardData = [{ id: 0, image: onboarding_1, heading: "Gain total control of your money", desc: "Become your own money manager and make every cent count" }, { id: 1, image: onboarding_2, heading: "Know where your money goes", desc: "Track your transaction easily, with categories and financial report" }, { id: 2, image: onboarding_3, heading: "Planning ahead", desc: "Setup your budget for each category so you in control" }]
 
@@ -61,4 +61,15 @@ export const settingsData = [{ id: 0, name: "Currency", type: "USD", route: 'cur
 export const filterData = [{ id: 0, name: 'Income' }, { id: 1, name: 'Expense' }, { id: 2, name: 'Transfer' }]
 
 export const sortData = [{ id: 0, name: 'Highest' }, { id: 1, name: 'Lowest' }, { id: 2, name: 'Newest' }, { id: 3, name: 'Oldest' }]
+
+export const budgetFinData = [{ title: 'Shopping', icon: shopping_icon }, { title: 'Food', icon: food_icon }]
+
+export const financialData = [{ financialType: 'quote', quote: 'Financial freedom is freedom from fear', author: 'Robert Kiyosaki' }]
+
+export const values = { "expense": "expense", "income": "income", "budget": "budget", "quote": "quote" }
+
+export const repeatDetails = [{ id: 0, name: "Frequency" }, { id: 1, name: "End After" }]
+
+export const tabBarData = [{ id: 0, logo: home_icon, title: "Home", route: "home" }, { id: 1, logo: transaction_tab, title: "Transaction", route: "transaction" }, { id: 2, logo: plus_icon_tab }, { id: 3, logo: budget_tab, title: "Budget", route: "budget" }, { id: 4, logo: profile_tab, title: "Profile", route: "profile" }]
+
 

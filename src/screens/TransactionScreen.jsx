@@ -16,9 +16,6 @@ const TransactionScreen = () => {
     const [filter,setFilter] = useState(null)
     const [allData,setAllData] = useState([]);
     const [sort,setSort] = useState(null)
-    console.log("sort",sort);
-    console.log("filter",filter);
-
     const darkMode = useSelector((state)=>state.mode.darkMode)
     const navigation = useNavigation();
 
@@ -28,133 +25,53 @@ const TransactionScreen = () => {
 
     const getData = async () => {
         const allExpenses = await allExpense();
-        // const allExpenses = await allExpense();
         const allIncomes = await allIncome();
-        // if(filter===0){
-        //     console.log("all incomes",allIncomes);
-        //     setAllData(allIncomes)
-        //     console.log("all data here", allData);
-        // }
-        // console.log("allExpense", allExpenses);
         setAllData(allExpenses.concat(allIncomes))
     }
     
   return (
-    <View style={{
-        // borderWidth: 1
-        backgroundColor: colorMix.light_100,
-        height: HEIGHT
-    }}>
-        <View style={{
-            // borderWidth:1,
-            height: HEIGHT*0.05,
-            marginTop: HEIGHT*0.05,
-            justifyContent: 'space-between',
-            flexDirection: 'row',
-            paddingHorizontal: WIDTH*0.05
-        }}>
-            <View style={{
-                borderWidth:1,
-                height: HEIGHT*0.05,
-                flexDirection: 'row' ,
-                // padding: HEIGHT*0.005
-                paddingHorizontal: HEIGHT*0.007,
-                paddingVertical: HEIGHT*0.004,
-                borderRadius: HEIGHT*0.03,
-                alignItems: 'center',
-                borderColor: colorMix.light_20
-            }}>
-                <Image 
-                style={{
-                    height: HEIGHT*0.01,
-                    width: HEIGHT*0.02,
-                    marginLeft: WIDTH*0.02
-                }}
-                source={dropdown_arrow}
-                />
-                <Text style={{
-                    // marginLeft: WIDTH*0.02,
-                    marginHorizontal: WIDTH*0.02,
-                    color: colorMix.dark_100,
-                    fontWeight: 500
-                }}>Month</Text>
+    <View style={{ backgroundColor: colorMix.light_100, height: HEIGHT }}>
+        <View style={{ height: HEIGHT*0.05, marginTop: HEIGHT*0.05, justifyContent: 'space-between', flexDirection: 'row', paddingHorizontal: WIDTH*0.05 }}>
+
+            <View style={{ borderWidth:1, height: HEIGHT*0.05, flexDirection: 'row', paddingHorizontal: HEIGHT*0.007, paddingVertical: HEIGHT*0.004, borderRadius: HEIGHT*0.03, alignItems: 'center', borderColor: colorMix.light_20 }}>
+                <Image style={{ height: HEIGHT*0.01, width: HEIGHT*0.02, marginLeft: WIDTH*0.02 }}
+                source={dropdown_arrow} />
+
+                <Text style={{ marginHorizontal: WIDTH*0.02, color: colorMix.dark_100, fontWeight: 500 }}>Month</Text>
             </View>
-            <Pressable 
-            onPress={()=>setOpenFilter(!openFilter)}
-            >
-            <Image 
-            source={sort_icon}
-            />
+
+            <Pressable onPress={()=>setOpenFilter(!openFilter)} >
+            <Image source={sort_icon} />
             </Pressable>
         </View>
 
-        <View style={{
-            // borderWidth: 1,
-            height: HEIGHT*0.06,
-            marginTop: HEIGHT*0.02,
-            paddingHorizontal: WIDTH*0.05
-        }}>
-            <Pressable
-            onPress={()=>navigation.navigate('financialreport')}
-             style={{
-                // borderWidth: 1,
-                height: HEIGHT*0.06,
-                borderRadius:HEIGHT*0.01,
-                backgroundColor: colorMix.violet_20,
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between'
-            }}>
-                <Text style={{
-                    color: colorMix.violet_100,
-                    marginLeft: WIDTH*0.03,
-                    fontSize: HEIGHT*0.02
-                }}>See your financial report</Text>
-                <Image
-                style={{
-                    marginRight: WIDTH*0.03,
-                    height: HEIGHT*0.02,
-                    width: HEIGHT*0.01
-                }}
-                source={right_arrow} 
-                />
+        <View style={{ height: HEIGHT*0.06, marginTop: HEIGHT*0.02, paddingHorizontal: WIDTH*0.05 }}>
+
+            <Pressable onPress={()=>navigation.navigate('financialreport')}
+             style={{ height: HEIGHT*0.06, borderRadius:HEIGHT*0.01, backgroundColor: colorMix.violet_20, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                <Text style={{ color: colorMix.violet_100, marginLeft: WIDTH*0.03, fontSize: HEIGHT*0.02 }}>See your financial report</Text>
+
+                <Image style={{ marginRight: WIDTH*0.03, height: HEIGHT*0.02, width: HEIGHT*0.01 }}
+                source={right_arrow} />
             </Pressable>
         </View>
-
-        {/* <Text style={{
-            marginTop: HEIGHT*0.02,
-            marginLeft: WIDTH*0.05,
-            fontSize: HEIGHT*0.022,
-            fontWeight: '500'
-        }}>Today</Text> */}
-
 
         <ScrollView 
         showsVerticalScrollIndicator={false}
-        style={{
-            // borderWidth: 1,
-            marginTop: HEIGHT*0.02
-        }}>
-             <FlatList 
-             contentContainerStyle={{
-                paddingBottom: HEIGHT*0.12
-             }}
-        data={allData}
-        showsVerticalScrollIndicator={false}
-        renderItem={({item})=><RenderTransactionItems data={item}/> }
-        keyExtractor={item=>item.id}
-        />
+        style={{ marginTop: HEIGHT*0.02 }}>
+            <FlatList contentContainerStyle={{ paddingBottom: HEIGHT*0.12 }}
+            data={allData}
+            showsVerticalScrollIndicator={false}
+            renderItem={({item})=><RenderTransactionItems data={item}/> }
+            keyExtractor={item=>item.id} />
         </ScrollView>
 
         <Modal
         animationType="slide"
         transparent={true}
-        visible={openFilter}
-        >
+        visible={openFilter}>
             <SortModal  openFilter={openFilter} setOpenFilter={setOpenFilter} setFilter={setFilter} filter={filter} sort={sort} setSort={setSort} setAllData={setAllData}/>
-
       </Modal>
-
     </View>
   )
 }

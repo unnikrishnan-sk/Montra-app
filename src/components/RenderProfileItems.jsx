@@ -1,13 +1,40 @@
 import { Image, Pressable, Text, View } from "react-native";
 import { colorMix } from "../constants/color";
 import { HEIGHT, WIDTH } from "../constants/dimension";
+import auth from '@react-native-firebase/auth';
+import { useEffect, useState } from "react";
 
 const RenderProfileItems = ({data,navigation}) => {
 
     const {id, icon, name, route } = data;
+    const [user,setUser] = useState();
+
+    // useEffect(()=>{
+    //     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    //     return subscriber;
+    // },[])
+
+    // function onAuthStateChanged(user){
+    //     setUser(user)
+    // }
+
+    // useEffect(()=>{
+    //     if(!user){
+    //         navigation.navigate('login')
+    //     }
+    // },[user,navigation])
+
+    const onProfileDetPress = () => {
+        if(name==="Logout"){
+            auth().signOut().then(()=>console.log("User signed out"))
+            navigation.navigate('login')
+        }else{
+            navigation.navigate(route)
+        }
+    }
     return(
         <>
-        <Pressable onPress={()=>navigation.navigate(route)}
+        <Pressable onPress={()=>onProfileDetPress()}
          style={{ backgroundColor: colorMix.light_100, borderBottomWidth: 0.5, borderTopRightRadius: id===0 ? HEIGHT*0.02 : 0, borderTopLeftRadius: id===0 ? HEIGHT*0.02 : 0, borderBottomLeftRadius: id===3 ? HEIGHT*0.02 : 0, borderBottomRightRadius: id===3 ? HEIGHT*0.02 : 0, borderColor: colorMix.light_20 }}>
 
             <View style={{ flexDirection: 'row', paddingHorizontal: WIDTH*0.05, paddingVertical: WIDTH*0.05 }}>

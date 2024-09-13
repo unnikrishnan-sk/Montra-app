@@ -14,11 +14,6 @@ import uuid from 'react-native-uuid'
 
 const AddAccount = ({route}) => {
 
-  // const [accountData,setAccountData] = useState({
-  //   id: uuid.v4(),
-  //   selectedBank: '',
-  //   balance: ''
-  // })
     const [value,setValue] = useState();
     const [id,setId] = useState(uuid.v4());
     const [isFocus, setIsFocus] = useState(false);
@@ -50,13 +45,28 @@ const AddAccount = ({route}) => {
         const accountData = {"id":id, "bank" : selectedBank || value , "balance": balance}
         try{
           const accountId = id
-          if(accountId){
+          const accountBank = selectedBank
+          if(accountId && selectedBank){
             const querySnapShot = await firestore().collection('Accounts').where('id', '==', accountId).get();
+
+            const querySnapShotBank = await firestore().collection('Accounts').where('bank', '==', accountBank).get();
+            
           if(!querySnapShot.empty) {
             querySnapShot.forEach(async (doc)=> {
               await firestore().collection('Accounts').doc(doc.id).update(accountData)
             })
-          }else{
+          }else if(!querySnapShotBank.empty){
+            querySnapShotBank.forEach(async (doc)=>{
+              const existingData = doc.data();
+              const updatedBalance = Number(existingData.balance) + Number(balance);
+
+              await firestore().collection('Accounts').doc(doc.id).update({
+                ...existingData,
+                balance: updatedBalance
+              })
+            });
+          }
+          else{
           await firestore().collection('Accounts').add(accountData);
           }
         }
@@ -70,7 +80,7 @@ const AddAccount = ({route}) => {
   return (
     <View style={{ flex:1, backgroundColor: colorMix.violet_100, height: HEIGHT }}>
 
-        <Navbar title="Add new account" titleColor={colorMix.light_100}/>
+        <Navbar title={route?.params ? "Edit Account":"Add new account"} titleColor={colorMix.light_100}/>
 
         <View style={{ paddingHorizontal: WIDTH*0.05, paddingTop: value ? HEIGHT*0.2 :HEIGHT*0.3 }}>
 
@@ -88,7 +98,7 @@ const AddAccount = ({route}) => {
         </View>
         </View>
 
-        <View style={{ backgroundColor: colorMix.light_100, paddingTop: HEIGHT*0.03, height: Platform.OS==="ios" ? (value ? HEIGHT*0.56 : HEIGHT*0.48) : value ? HEIGHT*0.54 : HEIGHT*0.435, borderTopLeftRadius: HEIGHT*0.035, borderTopRightRadius: HEIGHT*0.035 }}>
+        <View style={{ backgroundColor: colorMix.light_100, paddingTop: HEIGHT*0.03, height: Platform.OS==="ios" ? (value ? HEIGHT*0.58 : HEIGHT*0.48) : value ? HEIGHT*0.54 : HEIGHT*0.435, borderTopLeftRadius: HEIGHT*0.035, borderTopRightRadius: HEIGHT*0.035 }}>
 
           <View style={{ paddingHorizontal: WIDTH*0.05 }}>
 

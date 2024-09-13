@@ -35,6 +35,7 @@ const LoginScreen = () => {
           try {
             await auth().signInWithEmailAndPassword(email, password)
             navigation.navigate('myTabs')
+            // setLogindata("")
           }catch (error) {
             handleAuthError(error,setFirebaseError)
           }

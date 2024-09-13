@@ -32,7 +32,6 @@ const RenderFilter = ({data, setFilter, filter, sort, setSort, isFilter}) => {
 const SortModal = ({openFilter,setOpenFilter,setFilter,filter,sort,setSort, setAllData}) => {
 
     const navigation = useNavigation();
-
     const onResetFn = () => {
         setFilter(null)
         setSort(null)

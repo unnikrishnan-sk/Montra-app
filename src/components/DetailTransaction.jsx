@@ -139,27 +139,9 @@ const DetailTransaction = () => {
                     keyExtractor={item=>item.id}
                     />
             </View>
-        </View>
-
-        {/* <View style={{
-             borderStyle: 'dashed',
-            borderWidth: 2,
-            borderRadius: 1
-        }}>
-
-        </View> */}
-                {/* <Text 
-                ellipsizeMode='clip'
-                numberOfLines={1}
-                style={{
-                    // borderStyle: 'dashed',
-                    // borderWidth: 1,
-                    // borderRadius: 1
-                    }}>- - - - - -</Text> */}
-                
+        </View>             
 
 <View style={{
-    // borderWidth: 1,
     marginTop: HEIGHT*0.03,
     paddingHorizontal: WIDTH*0.05
 }}>
@@ -211,9 +193,7 @@ const DetailTransaction = () => {
         </View>
         <BottomSlider/>
 
-        {/* <View> */}
         <DeleteDetTransaction title="Remove this transaction?" desc="Are you sure you wanna remove this transaction?" deleteModal={deleteModal} setDeleteModal={setDeleteModal}/>
-        {/* </View> */}
             </View>
         )
         }

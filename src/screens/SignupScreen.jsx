@@ -13,7 +13,6 @@ import BottomSlider from '../components/BottomSlider'
 import { handleAuthError, validateEmail } from '../constants/common'
 import auth from '@react-native-firebase/auth';
 import { useSelector } from 'react-redux'
-// import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 const SignupScreen = () => {
 
@@ -83,31 +82,44 @@ const SignupScreen = () => {
   return (
     <View style={{ backgroundColor: darkMode ? colorMix.dark_100 : colorMix.light_100, height: HEIGHT }}>
       <Navbar title="Sign Up" darkMode={darkMode}/>
+
       <View style={{ marginTop: HEIGHT*0.065 }}>
         {signupDetails.map((data)=>(
             <InputComponent key={data.id}  value={signdata?.[data.value]} onChangeText={text=>handleChangeForm(data.value,text)} error={error?.[data.value]} placeholder={data.placeholder} passIcon={data.passIcon} darkMode={darkMode}/>
         ))}
+
         <View style={{ paddingHorizontal: WIDTH*0.05, flexDirection: 'row', marginTop: HEIGHT*0.02 }}>
+
           {agree ? (
             <Pressable onPress={()=>setAgree(false)} style={{ borderWidth: 2, marginLeft: WIDTH*0.02, height: HEIGHT*0.03, width: HEIGHT*0.03, borderRadius: HEIGHT*0.005, backgroundColor: colorMix.violet_100, borderColor: colorMix.violet_100, justifyContent: 'center', alignItems: 'center' }}>
             <Image style={{ height: HEIGHT*0.015, width: HEIGHT*0.017 }} source={tick_icon} />
-          </Pressable>) : (
+          </Pressable>
+          ) : (
             <Pressable onPress={()=>setAgree(true)}
-            style={{ borderWidth: 2, height: HEIGHT*0.03, width: HEIGHT*0.03, borderRadius: HEIGHT*0.005, borderColor: colorMix.violet_100}}></Pressable>)}
+            style={{ borderWidth: 2, height: HEIGHT*0.03, width: HEIGHT*0.03, borderRadius: HEIGHT*0.005, borderColor: colorMix.violet_100}}></Pressable>
+            )}
+
           <Text style={{ fontSize: HEIGHT*0.018, fontWeight: '500', marginLeft: WIDTH*0.035, width: WIDTH*0.75, color: darkMode ? colorMix.light_100 : colorMix.dark_100 }}>By signing up, you agree to the <Text style={{ color: colorMix.violet_100 }}>Terms of Service and Privacy Policy</Text></Text>
         </View>
+
         {agreeError && !agree && <Text style={{ color: colorMix.red_100, fontWeight: '500', marginLeft: WIDTH*0.05 }}>{agreeError}</Text>}
       </View>
+
       {firebaseError ? <Text style={{ color: colorMix.red_100, fontWeight: '500', alignSelf: 'center', marginTop: HEIGHT*0.01 }}>{firebaseError}</Text> : null }
+
       <View style={{ marginTop:firebaseError ? HEIGHT*0.015 : HEIGHT*0.025, paddingHorizontal: WIDTH*0.05 }}>
       <ButtonComponent title="Sign Up" onButtonHandler={()=>signFn()}/>
       </View>
+
       <Text style={{ alignSelf: 'center', marginTop: HEIGHT*0.015, fontSize: HEIGHT*0.018, color: colorMix.dark_50 }}>Or with</Text>
+
       <View style={{ marginTop: HEIGHT*0.02, paddingHorizontal:WIDTH*0.05 }}>
       <ButtonComponent onButtonHandler={()=>onGoogleButtonPress()} title="Sign Up with Google" bgColor={colorMix.light_100} txtColor={colorMix.dark_100} brdrColor={colorMix.light_20} logo={google_logo}/>
       </View>
+
       <Text style={{ alignSelf: 'center', marginTop: HEIGHT*0.02, color: colorMix.dark_25 }}>Already have an account? <Text onPress={()=>navigation.navigate('login')}
       style={{ color: colorMix.violet_100, textDecorationLine: 'underline' }}>Login</Text></Text>
+      
       <BottomSlider darkMode={darkMode}/>
     </View>
   )

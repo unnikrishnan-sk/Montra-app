@@ -10,18 +10,14 @@ import BottomSlider from '../components/BottomSlider'
 import DeleteDetTransaction from '../components/DeleteDetTransaction'
 import { handleCategoryColor } from '../constants/common'
 import { useNavigation } from '@react-navigation/native'
-import firestore from '@react-native-firebase/firestore';
 import { handleDeleteByFieldId } from '../http/api'
 
 const DetailBudgetScreen = ({route}) => {
 
     const {alert, alertLimit,budgetAmnt,budgetCat,totalExpense, id } = route?.params?.data;
-    console.log("detail screen", route?.params?.data);
-    // console.log("id here",id);
     const [deleteModal,setDeleteModal] = useState(false)
     const [isLimitExceeded,setIsLimitExceeded] = useState(false);
     const bgColor = handleCategoryColor(budgetCat)
-    // console.log(bgColor);
     const RemainingAmnt = Number(budgetAmnt-totalExpense);
     const progress = Number(totalExpense/budgetAmnt)
     const navigation = useNavigation();
@@ -49,97 +45,36 @@ const DetailBudgetScreen = ({route}) => {
     }
 
   return (
-    <View style={{
-        backgroundColor: colorMix.light_100,
-        height: HEIGHT
-    }}>
+    <View style={{ backgroundColor: colorMix.light_100, height: HEIGHT }}>
+
     <Navbar title="Detail Budget" image_source={trash_icon_dark} trash_height={HEIGHT*0.033} trash_width={HEIGHT*0.032} onPressRightIcon={()=>setDeleteModal(true)}/>
     
-    <View style={{
-        // borderWidth: 1,
-        // height: HEIGHT*0.3,
-        alignItems: 'center',
-        paddingTop: HEIGHT*0.04
-    }}>
-        <View style={{
-            borderWidth: 1,
-            backgroundColor: colorMix.light_80,
-            height: HEIGHT*0.065,
-            flexDirection: 'row',
-            height: HEIGHT*0.09,
-            // width: WIDTH*0.37,
-            paddingHorizontal: WIDTH*0.03,
-            borderRadius: HEIGHT*0.035,
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderColor: colorMix.light_20
-        }}>
-            <View style={{
-                // borderWidth: 1,
-                height: HEIGHT*0.05,
-                width: HEIGHT*0.05,
-                borderRadius: HEIGHT*0.015,
-                backgroundColor: colorMix.yellow_20,
-                justifyContent: 'center',
-                alignItems: 'center'
-            }}>
-                <Image 
-                style={{
-                    height: HEIGHT*0.03,
-                    width: HEIGHT*0.03
-                }}
+    <View style={{ alignItems: 'center', paddingTop: HEIGHT*0.04 }}>
+
+        <View style={{ borderWidth: 1, backgroundColor: colorMix.light_80, height: HEIGHT*0.065, flexDirection: 'row', height: HEIGHT*0.09, paddingHorizontal: WIDTH*0.03, borderRadius: HEIGHT*0.035, justifyContent: 'center', alignItems: 'center', borderColor: colorMix.light_20 }}>
+
+            <View style={{ height: HEIGHT*0.05, width: HEIGHT*0.05, borderRadius: HEIGHT*0.015, backgroundColor: colorMix.yellow_20, justifyContent: 'center', alignItems: 'center' }}>
+                <Image style={{ height: HEIGHT*0.03, width: HEIGHT*0.03 }}
                 source={shopping_icon}/>
             </View>
-            <Text style={{
-                marginLeft: WIDTH*0.02,
-                fontWeight: 600,
-                fontSize: HEIGHT*0.024
-            }}>{budgetCat}</Text>
+
+            <Text style={{ marginLeft: WIDTH*0.02, fontWeight: 600, fontSize: HEIGHT*0.024 }}>{budgetCat}</Text>
         </View>
 
-        <Text style={{
-            fontSize: HEIGHT*0.032,
-            fontWeight: 500,
-            marginTop: HEIGHT*0.02
-        }}>Remaining</Text>
-        <Text style={{
-            fontSize: HEIGHT*0.09,
-            fontWeight: 600
-        }}>${RemainingAmnt}</Text>
+        <Text style={{ fontSize: HEIGHT*0.032, fontWeight: 500, marginTop: HEIGHT*0.02 }}>Remaining</Text>
+        <Text style={{ fontSize: HEIGHT*0.09, fontWeight: 600 }}>${RemainingAmnt}</Text>
 
-<Progress.Bar progress={progress< 0 ? 1 : progress} width={WIDTH*0.8} height={HEIGHT*0.015} borderRadius={HEIGHT*0.02} color={bgColor} size={HEIGHT*0.02} thickness={HEIGHT*0.01} unfilledColor={colorMix.light_40} borderColor={colorMix.light_20} marginTop={HEIGHT*0.015} />
+        <Progress.Bar progress={progress< 0 ? 1 : progress} width={WIDTH*0.8} height={HEIGHT*0.015} borderRadius={HEIGHT*0.02} color={bgColor} size={HEIGHT*0.02} thickness={HEIGHT*0.01} unfilledColor={colorMix.light_40} borderColor={colorMix.light_20} marginTop={HEIGHT*0.015} />
 
-{isLimitExceeded && <View style={{
-    // borderWidth: 1,
-    height: HEIGHT*0.055,
-    width: WIDTH*0.56,
-    marginTop: HEIGHT*0.04,
-    borderRadius: HEIGHT*0.03,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: colorMix.red_100,
-    flexDirection: 'row'
-}}>
-    <Image 
-    source={warning_icon_white}
-    />
-    <Text style={{
-        marginLeft: WIDTH*0.02,
-        color: colorMix.light_100
-    }}>You've exceed the limit</Text>
-</View>}
+        {isLimitExceeded && <View style={{ height: HEIGHT*0.055, width: WIDTH*0.56, marginTop: HEIGHT*0.04, borderRadius: HEIGHT*0.03, justifyContent: 'center', alignItems: 'center', backgroundColor: colorMix.red_100, flexDirection: 'row' }}>
+        <Image source={warning_icon_white} />
 
-
+        <Text style={{ marginLeft: WIDTH*0.02, color: colorMix.light_100 }}>You've exceed the limit</Text>
+    </View>}
     </View>
-    <View style={{
-        // borderWidth:1,
-        paddingHorizontal: WIDTH*0.05,
-        position: 'absolute',
-        width: WIDTH,
-        bottom: HEIGHT*0.07
-    }}>
-        <ButtonComponent title="Edit" onButtonHandler={()=>onEditHandler()}/>
 
+    <View style={{ paddingHorizontal: WIDTH*0.05, position: 'absolute', width: WIDTH, bottom: HEIGHT*0.07 }}>
+        <ButtonComponent title="Edit" onButtonHandler={()=>onEditHandler()}/>
     </View>
     <BottomSlider />
 

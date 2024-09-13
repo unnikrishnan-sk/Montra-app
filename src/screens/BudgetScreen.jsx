@@ -14,14 +14,13 @@ const BudgetScreen = () => {
 
     const [ month,setMonth ] = useState(moment(new Date()));
     const [budgetDatas,setBudgetDatas] = useState([]);
+    const darkMode = useSelector((state)=>state.mode.darkMode)
 
     const navigation = useNavigation();
 
      useEffect(()=>{
         fetchData()
      },[budgetDatas])
-
-     const darkMode = useSelector((state)=>state.mode.darkMode)
 
      const fetchData = async () => {
         const data = await getAllBudgetData();
@@ -35,12 +34,11 @@ const BudgetScreen = () => {
      const nextMonth = () => {
         setMonth(month.clone().add(1,'month'))
      }
-
-     
+  
   return (
     <View style={{
-        backgroundColor: colorMix.violet_100,
-    }}>
+        backgroundColor: colorMix.violet_100, }}>
+            
         <View style={{ paddingTop: HEIGHT*0.08, backgroundColor: colorMix.violet_100, flexDirection: 'row', paddingHorizontal: WIDTH*0.05, justifyContent: 'space-between', paddingBottom: HEIGHT*0.02 }}>
 
             <Pressable onPress={previousMonth} >
@@ -78,8 +76,7 @@ const BudgetScreen = () => {
             <Text style={{ textAlign: 'center', color: colorMix.dark_25
         }}>Let's make one so you in control.</Text>
 
-        </View>
-        }
+        </View>}
         </View>
           
         <View style={{ width: WIDTH, position: 'absolute', bottom: HEIGHT*0.05, paddingHorizontal: WIDTH*0.05 }}>
