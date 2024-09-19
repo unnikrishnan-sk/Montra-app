@@ -136,7 +136,7 @@ const DetailFinancialReport = () => {
           {backgroundColor: detail ? colorMix.violet_100 : colorMix.light_40}]}
           onPress={()=>setDetail(true)}>
 
-            <Text style={[{ fontSize: 16, fontWeight: 'bold', fontWeight: 600, lineHeight: 19.2},
+          <Text style={[{ fontSize: 16, fontWeight: 'bold', fontWeight: 600, lineHeight: 19.2},
             {color: detail ? '#FFFFFF' : 'black'}]}>Expense</Text>
           </TouchableOpacity>
 

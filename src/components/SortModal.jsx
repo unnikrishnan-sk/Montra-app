@@ -8,26 +8,26 @@ import { shadowStyles } from '../constants/shadow'
 import { useNavigation } from '@react-navigation/native'
 import { allExpense, allIncome } from '../http/api'
 import { filterData, sortData } from '../constants/dummyData'
+import FilterSortComponent from './FilterSortComponent'
+import FilterSortModal from './FilterSortModal'
 
-const RenderFilter = ({data, setFilter, filter, sort, setSort, isFilter}) => {
+// const RenderFilter = ({data, setFilter, filter, sort, setSort, isFilter}) => {
+//     const { id,name } = data;
+    
+//     const onSelectItem = (id) => {
+//         if(isFilter) setFilter(id)
+//         else setSort(id) }
+  
 
-    const onSelectItem = (id) => {
-        if(isFilter){
-            setFilter(id)
-        }else {
-            setSort(id)
-        }     
-    }
-    const { id,name } = data
+//     return(
+        
+//         <Pressable onPress={()=>onSelectItem(id)}
+//         style={{height: HEIGHT*0.065, width: WIDTH*0.28, borderRadius: HEIGHT*0.03, borderWidth: 1, alignItems: 'center', justifyContent: 'center', flexDirection: 'row', marginTop: HEIGHT*0.012, borderColor: filter=== id || sort === id ? colorMix.violet_100 : colorMix.light_20, backgroundColor: filter === id || sort=== id ? colorMix.violet_20 : colorMix.light_100, marginLeft: id!==0 ? WIDTH*0.015 : 0 }}>
 
-    return(
-        <Pressable onPress={()=>onSelectItem(id)}
-        style={{ height: HEIGHT*0.065, width: WIDTH*0.28, borderRadius: HEIGHT*0.03, borderWidth: 1, alignItems: 'center', justifyContent: 'center', flexDirection: 'row', marginTop: HEIGHT*0.012, borderColor: filter=== id || sort === id ? colorMix.violet_100 : colorMix.light_20, backgroundColor: filter === id || sort=== id ? colorMix.violet_20 : colorMix.light_100, marginLeft: id!==0 ? WIDTH*0.015 : 0 }}>
-
-        <Text style={{ fontWeight: 500, fontSize: HEIGHT*0.02, color: filter === id || sort === id ? colorMix.violet_100 : colorMix.dark_100 }}>{name}</Text>
-        </Pressable>
-    )
-}
+//         <Text style={{ fontWeight: 500, fontSize: HEIGHT*0.02, color: filter === id || sort === id ? colorMix.violet_100 : colorMix.dark_100 }}>{name}</Text>
+//         </Pressable>
+//     )
+// }
 
 const SortModal = ({openFilter,setOpenFilter,setFilter,filter,sort,setSort, setAllData}) => {
 
@@ -85,7 +85,7 @@ const SortModal = ({openFilter,setOpenFilter,setFilter,filter,sort,setSort, setA
         </Pressable>
         </View>
 
-        <View>
+        {/* <View>
         <Text style={{ fontWeight: 600, marginTop: HEIGHT*0.02, fontSize: HEIGHT*0.023, color: colorMix.dark_100
         }}>Filter By</Text>
 
@@ -94,19 +94,28 @@ const SortModal = ({openFilter,setOpenFilter,setFilter,filter,sort,setSort, setA
         data={filterData}
         showsHorizontalScrollIndicator={false}
         horizontal
-        renderItem={({item})=><RenderFilter data={item} setFilter={setFilter} filter={filter} isFilter={true}/> }
+        renderItem={({item})=><FilterSortComponent data={item} setFilter={setFilter} filter={filter} isFilter={true}/> }
         keyExtractor={item=>item.id}/>
-        </View>
+        </View> */}
 
+        <FilterSortModal openFilter={openFilter} setOpenFilter={setOpenFilter} setFilter={setFilter} filter={filter}
+        //  sort={sort} setSort={setSort} 
+         setAllData={setAllData} ItemData={filterData} heading="Filter By"/>
+
+        <FilterSortModal 
+        openFilter={openFilter} setOpenFilter={setOpenFilter} 
+        // setFilter={setFilter} filter={filter} 
+        sort={sort} setSort={setSort} setAllData={setAllData} ItemData={sortData} heading="Sort By"/>
+{/* 
         <View>
         <Text style={{ fontWeight: 600, marginTop: HEIGHT*0.01, fontSize: HEIGHT*0.023, color: colorMix.dark_100 }}>Sort By</Text>
 
         <FlatList contentContainerStyle={{ flexDirection: 'row', flexWrap: 'wrap' }}
         data={sortData}
         showsHorizontalScrollIndicator={false}
-        renderItem={({item})=><RenderFilter data={item} sort={sort} setSort={setSort}/> }
+        renderItem={({item})=><FilterSortComponent data={item} sort={sort} setSort={setSort}/> }
         keyExtractor={item=>item.id} />
-        </View>
+        </View> */}
     
         <Text style={{ fontWeight: 600, marginTop: HEIGHT*0.02, fontSize: HEIGHT*0.023, color: colorMix.dark_100 }}>Category</Text>
 

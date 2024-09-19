@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { FlatList, Image, Modal, Pressable, ScrollView, Text, View } from 'react-native'
 import { HEIGHT, WIDTH } from '../constants/dimension'
-import { arrow_right, dropdown_arrow, right_arrow, sort_icon } from '../assets'
+import { right_arrow, sort_icon } from '../assets'
 import { colorMix } from '../constants/color'
-import { allTransactionData } from '../constants/dummyData'
+import { monthData } from '../constants/dummyData'
 import RenderTransactionItems from '../components/RenderTransactionItems'
 import SortModal from '../components/SortModal'
 import { useSelector } from 'react-redux'
 import { allExpense, allIncome } from '../http/api'
 import { useNavigation } from '@react-navigation/native'
+import DropdownComponent from '../components/DropdownComponent'
+import moment from 'moment'
 
 const TransactionScreen = () => {
 
@@ -16,29 +18,49 @@ const TransactionScreen = () => {
     const [filter,setFilter] = useState(null)
     const [allData,setAllData] = useState([]);
     const [sort,setSort] = useState(null)
+    const [value,setValue] = useState(moment().format('MMMM'));
+    const [isFocus,setIsFocus] = useState(false)
     const darkMode = useSelector((state)=>state.mode.darkMode)
     const navigation = useNavigation();
 
     useEffect(()=>{
         getData();
-    },[])
-
+    },[value])
+ 
     const getData = async () => {
         const allExpenses = await allExpense();
         const allIncomes = await allIncome();
-        setAllData(allExpenses.concat(allIncomes))
-    }
+        const totalData = allExpenses.concat(allIncomes)
+        const currentDateFormat = new Date();
+        const currentMonth = currentDateFormat.toLocaleString('default', { month: 'long'});
+        const currentYear = currentDateFormat.getFullYear().toString();
+        const dataMonth = [];
+       
+        totalData.forEach(item=>{
+            if(item?.createdMonth && item?.createdYear){
+              const itemMonth = item.createdMonth;
+              const itemYear = item.createdYear.toString();
+      
+              if(itemMonth===value && itemYear===currentYear)
+              {
+                dataMonth.push(item)
+              }
+            }
+          })
+          setAllData([...dataMonth])}
+
+    const handleDroponChange = (item) => {
+        setValue(item.value);
+        setIsFocus(false);
+      }
     
   return (
     <View style={{ backgroundColor: colorMix.light_100, height: HEIGHT }}>
-        <View style={{ height: HEIGHT*0.05, marginTop: HEIGHT*0.05, justifyContent: 'space-between', flexDirection: 'row', paddingHorizontal: WIDTH*0.05 }}>
+        <View style={{ height: HEIGHT*0.08, marginTop: HEIGHT*0.05, justifyContent: 'space-between', flexDirection: 'row', paddingHorizontal: WIDTH*0.05 }}>
 
-            <View style={{ borderWidth:1, height: HEIGHT*0.05, flexDirection: 'row', paddingHorizontal: HEIGHT*0.007, paddingVertical: HEIGHT*0.004, borderRadius: HEIGHT*0.03, alignItems: 'center', borderColor: colorMix.light_20 }}>
-                <Image style={{ height: HEIGHT*0.01, width: HEIGHT*0.02, marginLeft: WIDTH*0.02 }}
-                source={dropdown_arrow} />
-
-                <Text style={{ marginHorizontal: WIDTH*0.02, color: colorMix.dark_100, fontWeight: 500 }}>Month</Text>
-            </View>
+                <View style={{width: WIDTH*0.35 }}>
+                <DropdownComponent value={value} setValue={setValue}  onChange={(item) => handleDroponChange(item)}  data={monthData}/>
+                </View>
 
             <Pressable onPress={()=>setOpenFilter(!openFilter)} >
             <Image source={sort_icon} />
@@ -56,6 +78,7 @@ const TransactionScreen = () => {
             </Pressable>
         </View>
 
+        {allData?.length===0 && <Text style={{alignSelf:'center',marginTop: HEIGHT*0.02, fontSize: HEIGHT*0.023, fontWeight: 700}}>No data to show</Text>}
         <ScrollView 
         showsVerticalScrollIndicator={false}
         style={{ marginTop: HEIGHT*0.02 }}>

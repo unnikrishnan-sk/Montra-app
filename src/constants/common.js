@@ -41,7 +41,7 @@ export const handleAuthError = (error, setFirebaseError) => {
 
 
 export const handleCategoryColor = (category) => {
-    // console.log(category);
+
     const categoryValue = {
         "shopping": "Shopping",
         "subscription": "Subscription",
@@ -50,8 +50,8 @@ export const handleCategoryColor = (category) => {
         "transportation": "Transportation"
     }
     let backgrounImage;
-
     let backgroundColor;
+
     switch (category) {
         case categoryValue.shopping:
             backgroundColor = colorMix.yellow_100;
@@ -77,7 +77,7 @@ export const handleCategoryColor = (category) => {
             backgroundColor = colorMix.light_100;
             backgrounImage = null
     }
-    // console.log(backgroundColor);
+
     return backgroundColor
     return backgrounImage
 } 

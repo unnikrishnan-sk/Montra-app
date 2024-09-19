@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from 'react'
-import { FlatList, Image, Pressable, ScrollView, Text, View } from 'react-native'
+import React, { useCallback, useEffect, useState } from 'react'
+import { ActivityIndicator, FlatList, Image, Pressable, ScrollView, Text, View } from 'react-native'
 import { HEIGHT, WIDTH } from '../constants/dimension'
 import { colorMix } from '../constants/color'
 import { dropdown_arrow, expense_icon_white, income_icon_white, notification_icon, profile_avatar, transfer_icon_white } from '../assets'
 import { Dropdown } from 'react-native-element-dropdown'
-import { LineChart } from 'react-native-gifted-charts'
-import { chartData, dataTimeframe, incomeExpenseData, monthData, noExpMnthChartData } from '../constants/dummyData'
+import { dataTimeframe, incomeExpenseData, monthData } from '../constants/dummyData'
 import RecentTransaction from '../components/RecentTransaction'
 import BottomSlider from '../components/BottomSlider'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import RenderIncomeExpense from '../components/RenderIncomeExpense'
 import RenderTimeframe from '../components/RenderTimeFrame'
-import { allExpense, calculateExpense, calculateIncome, expenseArr, latTransaction } from '../http/api'
+import { allExpense, calculateExpense, calculateIncome, latTransaction } from '../http/api'
 import moment from 'moment'
 import { useSelector } from 'react-redux'
+import GraphDataComponent from '../components/GraphDataComponent'
 
 const HomeScreen = () => {
 
     const [value,setValue] = useState(moment().format('MMMM'));
     const [incomeExpenseDetails,setIncomeExpenseDetails] = useState(incomeExpenseData)
+    const [refreshing,setRefreshing] = useState(false);
     const [recentTransData,setRecentTransData] = useState([])
-    const [graphData,setGraphData] = useState(noExpMnthChartData);
     const [isFocus, setIsFocus] = useState(false);
     const [onPressed,setOnPressed] = useState(0);
     const [accountBal,setAccountBal] = useState();
@@ -34,19 +34,20 @@ const HomeScreen = () => {
     },[incomeExpenseData,value,onPressed])
 
     const getData = async () => {
-      const expense = await calculateExpense(value);
+      const expense = await calculateExpense(value)
+      // .then(res=>{
+        // console.log("data_homescreen",res)
+      // }).catch((err)=>console.log(err));
       const income = await calculateIncome(value);
-      const expensess = await expenseArr(value);
+      // console.log("income_homescreen",income);
       const allExpenses = await allExpense();
 
+      Promise.all([expense,income]).then((val)=>{
+        console.log("value in promise",val);
+        setAccountBal(income-expense)
+      }).catch((err)=>console.log(err))
+
       getDataDetails(onPressed,allExpenses);
-      
-      const graphArr = expensess.map(item => ({['value']: parseFloat(item.amount)}))
-      if(graphArr.length>0){
-        setGraphData(graphArr)
-      }else{
-        setGraphData(noExpMnthChartData)
-      }
       const latTransactionDet = await latTransaction();
 
       const updatedData = incomeExpenseData.map((item)=>{
@@ -58,10 +59,18 @@ const HomeScreen = () => {
         return item;
       })
       setIncomeExpenseDetails(updatedData)
-      setAccountBal(income-expense)
     }
 
+    const onRefresh = useCallback(()=>{
+      setRefreshing(true)
+      setTimeout(()=>{
+        setRefreshing(false);
+      },500)
+    },[])
+
     const getDataDetails = (onPressed,data) => {
+      
+      onRefresh();
       const sortedData=[];
       const currentDateFormat = new Date();
       const currentDate = currentDateFormat.getDate();
@@ -71,6 +80,7 @@ const HomeScreen = () => {
       const currentWeek = moment().week();
 
       if(onPressed===0){
+        // setRefreshing(true)
       data.forEach(item=>{
         if(item?.createdDate && item?.createdMonth && item?.createdYear){
           const itemDate = parseInt(item.createdDate.toString().trim(),10);
@@ -91,7 +101,7 @@ const HomeScreen = () => {
           if(item?.createdDate && item?.createdMonth && item?.createdYear) {
             const itemDate = moment(`${item.createdYear}-${item.createdMonth}-${item.createdDate}`,'YYYY-MMMM-DD')
             const itemWeek = moment(itemDate).week();
-            console.log("item_week", itemWeek);
+            // console.log("item_week", itemWeek);
 
             if(itemWeek === currentWeek){
               sortedData.push(item);
@@ -131,7 +141,7 @@ const HomeScreen = () => {
     }
 
     const handleDroponChange = (item) => {
-      setValue(item.value);
+      setValue(item?.value);
       setIsFocus(false);
     }
 
@@ -201,14 +211,14 @@ const HomeScreen = () => {
           <Text style={{ fontSize: HEIGHT*0.025, fontWeight: '600', marginTop: HEIGHT*0.01, color: colorMix.dark_100 }}>Spend Frequency</Text>
         </View>
 
-        <View style={{ marginLeft: -WIDTH*0.1 }}>
-        <LineChart areaChart data = {graphData} style={{ marginLeft: WIDTH*0.1 }} spacing={WIDTH} initialSpacing={0} thickness={6} hideAxesAndRules hideDataPoints width={WIDTH} curved startFillColor={colorMix.violet_80} endFillColor={centerTab ? colorMix.violet_20 : colorMix.violet_20}  startOpacity={0.4} endOpacity={0.1} color={colorMix.violet_100}/>
-       </View>
+       <GraphDataComponent centerTab={centerTab} value={value}/>
 
        <View style={{ height: HEIGHT*0.05, backgroundColor: centerTab ? colorMix.violet_20 : colorMix.light_100, paddingHorizontal: WIDTH*0.05, flexDirection: 'row', alignItems: 'center' }}>
 
       <FlatList data={dataTimeframe} horizontal showsHorizontalScrollIndicator={false} renderItem={({item})=><RenderTimeframe data={item} setOnPressed={setOnPressed} onPressed={onPressed} centerTab={centerTab}/> } keyExtractor={item=>item.id}/>
       </View>
+
+      {refreshing && <ActivityIndicator size="large" refreshing={refreshing} onRefresh={onRefresh} /> }
 
       <RecentTransaction recentTransData={recentTransData} centerTab={centerTab} darkMode={darkMode}/>
       </ScrollView>

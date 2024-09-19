@@ -33,7 +33,7 @@ const DetailBudgetScreen = ({route}) => {
     }
 
     const handleDeleteTrans = async () => {
-        console.log("id inside",id);
+        // console.log("id inside",id);
         if(id){
             try {
                 await handleDeleteByFieldId(id)

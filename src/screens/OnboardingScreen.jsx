@@ -39,6 +39,7 @@ const OnboardingScreen = () => {
             showsHorizontalScrollIndicator={false}
             renderItem={({item})=><RenderBoarding data={item} index={index} darkMode={darkMode}/> }
             keyExtractor={item=>item.id}
+            // ref={flatListRef}
             onScroll={onScroll} />
        
         <Pagination index={index} />
@@ -46,7 +47,8 @@ const OnboardingScreen = () => {
         <Pressable onPress={()=>navigation.navigate('signup')}
         style={{ paddingHorizontal: WIDTH*0.05, paddingLeft: WIDTH*0.35, paddingRight: WIDTH*0.35, paddingTop: HEIGHT*0.022, paddingBottom: HEIGHT*0.022, borderRadius: HEIGHT*0.025, marginTop: HEIGHT*0.01, backgroundColor: colorMix.violet_100
         }}>
-            <Text style={{ color: colorMix.light_100, fontSize: HEIGHT*0.025, fontWeight: '600'
+            
+        <Text style={{ color: colorMix.light_100, fontSize: HEIGHT*0.025, fontWeight: '600'
         }}>Sign Up</Text>
         </Pressable>
 

@@ -17,8 +17,16 @@ const RenderSettings = ({data}) => {
     const navigation = useNavigation();
 
     const darkMode = useSelector((state)=>state.mode.darkMode)
-    console.log("mode here", darkMode);
-    console.log("settings data", settingsData);
+    // console.log("mode here", darkMode);
+    // console.log("settings data", settingsData);
+
+    const onSelectSettings = () => {
+      navigation.navigate(route)
+
+      if(settingValue?.Theme){
+        console.log("here");
+      }
+    }
 
     return(
         <View style={{ borderTopWidth: id===0 ? 1 : 0, flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: WIDTH*0.05, marginTop: name===settingValue.currency || name===settingValue.about ?  HEIGHT*0.04 : 0, paddingVertical: HEIGHT*0.02, borderColor: colorMix.light_20 }}>
@@ -26,7 +34,7 @@ const RenderSettings = ({data}) => {
             <Text style={{ fontSize: HEIGHT*0.024, fontWeight: 500, color: colorMix.dark_100
             }}>{name}</Text>
 
-            <Pressable onPress={()=>navigation.navigate(route)}
+            <Pressable onPress={()=>onSelectSettings()}
             style={{ flexDirection: 'row', alignItems: 'center' }}>
 
             <Text style={{ fontSize: HEIGHT*0.023, color: colorMix.dark_25

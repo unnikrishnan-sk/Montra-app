@@ -47,7 +47,6 @@ const LoginScreen = () => {
     const validateLoginForm = () => {
       const {email,password} = logindata;
         let error = {};
-          console.log("error==>validateLoginForm",error);
           if(isEmpty(email)){
             error.email = 'Enter Email'
           }else if(!validateEmail(email)){

@@ -101,7 +101,7 @@ const CreateBudget = ({route}) => {
         </View>
         </View>
 
-        <View style={{ backgroundColor: colorMix.light_100, borderTopLeftRadius: HEIGHT*0.04, borderTopRightRadius: HEIGHT*0.04, paddingHorizontal: WIDTH*0.05, paddingTop: HEIGHT*0.02 }}>
+        <View style={{ height:HEIGHT*0.5, backgroundColor: colorMix.light_100, borderTopLeftRadius: HEIGHT*0.04, borderTopRightRadius: HEIGHT*0.04, paddingHorizontal: WIDTH*0.05, paddingTop: HEIGHT*0.02 }}>
             
             <DropdownComponent value={budgetData?.budgetCat} setValue={(value)=>handleSelectValue('budgetCat',value)} title="Category" data={expenseCategoryType}/>
 

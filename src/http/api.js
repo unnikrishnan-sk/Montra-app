@@ -7,12 +7,13 @@ export const calculateExpense = async (selectedMonth) => {
         const expenses = await firestore().collection('Expenses').where('createdMonth', '==', selectedMonth).get();
         const expensesDet = expenses.docs.reduce((sum, doc) => {
             const data = doc.data()
-            const amount = parseFloat(data.amount)
+            const amount = parseFloat(data?.amount || 0)
             return sum + amount;
         }, 0)
-        return expensesDet
+        return expensesDet || 0
     } catch (error) {
         console.log(error);
+        return 0
     }
 }
 
@@ -95,7 +96,7 @@ export const latTransaction = async () => {
         const latestExpenseTrans = await firestore().collection('Expenses').orderBy('createdAt', 'desc').get();
         const latestIncomeTrans = await firestore().collection('Income').orderBy('createdAt', 'desc').get();
         latestExpenseTrans.forEach(doc => { transactions.push({ ...doc.data(), id: doc.id, type: 'expense' }) })
-        latestIncomeTrans.forEach(doc => { transactions.push({ ...doc.data(), id: doc.id, type: 'expense' }) })
+        latestIncomeTrans.forEach(doc => { transactions.push({ ...doc.data(), id: doc.id, type: 'income' }) })
         transactions.sort((a, b) => b.createdAt.toDate() - a.createdAt.toDate());
         return transactions;
     } catch (error) {

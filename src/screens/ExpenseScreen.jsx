@@ -70,7 +70,7 @@ const ExpenseScreen = () => {
                 const querySnapShotBank = await firestore().collection('Accounts').where('bank', '==', bank).get();
                 console.log("querySnap", !querySnapShotBank.empty);
 
-                if(!querySnapShotBank.empty){
+                if(querySnapShotBank.empty){
                     await firestore().collection('Expenses').add(expenseData);
                     querySnapShotBank.forEach(async (doc)=>{
                       const existingData = doc.data();
@@ -155,7 +155,7 @@ const ExpenseScreen = () => {
         </View>
     </View>
 
-    <View style={{  backgroundColor: darkMode? colorMix.dark_100 : colorMix.light_100, borderTopRightRadius: HEIGHT*0.04, borderTopLeftRadius: HEIGHT*0.04, marginTop: HEIGHT*0.01 }}>
+    <View style={{  backgroundColor: darkMode? colorMix.dark_100 : colorMix.light_100, borderTopRightRadius: HEIGHT*0.04, borderTopLeftRadius: HEIGHT*0.04, marginTop: HEIGHT*0.01, height: HEIGHT*0.73 }}>
 
         <View style={{ paddingHorizontal: WIDTH*0.05 }}>
         <DropdownComponent value={expenseData?.category} setValue={(value)=>handleExpenseData('category',value)} title="Category" data={expenseCategoryType}/>
