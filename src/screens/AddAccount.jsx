@@ -11,9 +11,11 @@ import { BankData, accountType } from '../constants/dummyData'
 import RenderBank from '../components/RenderBankComponent'
 import firestore from '@react-native-firebase/firestore';
 import uuid from 'react-native-uuid'
+import { useSelector } from 'react-redux'
 
 const AddAccount = ({route}) => {
 
+  const darkMode = useSelector((state)=>state.mode.darkMode)
     const [value,setValue] = useState();
     const [id,setId] = useState(uuid.v4());
     const [isFocus, setIsFocus] = useState(false);
@@ -98,15 +100,18 @@ const AddAccount = ({route}) => {
         </View>
         </View>
 
-        <View style={{ backgroundColor: colorMix.light_100, paddingTop: HEIGHT*0.03, height: Platform.OS==="ios" ? (value ? HEIGHT*0.58 : HEIGHT*0.48) : value ? HEIGHT*0.54 : HEIGHT*0.435, borderTopLeftRadius: HEIGHT*0.035, borderTopRightRadius: HEIGHT*0.035 }}>
+        <View style={{ backgroundColor: darkMode?colorMix.dark_100:colorMix.light_100, paddingTop: HEIGHT*0.03, height: Platform.OS==="ios" ? (value ? HEIGHT*0.58 : HEIGHT*0.48) : value ? HEIGHT*0.54 : HEIGHT*0.435, borderTopLeftRadius: HEIGHT*0.035, borderTopRightRadius: HEIGHT*0.035 }}>
 
-          <View style={{ paddingHorizontal: WIDTH*0.05 }}>
+        <View style={{ paddingHorizontal: WIDTH*0.05 }}>
 
-        <TextInput placeholder='Name' value={selectedBank} placeholderTextColor={colorMix.dark_25} style={{ height: HEIGHT*0.08, borderWidth:1, borderRadius: HEIGHT*0.02, paddingLeft: WIDTH*0.02, borderColor: colorMix.light_20 }}/>
+        <TextInput placeholder='Name' value={selectedBank} placeholderTextColor={colorMix.dark_25} style={{ height: HEIGHT*0.08, borderWidth:1, borderRadius: HEIGHT*0.02, paddingLeft: WIDTH*0.02, borderColor: colorMix.light_20,color: darkMode?colorMix.light_100:colorMix.dark_100  }}/>
 
-        <Dropdown style={{ height: HEIGHT*0.08, borderColor:      'gray', borderRadius: HEIGHT*0.02, paddingHorizontal: WIDTH*0.02, borderWidth: 1, marginTop: HEIGHT*0.02, borderColor: colorMix.light_20, color: colorMix.dark_100 }}
-        selectedTextStyle={{fontSize: HEIGHT*0.022}}
-        inputSearchStyle={{ height: HEIGHT*0.3, fontSize: HEIGHT*0.02,}}
+        <Dropdown style={{ height: HEIGHT*0.08, borderColor:  'gray', borderRadius: HEIGHT*0.02, paddingHorizontal: WIDTH*0.02, borderWidth: 1, marginTop: HEIGHT*0.02, borderColor: colorMix.light_20, }}
+        selectedTextStyle={{fontSize: HEIGHT*0.022, color:darkMode?colorMix.light_100:colorMix.dark_100}}
+        inputSearchStyle={{ height: HEIGHT*0.3, fontSize: HEIGHT*0.02}}
+        itemContainerStyle={{backgroundColor:darkMode?colorMix.dark_100:colorMix.light_100}}
+        itemTextStyle={{color: darkMode?colorMix.light_100:darkMode.darkMode}}
+        activeColor={darkMode?colorMix.dark_100:colorMix.light_100}
         data={accountType}
         maxHeight={HEIGHT*0.3}
         labelField="name"
@@ -131,10 +136,10 @@ const AddAccount = ({route}) => {
           />} keyExtractor={item => item.id}/>
         </View>)}
 
-        <View style={{ paddingHorizontal: WIDTH*0.05, position: 'absolute', width: WIDTH, bottom: HEIGHT*0.06 }}>
+        <View style={{ paddingHorizontal: WIDTH*0.05, position: 'absolute', width: WIDTH, bottom: HEIGHT*0.07 }}>
         <ButtonComponent title="Continue" onButtonHandler={onPressHandler}/>
         </View>
-        <BottomSlider />
+        <BottomSlider darkMode={darkMode}/>
         </View>
     </View>
   )

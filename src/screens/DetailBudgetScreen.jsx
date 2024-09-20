@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
-import { shopping_icon, trash_icon_dark, warning_icon_white } from '../assets'
+import { delete_icon_white, shopping_icon, trash_icon_dark, warning_icon_white } from '../assets'
 import { HEIGHT, WIDTH } from '../constants/dimension'
 import { Image, Text, View } from 'react-native'
 import { colorMix } from '../constants/color'
@@ -11,9 +11,11 @@ import DeleteDetTransaction from '../components/DeleteDetTransaction'
 import { handleCategoryColor } from '../constants/common'
 import { useNavigation } from '@react-navigation/native'
 import { handleDeleteByFieldId } from '../http/api'
+import { useSelector } from 'react-redux'
 
 const DetailBudgetScreen = ({route}) => {
 
+    const darkMode = useSelector((state)=>state.mode.darkMode)
     const {alert, alertLimit,budgetAmnt,budgetCat,totalExpense, id } = route?.params?.data;
     const [deleteModal,setDeleteModal] = useState(false)
     const [isLimitExceeded,setIsLimitExceeded] = useState(false);
@@ -33,7 +35,7 @@ const DetailBudgetScreen = ({route}) => {
     }
 
     const handleDeleteTrans = async () => {
-        // console.log("id inside",id);
+    
         if(id){
             try {
                 await handleDeleteByFieldId(id)
@@ -45,9 +47,9 @@ const DetailBudgetScreen = ({route}) => {
     }
 
   return (
-    <View style={{ backgroundColor: colorMix.light_100, height: HEIGHT }}>
+    <View style={{ backgroundColor: darkMode?colorMix.dark_100:colorMix.light_100, height: HEIGHT }}>
 
-    <Navbar title="Detail Budget" image_source={trash_icon_dark} trash_height={HEIGHT*0.033} trash_width={HEIGHT*0.032} onPressRightIcon={()=>setDeleteModal(true)}/>
+    <Navbar title="Detail Budget" image_source={darkMode?delete_icon_white: trash_icon_dark} trash_height={HEIGHT*0.033} trash_width={HEIGHT*0.032} onPressRightIcon={()=>setDeleteModal(true)} darkMode={darkMode}/>
     
     <View style={{ alignItems: 'center', paddingTop: HEIGHT*0.04 }}>
 
@@ -61,8 +63,8 @@ const DetailBudgetScreen = ({route}) => {
             <Text style={{ marginLeft: WIDTH*0.02, fontWeight: 600, fontSize: HEIGHT*0.024 }}>{budgetCat}</Text>
         </View>
 
-        <Text style={{ fontSize: HEIGHT*0.032, fontWeight: 500, marginTop: HEIGHT*0.02 }}>Remaining</Text>
-        <Text style={{ fontSize: HEIGHT*0.09, fontWeight: 600 }}>${RemainingAmnt}</Text>
+        <Text style={{ fontSize: HEIGHT*0.032, fontWeight: 500, marginTop: HEIGHT*0.02, color: darkMode?colorMix.light_100:colorMix.dark_100 }}>Remaining</Text>
+        <Text style={{ fontSize: HEIGHT*0.09, fontWeight: 600 , color: darkMode? colorMix.light_100:colorMix.dark_100}}>${RemainingAmnt}</Text>
 
         <Progress.Bar progress={progress< 0 ? 1 : progress} width={WIDTH*0.8} height={HEIGHT*0.015} borderRadius={HEIGHT*0.02} color={bgColor} size={HEIGHT*0.02} thickness={HEIGHT*0.01} unfilledColor={colorMix.light_40} borderColor={colorMix.light_20} marginTop={HEIGHT*0.015} />
 

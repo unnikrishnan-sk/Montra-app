@@ -11,9 +11,9 @@ const LanguageScreen = () => {
     const darkMode = useSelector((state)=>state.mode.darkMode)
 
   return (
-    <View style={{ backgroundColor: colorMix.light_100, height: HEIGHT }}>
+    <View style={{ backgroundColor: darkMode?colorMix.dark_100:colorMix.light_100, height: HEIGHT }}>
 
-        <Navbar title="Currency"/>
+        <Navbar title="Currency" darkMode={darkMode}/>
 
         <View style={{ borderTopWidth: 1, marginTop: HEIGHT*0.02, borderColor: colorMix.light_20, paddingHorizontal: WIDTH*0.05, }}>
 

@@ -28,6 +28,7 @@ const HomeScreen = () => {
     const route = useRoute();
     const { centerTab } = route.params || {};
     const darkMode = useSelector((state)=>state.mode.darkMode)
+    console.log(darkMode);
     
     useEffect(()=>{
       getData();
@@ -35,11 +36,7 @@ const HomeScreen = () => {
 
     const getData = async () => {
       const expense = await calculateExpense(value)
-      // .then(res=>{
-        // console.log("data_homescreen",res)
-      // }).catch((err)=>console.log(err));
       const income = await calculateIncome(value);
-      // console.log("income_homescreen",income);
       const allExpenses = await allExpense();
 
       Promise.all([expense,income]).then((val)=>{
@@ -80,7 +77,6 @@ const HomeScreen = () => {
       const currentWeek = moment().week();
 
       if(onPressed===0){
-        // setRefreshing(true)
       data.forEach(item=>{
         if(item?.createdDate && item?.createdMonth && item?.createdYear){
           const itemDate = parseInt(item.createdDate.toString().trim(),10);
@@ -101,7 +97,6 @@ const HomeScreen = () => {
           if(item?.createdDate && item?.createdMonth && item?.createdYear) {
             const itemDate = moment(`${item.createdYear}-${item.createdMonth}-${item.createdDate}`,'YYYY-MMMM-DD')
             const itemWeek = moment(itemDate).week();
-            // console.log("item_week", itemWeek);
 
             if(itemWeek === currentWeek){
               sortedData.push(item);

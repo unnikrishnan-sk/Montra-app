@@ -9,9 +9,11 @@ import BottomSlider from '../components/BottomSlider'
 import RenderAccountItems from '../components/RenderAccountItems'
 import { useNavigation } from '@react-navigation/native'
 import { accountBal, allAccounts } from '../http/api'
+import { useSelector } from 'react-redux'
 
 const AccountScreen = () => {
 
+  const darkMode = useSelector((state)=>state.mode.darkMode)
   const [allData,setAllData] = useState([]);
   const [balTotal,setBalTotal] = useState();
   const navigation = useNavigation();
@@ -28,17 +30,17 @@ const AccountScreen = () => {
   }  
 
   return (
-    <View style={{ height: HEIGHT, backgroundColor: colorMix.light_100 }}>
+    <View style={{ height: HEIGHT, backgroundColor: darkMode?colorMix.dark_100:colorMix.light_100 }}>
 
-        <Navbar title="Account"/>
+        <Navbar title="Account" darkMode={darkMode}/>
 
         <ImageBackground style={{ height: HEIGHT*0.28, marginTop: HEIGHT*0.03 }}
         source={account_background}>
 
-            <Text style={{ alignSelf: 'center', marginTop: HEIGHT*0.06, color: colorMix.dark_25
+            <Text style={{ alignSelf: 'center', marginTop: HEIGHT*0.06, color: darkMode?colorMix.light_20: colorMix.dark_25
             }}>Account Balance</Text>
 
-            <Text style={{ fontSize: HEIGHT*0.05, fontWeight: 700, alignSelf: 'center', marginTop: HEIGHT*0.01, color: colorMix.dark_100
+            <Text style={{ fontSize: HEIGHT*0.05, fontWeight: 700, alignSelf: 'center', marginTop: HEIGHT*0.01, color: darkMode?colorMix.light_100:colorMix.dark_100
             }}>${balTotal}</Text>
         </ImageBackground>
 
@@ -47,7 +49,7 @@ const AccountScreen = () => {
                 <FlatList contentContainerStyle={{ borderRadius: HEIGHT*0.02 }}
                     data={allData}
                     showsVerticalScrollIndicator={false}
-                    renderItem={({item})=><RenderAccountItems data={item} navigation={navigation}/> }
+                    renderItem={({item})=><RenderAccountItems data={item} navigation={navigation} darkMode={darkMode}/> }
                     keyExtractor={item=>item.id}/> 
             </View>
 

@@ -23,6 +23,7 @@ import { useNavigation } from '@react-navigation/native'
 
 const ExpenseScreen = () => {
 
+    const darkMode = useSelector((state)=>state.mode.darkMode)
     const [expenseData,setExpenseData] = useState({
         amount: '',
         category: '',
@@ -42,7 +43,7 @@ const ExpenseScreen = () => {
     const [isEnabled, setIsEnabled] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
     const [repeatModal,setRepeatModal] = useState(false);
-    const darkMode = useSelector((state)=>state.mode.darkMode)
+    // const darkMode = useSelector((state)=>state.mode.darkMode)
     const navigation = useNavigation();
 
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
@@ -151,20 +152,20 @@ const ExpenseScreen = () => {
         placeholder='0'
         placeholderTextColor={colorMix.light_100}
         onChangeText={(text)=>handleTextInputChange('amount',text)}
-        value={expenseData?.amount} />
+        value={expenseData?.amount}/>
         </View>
     </View>
 
     <View style={{  backgroundColor: darkMode? colorMix.dark_100 : colorMix.light_100, borderTopRightRadius: HEIGHT*0.04, borderTopLeftRadius: HEIGHT*0.04, marginTop: HEIGHT*0.01, height: HEIGHT*0.73 }}>
 
         <View style={{ paddingHorizontal: WIDTH*0.05 }}>
-        <DropdownComponent value={expenseData?.category} setValue={(value)=>handleExpenseData('category',value)} title="Category" data={expenseCategoryType}/>
+        <DropdownComponent value={expenseData?.category} setValue={(value)=>handleExpenseData('category',value)} title="Category" data={expenseCategoryType} darkMode={darkMode}/>
         </View>
 
-        <InputComponent placeholder="Description" onChangeText={text=>handleTextInputChange('description',text)}/>
+        <InputComponent placeholder="Description" onChangeText={text=>handleTextInputChange('description',text)} darkMode={darkMode}/>
         <View style={{ paddingHorizontal: WIDTH*0.05 }} >
 
-        <DropdownComponent value={expenseData?.wallet} setValue={(value)=>handleExpenseData('wallet',value)} title="Wallet" data={walletType}/>
+        <DropdownComponent value={expenseData?.wallet} setValue={(value)=>handleExpenseData('wallet',value)} title="Wallet" data={walletType} darkMode={darkMode}/>
 
         {response==='' ? (<Pressable onPress={()=>setModalVisible(true)} style={{ borderWidth: 1,borderStyle:"dashed", height: HEIGHT*0.07, marginTop: HEIGHT*0.02, borderColor: colorMix.light_20, borderRadius: HEIGHT*0.02, justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
 
@@ -205,11 +206,11 @@ const ExpenseScreen = () => {
     </View>
     
     <Modal animationType="slide" transparent={true} visible={modalVisible} onRequestClose={() => { setModalVisible(!modalVisible) }}>
-    <RepeatModalComponent setModalVisible={setModalVisible} onButtonPress={onButtonPress} onNavigate="Attachment"/>
+    <RepeatModalComponent setModalVisible={setModalVisible} onButtonPress={onButtonPress} onNavigate="Attachment" darkMode={darkMode}/>
     </Modal>
 
       <Modal animationType="slide" transparent={true} visible={repeatModal}>
-        <RepeatModalComponent setModalVisible={setModalVisible} onButtonPress={onButtonPress} setRepeatModal={setRepeatModal} expenseData={expenseData} />
+        <RepeatModalComponent setModalVisible={setModalVisible} onButtonPress={onButtonPress} setRepeatModal={setRepeatModal} expenseData={expenseData} darkMode={darkMode}/>
       </Modal>
    </View>
   )

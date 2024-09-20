@@ -55,9 +55,9 @@ const BudgetScreen = () => {
             </Pressable>
         </View>
 
-        <View style={{ marginTop: HEIGHT*0.02, height: HEIGHT*0.75, backgroundColor: colorMix.light_80, borderTopLeftRadius: HEIGHT*0.03, borderTopRightRadius: HEIGHT*0.03 }}>
+        <View style={{ marginTop: HEIGHT*0.02, height: HEIGHT*0.75, backgroundColor: darkMode?colorMix.dark_75:colorMix.light_80, borderTopLeftRadius: HEIGHT*0.03, borderTopRightRadius: HEIGHT*0.03 }}>
 
-        <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: HEIGHT*0.07}} showsVerticalScrollIndicator={false}>
+        <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: HEIGHT*0.12}} showsVerticalScrollIndicator={false}>
 
             {budgetDatas && budgetDatas.length>0 ?
             <View style={{paddingHorizontal: WIDTH*0.05, paddingVertical: HEIGHT*0.02 }}>
@@ -65,7 +65,7 @@ const BudgetScreen = () => {
            <FlatList 
             data={budgetDatas}
             showsVerticalScrollIndicator={false}
-            renderItem={({item})=><RenderBudgets data={item}/> }
+            renderItem={({item})=><RenderBudgets data={item} darkMode={darkMode}/> }
             keyExtractor={item=>item.id} />
         </View> : 
             <View style={{ alignItems: 'center', justifyContent: 'center', height: HEIGHT*0.72 }}>
@@ -80,7 +80,7 @@ const BudgetScreen = () => {
         </ScrollView>
         </View>
 
-        <View style={{ width: WIDTH, position: 'absolute', height: HEIGHT*0.1, bottom: HEIGHT*0.001, paddingHorizontal: WIDTH*0.05, backgroundColor: colorMix.light_100, justifyContent: 'center' }}>
+        <View style={{ width: WIDTH, position: 'absolute', height: HEIGHT*0.1, bottom: HEIGHT*0.03, paddingHorizontal: WIDTH*0.05, backgroundColor: darkMode?colorMix.dark_100:colorMix.light_100, justifyContent: 'center' }}>
 
             <ButtonComponent title="Create a budget" onButtonHandler={()=>navigation.navigate('createbudget')}/>
             </View>

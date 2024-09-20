@@ -7,6 +7,8 @@ import { useNavigation } from '@react-navigation/native'
 import BottomSlider from '../components/BottomSlider'
 
 const LaunchScreen = () => {
+
+  
     const navigation = useNavigation();
     useEffect(()=>{
         setTimeout(()=>{

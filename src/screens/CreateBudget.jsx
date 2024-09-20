@@ -12,10 +12,12 @@ import Slider from '@react-native-community/slider'
 import { useNavigation } from '@react-navigation/native'
 import firestore from '@react-native-firebase/firestore';
 import uuid from 'react-native-uuid'
+import { useSelector } from 'react-redux'
 
 
 const CreateBudget = ({route}) => {
 
+    const darkMode = useSelector((state)=>state.mode.darkMode)
     const [budgetData,setBudgetData] = useState({
         id: uuid.v4(),
         budgetAmnt: 0,
@@ -101,9 +103,9 @@ const CreateBudget = ({route}) => {
         </View>
         </View>
 
-        <View style={{ height:HEIGHT*0.5, backgroundColor: colorMix.light_100, borderTopLeftRadius: HEIGHT*0.04, borderTopRightRadius: HEIGHT*0.04, paddingHorizontal: WIDTH*0.05, paddingTop: HEIGHT*0.02 }}>
+        <View style={{ height:HEIGHT*0.5, backgroundColor: darkMode?colorMix.dark_100:colorMix.light_100, borderTopLeftRadius: HEIGHT*0.04, borderTopRightRadius: HEIGHT*0.04, paddingHorizontal: WIDTH*0.05, paddingTop: HEIGHT*0.02 }}>
             
-            <DropdownComponent value={budgetData?.budgetCat} setValue={(value)=>handleSelectValue('budgetCat',value)} title="Category" data={expenseCategoryType}/>
+            <DropdownComponent value={budgetData?.budgetCat} setValue={(value)=>handleSelectValue('budgetCat',value)} title="Category" data={expenseCategoryType} darkMode={darkMode}/>
 
             <View style={{ flexDirection: 'row', marginTop: HEIGHT*0.03, justifyContent: 'space-between' }}>
             <View>

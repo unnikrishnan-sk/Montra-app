@@ -103,6 +103,8 @@ import logout_icon from './logout_icon/logout_icon.png'
 import profilepic from './profilepic/profilepic.png'
 import account_background from './account_background/account_background.png'
 import wallet_icon from './wallet_icon/wallet_icon.png'
+import edit_icon_white from './edit_icon_white/edit_icon_white.png'
+import delete_icon_white from './delete_icon_white/delete_icon_white.png'
 
 // TabBar
 
@@ -111,4 +113,4 @@ import budget_tab from './budget_tab/budget_tab.png'
 import profile_tab from './profile_tab/profile_tab.png'
 import plus_icon_tab from './plus_icon_tab/plus_icon_tab.png'
 
-export { ellipse, onboarding_1, onboarding_2, onboarding_3, back_arrow, pass_icon, google_logo, tick_icon, email_sent, arrow_right, success_icon, back_arrow_white, chase_bank, paypal_bank, citi_bank, bank_of_america, jago_bank, mandiri_bank, bca_bank, profile_avatar, notification_icon, dropdown_arrow, income_icon, expense_icon, shopping_icon, subscription_icon, food_icon, more_icon, arrow_down, attachment_icon, transfer_icon, camera_icon, gallery_icon, doc_icon, close_icon, success_icon_blue, home_icon, income_icon_white, expense_icon_white, transfer_icon_white, sort_icon, right_arrow, income_general_icon, transportation_general_icon, trash_icon, scanned_image, arrow_left, arrow_right_white, line_chart_icon_white, line_chart_icon_violet, pie_chart_icon_violet, pie_chart_icon_white, report_sort_icon, warning_symbol, trash_icon_dark, warning_icon_white, edit_icon, account_wallet, settings_icon, upload_icon, logout_icon, profilepic, account_background, wallet_icon, transaction_tab, budget_tab, profile_tab, plus_icon_tab }
+export { ellipse, onboarding_1, onboarding_2, onboarding_3, back_arrow, pass_icon, google_logo, tick_icon, email_sent, arrow_right, success_icon, back_arrow_white, chase_bank, paypal_bank, citi_bank, bank_of_america, jago_bank, mandiri_bank, bca_bank, profile_avatar, notification_icon, dropdown_arrow, income_icon, expense_icon, shopping_icon, subscription_icon, food_icon, more_icon, arrow_down, attachment_icon, transfer_icon, camera_icon, gallery_icon, doc_icon, close_icon, success_icon_blue, home_icon, income_icon_white, expense_icon_white, transfer_icon_white, sort_icon, right_arrow, income_general_icon, transportation_general_icon, trash_icon, scanned_image, arrow_left, arrow_right_white, line_chart_icon_white, line_chart_icon_violet, pie_chart_icon_violet, pie_chart_icon_white, report_sort_icon, warning_symbol, trash_icon_dark, warning_icon_white, edit_icon, account_wallet, settings_icon, upload_icon, logout_icon, profilepic, account_background, wallet_icon, transaction_tab, budget_tab, profile_tab, plus_icon_tab, edit_icon_white, delete_icon_white }

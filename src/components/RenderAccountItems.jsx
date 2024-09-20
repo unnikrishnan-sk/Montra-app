@@ -5,7 +5,7 @@ import { colorMix } from '../constants/color';
 import { bca_bank, chase_bank, citi_bank, jago_bank, mandiri_bank, paypal_bank, wallet_icon } from '../assets';
 import { useNavigation } from '@react-navigation/native';
 
-    const RenderAccountItems = ({data}) => {
+    const RenderAccountItems = ({data,darkMode}) => {
 
         const navigation = useNavigation();
 
@@ -29,9 +29,9 @@ import { useNavigation } from '@react-navigation/native';
                     <Image source={selectedIcon}/>
                 </View>
 
-                <Text style={{ alignSelf: 'center', marginLeft: WIDTH*0.03, fontSize: HEIGHT*0.027, fontWeight: 500, color: colorMix.dark_100 }}>{bank}</Text>
+                <Text style={{ alignSelf: 'center', marginLeft: WIDTH*0.03, fontSize: HEIGHT*0.027, fontWeight: 500, color: darkMode?colorMix.light_100:colorMix.dark_100 }}>{bank}</Text>
 
-                <Text style={{ alignSelf: 'center', fontSize: HEIGHT*0.027, fontWeight: 500, marginLeft: 'auto', color: colorMix.dark_100 }}>{balance}</Text>
+                <Text style={{ alignSelf: 'center', fontSize: HEIGHT*0.027, fontWeight: 500, marginLeft: 'auto', color: darkMode?colorMix.light_100:colorMix.dark_100 }}>{balance}</Text>
             </Pressable>
         )
     }

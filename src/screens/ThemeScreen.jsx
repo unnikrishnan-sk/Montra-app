@@ -9,11 +9,10 @@ import { changeMode } from '../redux/slice/modeSlice'
 
 const ThemeScreen = () => {
 
-    const [selectedTheme,setSelectedTheme] = useState(0)
-    const dispatch = useDispatch();
-    console.log(selectedTheme);
-
     const darkMode = useSelector((state)=>state.mode.darkMode)
+    const initialTheme = darkMode ? 1 : 0;
+    const [selectedTheme,setSelectedTheme] = useState(initialTheme)
+    const dispatch = useDispatch();
 
     const handleTheme = (id) => {
         if(selectedTheme !== id) {

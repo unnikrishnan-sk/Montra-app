@@ -14,13 +14,13 @@ import moment from 'moment'
 
 const TransactionScreen = () => {
 
+    const darkMode = useSelector((state)=>state.mode.darkMode)
     const [openFilter,setOpenFilter] = useState(false);
     const [filter,setFilter] = useState(null)
     const [allData,setAllData] = useState([]);
     const [sort,setSort] = useState(null)
     const [value,setValue] = useState(moment().format('MMMM'));
     const [isFocus,setIsFocus] = useState(false)
-    const darkMode = useSelector((state)=>state.mode.darkMode)
     const navigation = useNavigation();
 
     useEffect(()=>{
@@ -59,7 +59,7 @@ const TransactionScreen = () => {
         <View style={{ height: HEIGHT*0.08, marginTop: HEIGHT*0.05, justifyContent: 'space-between', flexDirection: 'row', paddingHorizontal: WIDTH*0.05 }}>
 
                 <View style={{width: WIDTH*0.35 }}>
-                <DropdownComponent value={value} setValue={setValue}  onChange={(item) => handleDroponChange(item)}  data={monthData}/>
+                <DropdownComponent value={value} setValue={setValue}  onChange={(item) => handleDroponChange(item)}  data={monthData} darkMode={darkMode}/>
                 </View>
 
             <Pressable onPress={()=>setOpenFilter(!openFilter)} >

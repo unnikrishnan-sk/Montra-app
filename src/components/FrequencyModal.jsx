@@ -12,7 +12,7 @@ import firestore from '@react-native-firebase/firestore';
 import { startAfter } from '@react-native-firebase/firestore'
 import { useNavigation } from '@react-navigation/native'
 
-const FrequencyModal = ({expenseData}) => {
+const FrequencyModal = ({expenseData,darkMode}) => {
 
   const [frequencyData,setFrequencyData] = useState({
     frequency: '',
@@ -76,22 +76,22 @@ const FrequencyModal = ({expenseData}) => {
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
 
             <View style={{ width: WIDTH*0.3 }}>
-            <DropdownComponent value={frequencyData?.frequency} setValue={(value)=>handleSelectValue('frequency',value)} title="Yearly" data={frequencyDetails}/>
+            <DropdownComponent value={frequencyData?.frequency} setValue={(value)=>handleSelectValue('frequency',value)} title="Yearly" data={frequencyDetails} darkMode={darkMode}/>
             </View>
 
             <View style={{ width: WIDTH*0.26 }}>
 
-            {frequencyData?.frequency !=='monthly' && <DropdownComponent value={frequencyData?.month} setValue={(value)=>handleSelectValue('month',value)} title="Month" data={monthsDetails}/>}
+            {frequencyData?.frequency !=='monthly' && <DropdownComponent value={frequencyData?.month} setValue={(value)=>handleSelectValue('month',value)} title="Month" data={monthsDetails} darkMode={darkMode}/>}
             </View>
 
             <View style={{ width: WIDTH*0.2 }}>
-            <DropdownComponent value={frequencyData?.startDate} setValue={(value)=>handleSelectValue('startDate',value)} title="Date" data={daysArray} />
+            <DropdownComponent value={frequencyData?.startDate} setValue={(value)=>handleSelectValue('startDate',value)} title="Date" data={daysArray} darkMode={darkMode}/>
             </View>
           </View> 
             : 
-          <DropdownComponent value={frequencyData.frequency} setValue={(value)=>handleSelectValue('frequency',value)} title="Frequency" data={frequencyDetails}/>
+          <DropdownComponent value={frequencyData.frequency} setValue={(value)=>handleSelectValue('frequency',value)} title="Frequency" data={frequencyDetails} darkMode={darkMode}/>
           } 
-          {frequencyData?.frequency == '' &&  <DropdownComponent value="endAfter" setValue={setEndAfter} title="End After" data={endAfterDetails}/>}
+          {frequencyData?.frequency == '' &&  <DropdownComponent value="endAfter" setValue={setEndAfter} title="End After" data={endAfterDetails} darkMode={darkMode}/>}
 
         { frequencyData?.frequency !=='' &&
           <View style={{ flexDirection: 'row' }}>
@@ -102,7 +102,7 @@ const FrequencyModal = ({expenseData}) => {
           <Pressable onPress={handlePress}
           style={{ borderWidth:1, height: HEIGHT*0.07, width: WIDTH*0.45, marginTop: HEIGHT*0.02, marginLeft: WIDTH*0.05, borderRadius: HEIGHT*0.02, borderColor: colorMix.light_20, alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row' }}>
 
-            <Text style={{ paddingLeft: WIDTH*0.02, alignItems: 'center'
+            <Text style={{ paddingLeft: WIDTH*0.02, alignItems: 'center', color: darkMode?colorMix.light_100:colorMix.dark_100
             }}>{moment(frequencyData?.endDate).format('DD MM YYYY') !== moment(new Date()).format('DD MM YYYY') ? moment(frequencyData?.endDate).format('DD MMMM YYYY') : 'End Date'}</Text>
 
             <Image style={{ marginRight: WIDTH*0.02, height: HEIGHT*0.01, width: HEIGHT*0.021 }}
@@ -130,7 +130,7 @@ const FrequencyModal = ({expenseData}) => {
 
         <Pressable onPress={()=>setIsDatePickerVisible(false)} 
           style={{ marginTop: HEIGHT * 0.02, backgroundColor: colorMix.violet_100, padding: HEIGHT * 0.015, borderRadius: HEIGHT * 0.02, justifyContent: 'center', alignItems: 'center' }}>
-            <Text style={{ color: colorMix.light_100 }}>Set</Text>
+            <Text style={{color: colorMix.light_100 }}>Set</Text>
         </Pressable>
 
         </View>
