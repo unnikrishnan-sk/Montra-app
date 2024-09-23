@@ -4,13 +4,13 @@ import { HEIGHT, WIDTH } from '../constants/dimension'
 import { colorMix } from '../constants/color'
 import { dropdown_arrow, expense_icon_white, income_icon_white, notification_icon, profile_avatar, transfer_icon_white } from '../assets'
 import { Dropdown } from 'react-native-element-dropdown'
-import { dataTimeframe, incomeExpenseData, monthData } from '../constants/dummyData'
+import { dataTimeframe, incomeExpenseData, monthData, noExpMnthChartData } from '../constants/dummyData'
 import RecentTransaction from '../components/RecentTransaction'
 import BottomSlider from '../components/BottomSlider'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import RenderIncomeExpense from '../components/RenderIncomeExpense'
 import RenderTimeframe from '../components/RenderTimeFrame'
-import { allExpense, calculateExpense, calculateIncome, latTransaction } from '../http/api'
+import { allExpense, calculateExpense, calculateIncome, expenseArr, latTransaction } from '../http/api'
 import moment from 'moment'
 import { useSelector } from 'react-redux'
 import GraphDataComponent from '../components/GraphDataComponent'
@@ -20,6 +20,7 @@ const HomeScreen = () => {
     const [value,setValue] = useState(moment().format('MMMM'));
     const [incomeExpenseDetails,setIncomeExpenseDetails] = useState(incomeExpenseData)
     const [refreshing,setRefreshing] = useState(false);
+    const [graphData,setGraphData] = useState(noExpMnthChartData);
     const [recentTransData,setRecentTransData] = useState([])
     const [isFocus, setIsFocus] = useState(false);
     const [onPressed,setOnPressed] = useState(0);
@@ -28,7 +29,7 @@ const HomeScreen = () => {
     const route = useRoute();
     const { centerTab } = route.params || {};
     const darkMode = useSelector((state)=>state.mode.darkMode)
-    console.log(darkMode);
+    // console.log(darkMode);
     
     useEffect(()=>{
       getData();
@@ -39,8 +40,15 @@ const HomeScreen = () => {
       const income = await calculateIncome(value);
       const allExpenses = await allExpense();
 
-      Promise.all([expense,income]).then((val)=>{
-        console.log("value in promise",val);
+      const expensess = await expenseArr(value);
+      const graphArr = expensess.map(item => ({['value']: parseFloat(item.amount)}))
+    if(graphArr.length>0){
+      setGraphData(graphArr)
+    }else{
+      setGraphData(noExpMnthChartData)
+    }
+      
+      Promise.all([expense,income]).then((val)=>{   
         setAccountBal(income-expense)
       }).catch((err)=>console.log(err))
 
@@ -141,7 +149,7 @@ const HomeScreen = () => {
     }
 
   return (
-    <View style={{ backgroundColor:centerTab ? colorMix.violet_20 : colorMix.light_100 }}>
+    <View style={{ backgroundColor:darkMode ? colorMix.dark_100 : colorMix.light_100 }}>
 
         <View style={{ borderBottomLeftRadius: HEIGHT*0.04,  borderBottomRightRadius: HEIGHT*0.04, backgroundColor: colorMix.yellow_10, paddingBottom: HEIGHT*0.03 }}>
 
@@ -202,18 +210,18 @@ const HomeScreen = () => {
         <ScrollView showsVerticalScrollIndicator={false}
         style={{ marginBottom: HEIGHT*0.4 , backgroundColor: centerTab ? colorMix.violet_20 : colorMix.light_100}}>
 
-        <View style={{ paddingHorizontal: WIDTH*0.05, marginTop: HEIGHT*0.01 }}>
-          <Text style={{ fontSize: HEIGHT*0.025, fontWeight: '600', marginTop: HEIGHT*0.01, color: colorMix.dark_100 }}>Spend Frequency</Text>
+        <View style={{ paddingHorizontal: WIDTH*0.05, paddingTop: HEIGHT*0.01,backgroundColor: darkMode?colorMix.dark_100:colorMix.light_100 }}>
+          <Text style={{ fontSize: HEIGHT*0.025, fontWeight: '600', paddingTop: HEIGHT*0.01, color: darkMode? colorMix.light_100:colorMix.dark_100 }}>Spend Frequency</Text>
         </View>
 
-       <GraphDataComponent centerTab={centerTab} value={value}/>
+       <GraphDataComponent centerTab={centerTab} graphData={graphData} darkMode={darkMode}/>
 
-       <View style={{ height: HEIGHT*0.05, backgroundColor: centerTab ? colorMix.violet_20 : colorMix.light_100, paddingHorizontal: WIDTH*0.05, flexDirection: 'row', alignItems: 'center' }}>
+       <View style={{ height: HEIGHT*0.05, backgroundColor: darkMode ? colorMix.dark_100 : colorMix.light_100, paddingHorizontal: WIDTH*0.05, flexDirection: 'row', alignItems: 'center' }}>
 
       <FlatList data={dataTimeframe} horizontal showsHorizontalScrollIndicator={false} renderItem={({item})=><RenderTimeframe data={item} setOnPressed={setOnPressed} onPressed={onPressed} centerTab={centerTab}/> } keyExtractor={item=>item.id}/>
       </View>
 
-      {refreshing && <ActivityIndicator size="large" refreshing={refreshing} onRefresh={onRefresh} /> }
+      {refreshing && <View style={{backgroundColor:darkMode? colorMix.dark_100:colorMix.light_100}}><ActivityIndicator size="large" refreshing={refreshing} onRefresh={onRefresh} backgroundColor={darkMode? colorMix.dark_100:colorMix.light_100} /></View> }
 
       <RecentTransaction recentTransData={recentTransData} centerTab={centerTab} darkMode={darkMode}/>
       </ScrollView>

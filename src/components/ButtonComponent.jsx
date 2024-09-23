@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, Pressable, Text, View } from 'react-native'
+import { Image, Pressable, Text } from 'react-native'
 import { HEIGHT, WIDTH } from '../constants/dimension'
 import { colorMix } from '../constants/color'
 

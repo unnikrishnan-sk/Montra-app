@@ -15,7 +15,6 @@ const FinancialReport = () => {
     const navigation = useNavigation();
 
     const handleReport = () => {
-        console.log("reports",reports);
         if(reports<3){
             setReports(prev => prev+1 )
         }  

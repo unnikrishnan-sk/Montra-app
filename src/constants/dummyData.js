@@ -1,4 +1,4 @@
-import { account_wallet, arrow_right, bank_of_america, bca_bank, budget_tab, camera_icon, chase_bank, citi_bank, doc_icon, expense_icon, food_icon, gallery_icon, home_icon, income_general_icon, income_icon, jago_bank, logout_icon, mandiri_bank, onboarding_1, onboarding_2, onboarding_3, pass_icon, paypal_bank, plus_icon_tab, profile_tab, settings_icon, shopping_icon, subscription_icon, transaction_tab, transportation_general_icon, upload_icon, wallet_icon } from "../assets";
+import { account_wallet, arrow_right, bank_of_america, bca_bank, budget_tab, camera_icon, chase_bank, citi_bank, doc_icon, expense_icon, food_icon, gallery_icon, home_icon, income_general_icon, income_icon, jago_bank, logout_icon, mandiri_bank, onboarding_1, onboarding_2, onboarding_3, pass_icon, paypal_bank, plus_icon_tab, profile_tab, scanned_image, settings_icon, shopping_icon, subscription_icon, transaction_tab, transportation_general_icon, upload_icon, wallet_icon } from "../assets";
 
 export const onboardData = [{ id: 0, image: onboarding_1, heading: "Gain total control of your money", desc: "Become your own money manager and make every cent count" }, { id: 1, image: onboarding_2, heading: "Know where your money goes", desc: "Track your transaction easily, with categories and financial report" }, { id: 2, image: onboarding_3, heading: "Planning ahead", desc: "Setup your budget for each category so you in control" }]
 
@@ -71,5 +71,11 @@ export const values = { "expense": "expense", "income": "income", "budget": "bud
 export const repeatDetails = [{ id: 0, name: "Frequency" }, { id: 1, name: "End After" }]
 
 export const tabBarData = [{ id: 0, logo: home_icon, title: "Home", route: "home" }, { id: 1, logo: transaction_tab, title: "Transaction", route: "transaction" }, { id: 2, logo: plus_icon_tab }, { id: 3, logo: budget_tab, title: "Budget", route: "budget" }, { id: 4, logo: profile_tab, title: "Profile", route: "profile" }]
+
+export const detailedTrans = [{
+    id: 0, transactionType: 'Transfer', amount: '$2000', description: '', date: 'Saturday 4 June 2021  16:20', transactionDet: [{ name: 'Type', value: 'Transfer' }, { name: 'From', value: 'Paypal' }, { name: 'To', value: 'Chase' }], detailDescription: 'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.', attachment: scanned_image
+}]
+
+export const allTransactionDet = [{ id: 0, name: 'Type', value: 'Expense' }, { id: 1, name: 'Category', value: 'Shopping' }, { id: 2, name: 'Wallet', value: 'Wallet' }]
 
 

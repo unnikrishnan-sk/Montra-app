@@ -4,7 +4,7 @@ import { colorMix } from "../constants/color";
 import { food_icon, income_general_icon, shopping_icon, subscription_icon, transportation_general_icon } from "../assets";
 import moment from "moment";
 
-const RenderTransactionItems = ({data, centerTab}) => {
+const RenderTransactionItems = ({data, centerTab, darkMode}) => {
 
     const {id,image,title,description,amount,createdAt,category} = data;
     const value = {
@@ -61,9 +61,9 @@ const RenderTransactionItems = ({data, centerTab}) => {
     const formattedTime = moment(date).format('h:mm A')
 
     return(
-        <View style={{ paddingHorizontal: WIDTH*0.07, paddingTop: HEIGHT*0.01, paddingBottom: HEIGHT*0.02 }}>
+        <View style={{ paddingHorizontal: WIDTH*0.07, paddingTop: HEIGHT*0.01, paddingBottom: HEIGHT*0.02,backgroundColor: darkMode?colorMix.dark_100:colorMix.light_100}}>
 
-        <View style={{ borderRadius: HEIGHT*0.03, backgroundColor:centerTab ? colorMix.violet_10 : colorMix.light_80, flexDirection: 'row', justifyContent: 'space-between', paddingTop: HEIGHT*0.02, paddingBottom: HEIGHT*0.02, paddingHorizontal:WIDTH*0.025, }}>
+        <View style={{ borderRadius: HEIGHT*0.03, backgroundColor:darkMode ? colorMix.dark_50 : colorMix.light_80, flexDirection: 'row', justifyContent: 'space-between', paddingTop: HEIGHT*0.02, paddingBottom: HEIGHT*0.02, paddingHorizontal:WIDTH*0.025, }}>
 
             <View style={{ flexDirection: 'row' }}>
             <View style={{ height: HEIGHT*0.08, width: HEIGHT*0.09, borderRadius: HEIGHT*0.02, backgroundColor: backgroundColor, justifyContent: 'center', alignItems: 'center' }}>
@@ -73,8 +73,8 @@ const RenderTransactionItems = ({data, centerTab}) => {
 
             <View style={{ justifyContent: 'space-around', marginLeft: WIDTH*0.02 }}>
 
-                <Text style={{ fontSize: HEIGHT*0.022, color: colorMix.dark_100, fontWeight: '500' }}>{category}</Text>
-                <Text style={{ color: colorMix.dark_25, fontSize: HEIGHT*0.018 }}>{description}</Text>
+                <Text style={{ fontSize: HEIGHT*0.022, color: darkMode? colorMix.light_100:colorMix.dark_100, fontWeight: '500' }}>{category}</Text>
+                <Text style={{ color: darkMode? colorMix.light_20:colorMix.dark_25, fontSize: HEIGHT*0.018 }}>{description}</Text>
             </View>
             </View>
 
@@ -82,7 +82,7 @@ const RenderTransactionItems = ({data, centerTab}) => {
                 <Text style={{ alignSelf: 'flex-end', fontWeight: '500', color: category===value.salary ? colorMix.green_100 : colorMix.red_100, fontSize: HEIGHT*0.023 }}>
                     {category===value.salary ? `$${amount}`: `-$${amount}`}</Text>
 
-                <Text style={{ color: colorMix.dark_25, fontSize: HEIGHT*0.018 }}>{formattedTime}</Text>
+                <Text style={{ color: darkMode? colorMix.light_20:colorMix.dark_25, fontSize: HEIGHT*0.018 }}>{formattedTime}</Text>
             </View>
         </View>
         </View>

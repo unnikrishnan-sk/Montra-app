@@ -56,7 +56,6 @@ export const handleCategoryColor = (category) => {
         case categoryValue.shopping:
             backgroundColor = colorMix.yellow_100;
             backgrounImage = shopping_icon
-            console.log(backgroundColor);
             break;
         case categoryValue.subscription:
             backgroundColor = colorMix.violet_100;

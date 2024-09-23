@@ -7,6 +7,7 @@ import { right_arrow } from '../assets'
 import { useNavigation } from '@react-navigation/native'
 import { settingsData } from '../constants/dummyData'
 import { useSelector } from 'react-redux'
+import BottomSlider from '../components/BottomSlider'
 
 const RenderSettings = ({data,darkMode,navigation}) => {
 
@@ -29,9 +30,8 @@ const RenderSettings = ({data,darkMode,navigation}) => {
             <Image 
             style={{ marginLeft: WIDTH*0.02, height: HEIGHT*0.02, width: HEIGHT*0.01 }}
             source={right_arrow}/>
-
             </Pressable>
-             </View>
+        </View>
     )}
 
 const SettingScreen = () => {
@@ -49,6 +49,8 @@ const SettingScreen = () => {
             showsVerticalScrollIndicator={false}
             renderItem={({item})=><RenderSettings data={item} darkMode={darkMode} navigation={navigation} /> }
             keyExtractor={item=>item.id}/>
+
+            <BottomSlider darkMode={darkMode}/>
        
     </View>
   )}

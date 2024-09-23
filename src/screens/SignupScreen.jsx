@@ -61,7 +61,6 @@ const SignupScreen = () => {
 
   const validateSignForm = () => {
     const {name,email,password} = signdata;
-    console.log(name,email,password);
     let error = {};
     console.log("error_validateSignForm",error);
     if(isEmpty(name)){

@@ -46,11 +46,11 @@ const AccountScreen = () => {
 
             <View style={{ paddingHorizontal: WIDTH*0.05 }}>
 
-                <FlatList contentContainerStyle={{ borderRadius: HEIGHT*0.02 }}
-                    data={allData}
-                    showsVerticalScrollIndicator={false}
-                    renderItem={({item})=><RenderAccountItems data={item} navigation={navigation} darkMode={darkMode}/> }
-                    keyExtractor={item=>item.id}/> 
+              <FlatList contentContainerStyle={{ borderRadius: HEIGHT*0.02, paddingBottom: HEIGHT*0.1 }}
+                data={allData}
+                showsVerticalScrollIndicator={false}
+                renderItem={({item})=><RenderAccountItems data={item} navigation={navigation} darkMode={darkMode}/> }
+                keyExtractor={item=>item.id}/> 
             </View>
 
             <View style={{ paddingHorizontal: WIDTH*0.05, position: 'absolute', width: WIDTH, bottom: HEIGHT*0.07 }}>

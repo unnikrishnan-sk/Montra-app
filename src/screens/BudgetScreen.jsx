@@ -82,10 +82,8 @@ const BudgetScreen = () => {
 
         <View style={{ width: WIDTH, position: 'absolute', height: HEIGHT*0.1, bottom: HEIGHT*0.03, paddingHorizontal: WIDTH*0.05, backgroundColor: darkMode?colorMix.dark_100:colorMix.light_100, justifyContent: 'center' }}>
 
-            <ButtonComponent title="Create a budget" onButtonHandler={()=>navigation.navigate('createbudget')}/>
-            </View>
-
-               
+        <ButtonComponent title="Create a budget" onButtonHandler={()=>navigation.navigate('createbudget')}/>
+            </View>     
     </View>
   )
 }

@@ -4,10 +4,10 @@ import { HEIGHT } from '../constants/dimension'
 import FilterSortComponent from './FilterSortComponent'
 import { colorMix } from '../constants/color'
 
-const FilterSortModal = ({openFilter,setOpenFilter,setFilter,filter,sort,setSort, setAllData,heading,ItemData}) => {
+const FilterSortModal = ({openFilter,setOpenFilter,setFilter,filter,sort,setSort, setAllData,heading,ItemData,darkMode}) => {
   return (
     <View>
-    <Text style={{ fontWeight: 600, marginTop: HEIGHT*0.02, fontSize: HEIGHT*0.023, color: colorMix.dark_100
+    <Text style={{ fontWeight: 600, marginTop: HEIGHT*0.02, fontSize: HEIGHT*0.023, color: darkMode? colorMix.light_100:colorMix.dark_100
     }}>{heading}</Text>
 
     <FlatList 
@@ -15,7 +15,7 @@ const FilterSortModal = ({openFilter,setOpenFilter,setFilter,filter,sort,setSort
          flexDirection: 'row', flexWrap: 'wrap' }}
     data={ItemData}
     showsHorizontalScrollIndicator={false}
-    renderItem={({item})=><FilterSortComponent data={item} setFilter={setFilter} filter={filter} isFilter={heading==="Filter By" ? true : false} setSort={setSort} sort={sort}/> }
+    renderItem={({item})=><FilterSortComponent data={item} setFilter={setFilter} filter={filter} isFilter={heading==="Filter By" ? true : false} setSort={setSort} sort={sort} darkMode={darkMode}/> }
     keyExtractor={item=>item.id}/>
     </View>
   )

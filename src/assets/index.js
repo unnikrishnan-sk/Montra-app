@@ -71,6 +71,7 @@ import transfer_icon_white from './trnasfer_icon_white/transfer_icon_white.png'
 //Transaction Screen
 
 import sort_icon from './sort_icon/sort_icon.png'
+import more_icon_white from './more_icon_white/more_icon_white.jpeg'
 import right_arrow from './right_arrow/right_arrow.png'
 import income_general_icon from './income_general_icon/income_general_icon.png'
 import transportation_general_icon from './transportation_general_icon/transportation_general_icon.png'
@@ -92,6 +93,7 @@ import pie_chart_icon_white from './pie_chart_icon_white/pie_chart_icon_white.pn
 import pie_chart_icon_violet from './pie_chart_icon_violet/pie_chart_icon_violet.png'
 import line_chart_icon_violet from './line_chart_icon_violet/line_chart_icon_violet.png'
 import report_sort_icon from './report_sort_icon/report_sort_icon.png'
+import report_sort_icon_white from './report_sort_icon_white/report_sort_icon_white.jpg'
 
 //Profile Screen
 
@@ -113,4 +115,4 @@ import budget_tab from './budget_tab/budget_tab.png'
 import profile_tab from './profile_tab/profile_tab.png'
 import plus_icon_tab from './plus_icon_tab/plus_icon_tab.png'
 
-export { ellipse, onboarding_1, onboarding_2, onboarding_3, back_arrow, pass_icon, google_logo, tick_icon, email_sent, arrow_right, success_icon, back_arrow_white, chase_bank, paypal_bank, citi_bank, bank_of_america, jago_bank, mandiri_bank, bca_bank, profile_avatar, notification_icon, dropdown_arrow, income_icon, expense_icon, shopping_icon, subscription_icon, food_icon, more_icon, arrow_down, attachment_icon, transfer_icon, camera_icon, gallery_icon, doc_icon, close_icon, success_icon_blue, home_icon, income_icon_white, expense_icon_white, transfer_icon_white, sort_icon, right_arrow, income_general_icon, transportation_general_icon, trash_icon, scanned_image, arrow_left, arrow_right_white, line_chart_icon_white, line_chart_icon_violet, pie_chart_icon_violet, pie_chart_icon_white, report_sort_icon, warning_symbol, trash_icon_dark, warning_icon_white, edit_icon, account_wallet, settings_icon, upload_icon, logout_icon, profilepic, account_background, wallet_icon, transaction_tab, budget_tab, profile_tab, plus_icon_tab, edit_icon_white, delete_icon_white }
+export { ellipse, onboarding_1, onboarding_2, onboarding_3, back_arrow, pass_icon, google_logo, tick_icon, email_sent, arrow_right, success_icon, back_arrow_white, chase_bank, paypal_bank, citi_bank, bank_of_america, jago_bank, mandiri_bank, bca_bank, profile_avatar, notification_icon, dropdown_arrow, income_icon, expense_icon, shopping_icon, subscription_icon, food_icon, more_icon, arrow_down, attachment_icon, transfer_icon, camera_icon, gallery_icon, doc_icon, close_icon, success_icon_blue, home_icon, income_icon_white, expense_icon_white, transfer_icon_white, sort_icon, right_arrow, income_general_icon, transportation_general_icon, trash_icon, scanned_image, arrow_left, arrow_right_white, line_chart_icon_white, line_chart_icon_violet, pie_chart_icon_violet, pie_chart_icon_white, report_sort_icon, warning_symbol, trash_icon_dark, warning_icon_white, edit_icon, account_wallet, settings_icon, upload_icon, logout_icon, profilepic, account_background, wallet_icon, transaction_tab, budget_tab, profile_tab, plus_icon_tab, edit_icon_white, delete_icon_white, more_icon_white, report_sort_icon_white }

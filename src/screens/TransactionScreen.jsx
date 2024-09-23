@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { FlatList, Image, Modal, Pressable, ScrollView, Text, View } from 'react-native'
 import { HEIGHT, WIDTH } from '../constants/dimension'
-import { right_arrow, sort_icon } from '../assets'
+import { more_icon_white, right_arrow, sort_icon } from '../assets'
 import { colorMix } from '../constants/color'
 import { monthData } from '../constants/dummyData'
 import RenderTransactionItems from '../components/RenderTransactionItems'
@@ -55,7 +55,7 @@ const TransactionScreen = () => {
       }
     
   return (
-    <View style={{ backgroundColor: colorMix.light_100, height: HEIGHT }}>
+    <View style={{ backgroundColor: darkMode?colorMix.dark_100:colorMix.light_100, height: HEIGHT }}>
         <View style={{ height: HEIGHT*0.08, marginTop: HEIGHT*0.05, justifyContent: 'space-between', flexDirection: 'row', paddingHorizontal: WIDTH*0.05 }}>
 
                 <View style={{width: WIDTH*0.35 }}>
@@ -63,7 +63,8 @@ const TransactionScreen = () => {
                 </View>
 
             <Pressable onPress={()=>setOpenFilter(!openFilter)} >
-            <Image source={sort_icon} />
+            <Image source={darkMode? more_icon_white : sort_icon} 
+            style={{height: HEIGHT*0.06, width: WIDTH*0.2}}/>
             </Pressable>
         </View>
 
@@ -85,7 +86,7 @@ const TransactionScreen = () => {
             <FlatList contentContainerStyle={{ paddingBottom: HEIGHT*0.12 }}
             data={allData}
             showsVerticalScrollIndicator={false}
-            renderItem={({item})=><RenderTransactionItems data={item}/> }
+            renderItem={({item})=><RenderTransactionItems data={item} darkMode={darkMode} /> }
             keyExtractor={item=>item.id} />
         </ScrollView>
 
@@ -93,7 +94,7 @@ const TransactionScreen = () => {
         animationType="slide"
         transparent={true}
         visible={openFilter}>
-            <SortModal  openFilter={openFilter} setOpenFilter={setOpenFilter} setFilter={setFilter} filter={filter} sort={sort} setSort={setSort} setAllData={setAllData}/>
+            <SortModal  openFilter={openFilter} setOpenFilter={setOpenFilter} setFilter={setFilter} filter={filter} sort={sort} setSort={setSort} setAllData={setAllData} darkMode={darkMode}/>
       </Modal>
     </View>
   )

@@ -3,7 +3,7 @@ import { Pressable, Text } from 'react-native';
 import { HEIGHT, WIDTH } from '../constants/dimension';
 import { colorMix } from '../constants/color';
 
-const FilterSortComponent = ({data, setFilter, filter, sort, setSort, isFilter}) => {
+const FilterSortComponent = ({data, setFilter, filter, sort, setSort, isFilter, darkMode}) => {
 
     const { id,name } = data;
     

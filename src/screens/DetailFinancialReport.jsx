@@ -12,9 +12,11 @@ import PieChartData from '../components/PieChartData'
 import { allExpense, allIncome, calculateExpense, expenseArr, latTransaction } from '../http/api'
 import moment from 'moment'
 import { useNavigation } from '@react-navigation/native'
+import { useSelector } from 'react-redux'
 
 const DetailFinancialReport = () => {
 
+    const darkMode = useSelector((state)=>state.mode.darkMode)
     const [value,setValue] = useState(moment().format('MMMM'));
     const [focus,setIsFocus] = useState();
     const [transactionData,setTransactionData] = useState([])
@@ -65,8 +67,8 @@ const DetailFinancialReport = () => {
       }
 
   return (
-   <View style={{ backgroundColor: colorMix.light_100, height: HEIGHT }}>
-        <Navbar onBackBtn={onBackBtn} title="Financial Report"/>
+   <View style={{ backgroundColor: darkMode? colorMix.dark_100:colorMix.light_100, height: HEIGHT }}>
+        <Navbar onBackBtn={onBackBtn} title="Financial Report" darkMode={darkMode}/>
         <View style={{ alignItems: 'center', paddingTop: HEIGHT*0.03, justifyContent: 'space-between', flexDirection: 'row', paddingHorizontal: WIDTH*0.05 }}>
 
         <Dropdown style={{ borderColor: 'gray', borderRadius: HEIGHT*0.03, paddingHorizontal: WIDTH*0.01, borderWidth: 1, width: WIDTH*0.32, height: HEIGHT*0.05, backgroundColor: colorMix.light_80, borderColor: colorMix.light_20, color: colorMix.dark_100, marginTop: HEIGHT*0.02 }}
@@ -108,18 +110,18 @@ const DetailFinancialReport = () => {
 
         {chartSelected ? ( <><View style={{ paddingHorizontal: WIDTH*0.05 }}>
 
-        <Text style={{ fontWeight: '800', marginTop: HEIGHT*0.02, color: colorMix.dark_100, fontSize: HEIGHT*0.04 }}>$ {totalExpense}</Text>
+        <Text style={{ fontWeight: '800', marginTop: HEIGHT*0.02, color:darkMode? colorMix.light_100: colorMix.dark_100, fontSize: HEIGHT*0.04 }}>$ {totalExpense}</Text>
         </View>
         
         <View style={{ marginLeft: -WIDTH*0.1 }}>
         <LineChart areaChart data = {graphData}
-      style={{ marginLeft: WIDTH*0.1 }} spacing={WIDTH} initialSpacing={0} thickness={6} hideAxesAndRules hideDataPoints width={WIDTH} curved startFillColor={colorMix.violet_80} endFillColor={colorMix.violet_20}  startOpacity={0.4} endOpacity={0.1} color={colorMix.violet_100}/>
+      style={{ marginLeft: WIDTH*0.1 }} spacing={graphData.length<5 ?WIDTH : WIDTH*0.2} initialSpacing={0} thickness={6} hideAxesAndRules hideDataPoints width={WIDTH} curved startFillColor={colorMix.violet_80} endFillColor={colorMix.violet_20}  startOpacity={0.4} endOpacity={0.1} color={colorMix.violet_100}/>
        </View></>
       ) : (
       <View style={{ alignItems: 'center',marginBottom: HEIGHT*0.03, marginTop: HEIGHT*0.03, justifyContent: 'center'}}>
 
         <View style={{ paddingHorizontal: WIDTH*0.05 }}>
-        <Text style={{ fontWeight: '800', position: 'absolute', alignSelf: 'center', textAlign: 'center', marginTop: HEIGHT*0.13, color: colorMix.dark_100, fontSize: HEIGHT*0.04 }}>$ {totalExpense}</Text>
+        <Text style={{ fontWeight: '800', position: 'absolute', alignSelf: 'center', textAlign: 'center', marginTop: HEIGHT*0.13, color: darkMode? colorMix.light_100:colorMix.dark_100, fontSize: HEIGHT*0.04 }}>$ {totalExpense}</Text>
         </View>
 
         <PieChartPro donut areaChart data = {graphData} 
@@ -127,7 +129,7 @@ const DetailFinancialReport = () => {
         shadowOffset: { width: 10, height: 20 },
         shadowOpacity: 0.5,
         shadowRadius: 5,
-        elevation: 50, }} innerRadius={WIDTH*0.22} radius={WIDTH*0.28} shadow innerCircleBorderWidth={10} shiftInnerCenterX={100} shiftInnerCenterY={100} tilt={0.5} isThreeD />
+        elevation: 50, }} innerRadius={WIDTH*0.22} radius={WIDTH*0.28} shadow innerCircleBorderWidth={10} shiftInnerCenterX={100} shiftInnerCenterY={100} tilt={0.5} isThreeD darkMode={darkMode} />
        </View>)}
 
        <View style={{ height: HEIGHT*0.1, paddingHorizontal: WIDTH*0.05 }}>
@@ -140,11 +142,11 @@ const DetailFinancialReport = () => {
             {color: detail ? '#FFFFFF' : 'black'}]}>Expense</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={[{ height: HEIGHT * 0.07, width: WIDTH * 0.43, paddingTop: 8, borderRadius: HEIGHT*0.35, paddingRight: 24, paddingBottom: 8, paddingLeft: 24, gap: 10, alignItems: 'center', justifyContent: 'center' },
-          { backgroundColor: detail ? colorMix.light_40 : colorMix.violet_100}]}
+        <TouchableOpacity style={[{ height: HEIGHT * 0.07, width: WIDTH * 0.43, paddingTop: 8, borderRadius: HEIGHT*0.35, paddingRight: 24, paddingBottom: 8, paddingLeft: 24, gap: 10, alignItems: 'center', justifyContent: 'center' },
+        { backgroundColor: detail ? colorMix.light_40 : colorMix.violet_100}]}
           onPress={()=>setDetail(false)}>
 
-            <Text style={[{ fontSize: 16, fontWeight: 400, lineHeight: 19.2}, {color : detail ? 'black' : '#FFFFFF'}]}>Income</Text>
+          <Text style={[{ fontSize: 16, fontWeight: 400, lineHeight: 19.2}, {color : detail ? 'black' : '#FFFFFF'}]}>Income</Text>
           </TouchableOpacity>
         </View>
        </View>
@@ -156,7 +158,7 @@ const DetailFinancialReport = () => {
         <View style={{ flexDirection: 'row', borderWidth: 1, alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: WIDTH*0.025, borderRadius: HEIGHT*0.03, borderColor: colorMix.light_20 }}>
 
           <Image source={dropdown_arrow} />
-          <Text style={{ marginLeft: WIDTH*0.02 }}>Transaction</Text>
+          <Text style={{ marginLeft: WIDTH*0.02, color:darkMode? colorMix.light_100:colorMix.dark_100 }}>Transaction</Text>
         </View>
 
         <View style={{ borderWidth:1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: WIDTH*0.02, borderRadius: HEIGHT*0.01, borderColor: colorMix.light_20 }}>
@@ -164,23 +166,23 @@ const DetailFinancialReport = () => {
         </View>
        </View>
 
-       <View style={{ marginTop: HEIGHT*0.02 }}>
+      <View style={{ marginTop: HEIGHT*0.02 }}>
 
     {chartSelected ? ( 
       <FlatList contentContainerStyle={{ paddingBottom: HEIGHT*0.03 }}
         data={transactionData}
         showsVerticalScrollIndicator={false}
-        renderItem={({item})=><RenderTransactionItems data={item}/> }
+        renderItem={({item})=><RenderTransactionItems data={item} darkMode={darkMode}/> }
         keyExtractor={item=>item.id} />
       ) : (
-          <FlatList contentContainerStyle={{ paddingBottom: HEIGHT*0.05 }}
-            data={transactionData}
-            showsVerticalScrollIndicator={false}
-            renderItem={({item})=><PieChartData data={item}/> }
-            keyExtractor={item=>item.id}/>
-        )}       
-        </View>
-        </ScrollView>
+      <FlatList contentContainerStyle={{ paddingBottom: HEIGHT*0.05 }}
+        data={transactionData}
+        showsVerticalScrollIndicator={false}
+        renderItem={({item})=><PieChartData data={item}/> }
+        keyExtractor={item=>item.id}/>
+      )}       
+    </View>
+    </ScrollView>
    </View>
   )
 }

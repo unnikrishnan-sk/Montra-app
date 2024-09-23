@@ -6,6 +6,7 @@ import { colorMix } from '../constants/color'
 import { tick_icon } from '../assets'
 import { useDispatch, useSelector } from 'react-redux'
 import { changeMode } from '../redux/slice/modeSlice'
+import BottomSlider from '../components/BottomSlider'
 
 const ThemeScreen = () => {
 
@@ -55,6 +56,8 @@ const ThemeScreen = () => {
             </View>}
             </Pressable>
         </View>
+
+        <BottomSlider darkMode={darkMode}/>
     </View>
   )
 }

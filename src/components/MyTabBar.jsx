@@ -4,11 +4,14 @@ import RenderTabBar from './RenderTabBar';
 import { HEIGHT, WIDTH } from '../constants/dimension';
 import { colorMix } from '../constants/color';
 import { tabBarData } from '../constants/dummyData';
+import { useSelector } from 'react-redux';
 
 const MyTabBar = ({ state, descriptors, navigation }) => {
 
+    const darkMode = useSelector((state)=>state.mode.darkMode)
+
     return (
-        <View style={{ height: HEIGHT * 0.1, backgroundColor: colorMix.light_80, paddingHorizontal: WIDTH * 0.05, paddingVertical: HEIGHT * 0.012, }}>
+        <View style={{ height: HEIGHT * 0.1, backgroundColor: darkMode? colorMix.dark_50:colorMix.light_80, paddingHorizontal: WIDTH * 0.05, paddingVertical: HEIGHT * 0.012, }}>
 
             <FlatList contentContainerStyle={{ justifyContent: 'space-between', width: WIDTH * 0.9 }}
                 horizontal

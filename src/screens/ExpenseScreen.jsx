@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { View,Text, Image, Switch, Modal, Pressable, FlatList, Platform, TextInput } from 'react-native'
+import { View,Text, Image, Switch, Modal, Pressable, Platform, TextInput } from 'react-native'
 import Navbar from '../components/Navbar'
 import { colorMix } from '../constants/color'
 import { HEIGHT, WIDTH } from '../constants/dimension'
@@ -10,12 +10,9 @@ import { attachment_icon, close_icon } from '../assets'
 import ButtonComponent from '../components/ButtonComponent'
 import BottomSlider from '../components/BottomSlider'
 import firestore from '@react-native-firebase/firestore';
-import RenderAttachments from '../components/RenderAttachments'
 import * as ImagePicker from 'react-native-image-picker'
 import * as DocumentPicker from 'react-native-document-picker'
 import RepeatModalComponent from '../components/RepeatModalComponent'
-import CameraModal from '../components/CameraModal'
-import CategoryComponent from '../components/CategoryComponent'
 import moment from 'moment'
 import { getConstants } from '../http/api'
 import { useSelector } from 'react-redux'
@@ -69,7 +66,6 @@ const ExpenseScreen = () => {
             try {
                 const bank = expenseData?.wallet;
                 const querySnapShotBank = await firestore().collection('Accounts').where('bank', '==', bank).get();
-                console.log("querySnap", !querySnapShotBank.empty);
 
                 if(querySnapShotBank.empty){
                     await firestore().collection('Expenses').add(expenseData);

@@ -1,16 +1,15 @@
 import React, { useState } from 'react'
-import { Image, Switch, Text, TextInput, View } from 'react-native'
+import { Image, Text, TextInput, View } from 'react-native'
 import { colorMix } from '../constants/color'
 import { HEIGHT, WIDTH } from '../constants/dimension'
 import Navbar from '../components/Navbar'
 import DropdownComponent from '../components/DropdownComponent'
-import { expenseDetails, incomeCategoryType, walletType } from '../constants/dummyData'
+import { incomeCategoryType } from '../constants/dummyData'
 import InputComponent from '../components/InputComponent'
 import { attachment_icon } from '../assets'
 import ButtonComponent from '../components/ButtonComponent'
 import firestore from '@react-native-firebase/firestore';
 import BottomSlider from '../components/BottomSlider'
-import { handleAuthError } from '../constants/common'
 import moment from 'moment'
 import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
@@ -77,10 +76,10 @@ const IncomeScreen = () => {
     <View style={{ backgroundColor: darkMode ? colorMix.dark_100 : colorMix.light_100, borderTopRightRadius: HEIGHT*0.04, borderTopLeftRadius: HEIGHT*0.04, marginTop: HEIGHT*0.01 }}>
 
         <View style={{ paddingHorizontal: WIDTH*0.05 }}>
-        <DropdownComponent value={incomeData?.category} setValue={(value)=>handleIncomeData('category',value)} title="Category" data={incomeCategoryType}/>
+        <DropdownComponent value={incomeData?.category} setValue={(value)=>handleIncomeData('category',value)} title="Category" data={incomeCategoryType} darkMode={darkMode}/>
         </View>
 
-        <InputComponent placeholder="Description" onChangeText={(text)=>handleTextInputChange('description',text)}/>
+        <InputComponent placeholder="Description" onChangeText={(text)=>handleTextInputChange('description',text)} darkMode={darkMode}/>
 
         <View style={{ paddingHorizontal: WIDTH*0.05 }}>
         <View style={{ borderWidth: 1, borderStyle:"dashed", height: HEIGHT*0.07, marginTop: HEIGHT*0.02, borderColor: colorMix.light_20, borderRadius: HEIGHT*0.02, justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>

@@ -32,7 +32,6 @@ const TransferScreen = () => {
 }
 
 const handleTransfer = async () => {
-  console.log("transferdata", transferData); 
   try {
     await firestore().collection('Transfers').add(transferData);
     navigation.navigate('myTabs')
@@ -67,7 +66,8 @@ const handleTransfer = async () => {
       <TextInput style={{ borderWidth: 1, borderColor: colorMix.light_20, height: HEIGHT*0.07, width: WIDTH*0.44, borderRadius: HEIGHT*0.02, paddingLeft: WIDTH*0.035 }}
       placeholder='From'
       onChangeText={(text)=>handleTextInputChange('fromAccount',text)}
-      placeholderTextColor={colorMix.dark_25} />
+      placeholderTextColor={colorMix.dark_25} 
+      color={darkMode?colorMix.light_100:colorMix.dark_100}/>
 
       <View style={{ position: 'absolute', marginLeft: WIDTH*0.48, borderWidth: 1, height: HEIGHT*0.05, width: HEIGHT*0.05, borderRadius: HEIGHT*0.03, justifyContent: 'center', alignItems: 'center', zIndex: 1, backgroundColor: colorMix.light_80, borderColor: colorMix.light_20 }}>
 
@@ -78,10 +78,11 @@ const handleTransfer = async () => {
       <TextInput style={{ borderWidth: 1, borderColor: colorMix.light_20, marginLeft: WIDTH*0.022, height: HEIGHT*0.07, width: WIDTH*0.44, borderRadius: HEIGHT*0.02, paddingLeft: WIDTH*0.04 }}
       placeholder='To'
       onChangeText={(text)=>handleTextInputChange('toAccount',text)}
-      placeholderTextColor={colorMix.dark_25} />
+      placeholderTextColor={colorMix.dark_25} 
+      color={darkMode?colorMix.light_100:colorMix.dark_100}/>
       </View>
 
-      <InputComponent placeholder="Description" onChangeText={(text)=>handleTextInputChange('description',text)}/>
+      <InputComponent placeholder="Description" onChangeText={(text)=>handleTextInputChange('description',text)} darkMode={darkMode}/>
 
       <View style={{ paddingHorizontal: WIDTH*0.05 }}>
       <View style={{ borderWidth: 1, borderStyle:"dashed", height: HEIGHT*0.07, marginTop: HEIGHT*0.02, borderColor: colorMix.light_20, borderRadius: HEIGHT*0.02, justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>

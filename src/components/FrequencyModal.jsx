@@ -20,7 +20,6 @@ const FrequencyModal = ({expenseData,darkMode}) => {
     startDate: '',
     endDate: new Date()
   })
-  console.log("frequencyData",frequencyData);
   const [endAfter,setEndAfter] = useState();
   const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
   const navigation = useNavigation();
@@ -38,7 +37,6 @@ const FrequencyModal = ({expenseData,darkMode}) => {
   }
 
   const handleSelectValue = (key,value) => {
-    console.log("updating", key, 'to', value);
     setFrequencyData(prevState => ({
       ...prevState,
       [key]: value
@@ -70,7 +68,7 @@ const FrequencyModal = ({expenseData,darkMode}) => {
 
   return (
     <>
-    <View style={{ paddingHorizontal: WIDTH*0.05 }}>
+    <View style={{ paddingHorizontal: WIDTH*0.05, }}>
 
           {frequencyData?.frequency!=='' ?  
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -84,7 +82,7 @@ const FrequencyModal = ({expenseData,darkMode}) => {
             {frequencyData?.frequency !=='monthly' && <DropdownComponent value={frequencyData?.month} setValue={(value)=>handleSelectValue('month',value)} title="Month" data={monthsDetails} darkMode={darkMode}/>}
             </View>
 
-            <View style={{ width: WIDTH*0.2 }}>
+            <View style={{ width: WIDTH*0.2}}>
             <DropdownComponent value={frequencyData?.startDate} setValue={(value)=>handleSelectValue('startDate',value)} title="Date" data={daysArray} darkMode={darkMode}/>
             </View>
           </View> 
@@ -115,18 +113,11 @@ const FrequencyModal = ({expenseData,darkMode}) => {
         <ButtonComponent title="Next" onButtonHandler={onHandleFrequency}/>
         </View>
 
-      <Modal 
-      animationType='slide'
-      transparent={true}
-      visible={isDatePickerVisible}>
+      <Modal animationType='slide' transparent={true} visible={isDatePickerVisible}>
 
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
           <View style={{ width: WIDTH * 0.85, backgroundColor: colorMix.light_100, borderRadius: HEIGHT * 0.02, padding: HEIGHT * 0.02 }}>
-        <DatePicker
-        mode='date'
-        date={frequencyData?.endDate}
-        minimumDate={new Date()}
-        onDateChange={handleDateChange} />
+        <DatePicker mode='date' date={frequencyData?.endDate} minimumDate={new Date()} onDateChange={handleDateChange} />
 
         <Pressable onPress={()=>setIsDatePickerVisible(false)} 
           style={{ marginTop: HEIGHT * 0.02, backgroundColor: colorMix.violet_100, padding: HEIGHT * 0.015, borderRadius: HEIGHT * 0.02, justifyContent: 'center', alignItems: 'center' }}>
