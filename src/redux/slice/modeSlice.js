@@ -9,7 +9,6 @@ export const modeSlice = createSlice({
     initialState,
     reducers: {
         changeMode: (state, action) => {
-            console.log("inside redux", state.darkMode);
             state.darkMode = !state.darkMode
         },
     },

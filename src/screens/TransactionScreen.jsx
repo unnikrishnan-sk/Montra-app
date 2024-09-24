@@ -64,7 +64,7 @@ const TransactionScreen = () => {
 
             <Pressable onPress={()=>setOpenFilter(!openFilter)} >
             <Image source={darkMode? more_icon_white : sort_icon} 
-            style={{height: HEIGHT*0.06, width: WIDTH*0.2}}/>
+            style={{height: HEIGHT*0.045, width: WIDTH*0.12}}/>
             </Pressable>
         </View>
 
